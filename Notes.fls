@@ -1017,8 +1017,8 @@ INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/te
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 OUTPUT Notes.toc
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/tcrm1095.tfm
+INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecti1095.tfm
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecrm0800.tfm
 INPUT /nix/store/mxqz9r79fk1r6kaqvlrii2xrsy3600ll-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm

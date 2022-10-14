@@ -45,15 +45,16 @@
 \DeclareMathOperator{\End}{End}
 
 % Theorems, definitions, etc.
-\newcounter{thmcounter}
-\newtheorem{theorem}[thmcounter]{Theorem}
-\newtheorem{lemma}[thmcounter]{Lemma}
-\newtheorem{cor}[thmcounter]{Corollary}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{cor}[theorem]{Corollary}
 \theoremstyle{remark}
-\newtheorem{remark}[thmcounter]{Remark}
+\newtheorem{remark}[theorem]{Remark}
 \theoremstyle{definition}
-\newtheorem{definition}[thmcounter]{Definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem*{problem}{Problem}
+
+\setcounter{section}{-1}
 
 \title{Combinatorial Optimization}
 \author{Dozent: Stephan Held}
@@ -66,28 +67,29 @@
 \clearpage
 
 \section{Organization}
-
-\subsection{Prerequisites}
 \begin{itemize}
-	\item Basic knowledge of graph algorithms
-	\item Linear Programming (LP Duality)
-	\item Programming skills in C++
-\end{itemize}
+	\item Prerequisites
+	\begin{itemize}
+		\item Basic knowledge of graph algorithms
+		\item Linear Programming (LP Duality)
+		\item Programming skills in C++
+	\end{itemize}
 
-\subsection{Exam}
-\begin{itemize}
-	\item Qualification requires 50\% of the points in theoretical \&
-	programming exercises
-	\item Oral exam
-\end{itemize}
+	\item Exam
+	\begin{itemize}
+		\item Qualification requires 50\% of the points in theoretical \&
+		programming exercises
+		\item Oral exam
+	\end{itemize}
 
-\subsection{Books}
-\begin{itemize}
-	\item ''Combinatorial Optimization'', Korte \& Vygen
-	\item ''Understanding \& Using Linear Programming'', B. Gärtner,
-	J. Matouset
-	\item Skript (theorems \& definitions)
-	\item Further on website
+	\item Books
+	\begin{itemize}
+		\item ''Combinatorial Optimization'', Korte \& Vygen
+		\item ''Understanding \& Using Linear Programming'', B. Gärtner,
+		J. Matouset
+		\item Skript (theorems \& definitions)
+		\item Further book recommendations are on the website
+	\end{itemize}
 \end{itemize}
 
 
