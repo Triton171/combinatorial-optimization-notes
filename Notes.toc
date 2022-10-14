@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Organization}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Prerequisites}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Exam}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Books}{2}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Matchings}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Bipartite Matching}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}The Tutte Matrix \& Randomized Matching}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Tutte's Matching Theorem}{6}{subsection.2.4}%

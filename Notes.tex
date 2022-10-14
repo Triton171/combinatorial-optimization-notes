@@ -1,0 +1,409 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows.meta}
+% Algorithms
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+\DontPrintSemicolon
+%Define short commands for different letters
+\foreach \x in {A,...,Z}{
+\expandafter\xdef\csname b\x\endcsname{\noexpand\mathbb{\x}}
+\expandafter\xdef\csname c\x\endcsname{\noexpand\mathcal{\x}}
+\expandafter\xdef\csname f\x\endcsname{\noexpand\mathfrak{\x}}
+}
+% Math shortcuts
+\newcommand{\stackalign}[2]{\stackrel{\mathclap{#1}}{#2}}
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\d}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+
+% Theorems, definitions, etc.
+\newcounter{thmcounter}
+\newtheorem{theorem}[thmcounter]{Theorem}
+\newtheorem{lemma}[thmcounter]{Lemma}
+\newtheorem{cor}[thmcounter]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[thmcounter]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[thmcounter]{Definition}
+\newtheorem*{problem}{Problem}
+
+\title{Combinatorial Optimization}
+\author{Dozent: Stephan Held}
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\section{Organization}
+
+\subsection{Prerequisites}
+\begin{itemize}
+	\item Basic knowledge of graph algorithms
+	\item Linear Programming (LP Duality)
+	\item Programming skills in C++
+\end{itemize}
+
+\subsection{Exam}
+\begin{itemize}
+	\item Qualification requires 50\% of the points in theoretical \&
+	programming exercises
+	\item Oral exam
+\end{itemize}
+
+\subsection{Books}
+\begin{itemize}
+	\item ''Combinatorial Optimization'', Korte \& Vygen
+	\item ''Understanding \& Using Linear Programming'', B. Gärtner,
+	J. Matouset
+	\item Skript (theorems \& definitions)
+	\item Further on website
+\end{itemize}
+
+
+
+
+\section{Matchings}
+\subsection{Introduction}
+
+\begin{definition}\ 
+\begin{enumerate}
+	\item A \emph{matching} $M$ in a graph $G=(V,E)$ is a set of
+	pairwise disjointed edges, i.e. they don't have a common endpoint.
+
+	$\nu(G)\coloneqq$ max. cardinality of a matching in $G$
+
+	\item An \emph{edge cover} $C$ of a graph $G=(V,E)$ is a subset
+	of $E$ s.t.  $C=\bigcup_{e\in C}e$.
+
+	$\zeta(G) \coloneqq$ min. cardinality of an edge cover in $G$
+	
+	\item A matching is called \emph{perfect} (or \emph{1-factor})
+	if it is an edge cover
+	
+	\item $v\in V$ with $v\in e\in M$ is called \emph{$M$-covered}
+	
+	\item $v\in V$ is called \emph{$M$-exposed} if it is not
+	$M$-covered
+\end{enumerate}
+\end{definition}
+
+\begin{definition}\ 
+\begin{enumerate}
+	\item A \emph{stable set} (independent set) $S$ is a set of
+	pairwise non-adjacent vertices.
+	
+	$\alpha(G)\coloneqq$ max. cardinality of a stable set
+	
+	\item A \emph{vertex cover} $C$ is a subset of $V$ s.t.
+	$E=\bigcup_{\{x,y\}\in E,\ x\in G}\{x,y\}$
+	
+	$\tau(G)\coloneqq$ min. cardinality of a vertex cover
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}\ 
+\begin{enumerate}
+	\item $\alpha(G)+\tau(G) = \abs{V}$
+	\item $\nu(G) + \zeta(G) = \abs{V}$ if $G$ has no isolated vertices
+	\item $\zeta(G)=\alpha(G)$ if $G$ is bipartite and has no isolated
+	vertices
+\end{enumerate}
+\end{lemma}
+
+\begin{problem}{Cardinalty Matching Problem}\\
+	Input: Graph $G=(V,E)$ \\
+	Task: Find a maximum cardinality matching
+\end{problem}
+
+\begin{problem}{Maximum Weight Matching Problem (MWMP)}\\
+	Input: Graph $G$, $c:E\to \bR$ \\
+	Task: Find a matching $M$ maximizing $c(M)$
+\end{problem}
+
+\begin{problem}{Minimum Weight Perfect Matching (MWPMP)}\\
+	Input: Graph $G$, $c:E\to\bR$\\
+	Task: Find a perfect matching of minimum weight or decide that no
+	perfect matching exists in $G$
+\end{problem}
+
+\begin{lemma}
+	The MWMP is equivalent to the MWPMP (i.e. there exists a transformation
+	with linear complexity)
+\end{lemma}
+\begin{proof}
+	Given a MWPMP instance $(G,c)$, define $c':=K-c$
+	($K\coloneqq 1+\sum_{e\in E}\abs{c(e)}$). \\
+	$\Rightarrow$ Any maximum weight matching is a maximum cardinality
+	matching
+	
+	Given a MVMP instance $(G,c)$, define $G'$ as 2 copies of $G$ where
+	the 2 copies of a vertex are joined by an edge. \\
+	$\Rightarrow$ $G'$ has a perfect matching. Define:
+	\[c'(e)\coloneqq \begin{cases}
+		-c(e) \quad&\text{if $e$ is in the first copy} \\
+		0 &\text{else}
+	\end{cases}\]
+	A minimum weight perfect matching in $G'$ gives us a maximum weight
+	matching in $G$.
+\end{proof}
+
+\begin{definition}
+	Let $G=(V,E)$ be a graph and $M\subseteq E$ a matching in $G$.
+	A path $P$ is \emph{$M$-alternating} if its edges are alternatingly
+	in and not in $M$. If both end points of this path are $M$-exposed,
+	$P$ is an \emph{$M$-augmenting} path.
+\end{definition}
+
+\begin{lemma}
+	Given a matching $M$ in $G$ and an inclusion-wise maximal
+	$M$-alternating path $P$,
+	\[M\Delta P\coloneqq M\setminus P\cup P\setminus M\]
+	is a matching. If $P$ is $M$-augmenting, then
+	$\abs{M\Delta P}=\abs{M}+1$.
+\end{lemma}
+
+\begin{theorem}[Petersen 1891, Berge 1957]{Augmenting Path Theorem}
+	Given a graph $G=(V,E)$ and a matching $M$ in $G$:
+	\[\abs{M}=\nu(G) \Leftrightarrow \not\exists \text{$M$-augmenting
+	path $P$ in $G$}\]
+\end{theorem}
+\begin{proof}\ 
+\begin{enumerate}
+	\item[''$\Rightarrow$'':] Clear
+	\item[''$\Leftarrow$'':] Assume there exists a matching $M'$
+	with $\abs{M'}>\abs{M}$. Let $G'\coloneqq (V, M\Delta M')$. \\
+	$\Rightarrow$ $\abs{\delta_{G'}(v)}\leq 2\ \forall v\in V$ \\
+	$\Rightarrow G'$ is the union of disjoint circuits and paths \\
+	$\Rightarrow$ all circuits are even and have the same number of edges
+	from $M$ and $M'$ \\
+	$\Rightarrow \exists$ a path $P$ in $G'$ starting and ending with an
+	edge in $M'$ \\
+	$\Rightarrow P$ is an alternating path
+\end{enumerate}
+\end{proof}
+
+\subsection{Bipartite Matching}
+
+\begin{theorem}[König 1931]
+	If $G$ is bipartite, then $\nu(G)=\tau(G)$
+\end{theorem}
+\begin{proof}
+	Add vertices $s$ and $t$ edges between them to all vertices of the
+	respective partition. Direct all edges from $s$ to $t$. Then
+	$\nu(G)$ is maximum number of disjoint $s$-$t$-paths. Menger
+	$\Rightarrow$ This is equal to the minimum number of vertices that
+	disconnect $t$ from $s$.
+\end{proof}
+
+\begin{theorem}[Hall 1935]
+	Let $G=(A\dot\cup B, E)$ be a bipartite graph. Then:
+	\[
+		G\text{ has a matching covering $A$}\Leftrightarrow
+		\abs{\Gamma(X)} \geq \abs{X} \quad\forall X\subseteq A
+	\]
+\end{theorem}
+
+\begin{cor}{Marriage Theorem}
+	\[
+		\abs{\Gamma(X)}\geq\abs{X}\ \forall X\subseteq A\text{ and }
+		\abs{A}=\abs{B} \Leftrightarrow G \text{ has a perfect matching}
+	\]
+\end{cor}
+
+\begin{definition}
+	The MWPMP for bipartite graphs is called \emph{Assignment Problem}.
+\end{definition}
+
+\begin{theorem}
+	The Assignment Problem can be solved in time $O(nm+n^2\log m)$.
+\end{theorem}
+\begin{proof}
+	Use the Successive Shortest Paths algorithm in an auxiliary graph.
+\end{proof}
+
+
+\subsection{The Tutte Matrix \& Randomized Matching}
+
+\begin{definition}
+	Let $G$ be a simple, undirected graph. Let $G'$ be an orientation
+	of $G$ and $(X_e)_{e\in E(G)}$. The \emph{Tutte matrix} is defined as
+	\[T_G(X)\coloneqq (T^*_{vw})_{v,w\in V(G)}\]
+	where
+	\[
+		t^*_{vw}\coloneqq \begin{cases}
+			X_{\{v,w\}} \quad&\text{if $(v,w)\in E(G)$} \\
+			-X_{\{v,w\}} &\text{if $-(v,w)\in E(G)$} \\
+			0 &\text{else}
+		\end{cases}
+	\]
+\end{definition}
+
+\begin{remark}
+	$T_G(X)$ is shew-symmetric (i.e. $T_G(X)=-(T_G(X))^t$).
+	$\mathrm{rank}(T_G(X))$ is independent of the orientation of $G$.
+	$\det(T_G(X))$ is a polyomial in $X$.
+\end{remark}
+
+
+\begin{theorem}[Tutte]
+	A simple graph $G$ has a perfect matching $\Leftrightarrow
+	\det(T_G(X))\neq0$
+\end{theorem}
+\begin{proof}
+	Let $V(G)=\{v_1,\ldots,v_n\}$ and $S_n$ be the permutation group.
+	\begin{align*}
+		\det T_G(X)=\sum_{\pi\in S_n}\mathrm{sgn}\pi\cdot \prod_{i=1}^n
+		t_{v_i,v_{\pi(i)}}^*
+	\end{align*}
+	Let $S_n'\coloneqq\{\pi\in S_n\ |\ \prod_{i=1}^n
+	t_{v_i,v_{\pi_i}}^*\neq0\}$. Each $\pi\in S_n$ corresponds to a
+	digraph $H_\pi\coloneqq (V(G), \{(v_i,v_{\pi(i)})\ |\ i\in [n]\footnote{
+		This is an abbreviation for $\{1,\ldots,n\}$.
+	}\})$.
+	We have $\abs{\delta^+(v)=1=\abs{\delta^-(v)}}\ \forall v\in V(H_\pi)$
+	$\Rightarrow H_\pi$ is the union of disjoint circuits.
+	If $\pi\in S_n'$, then $H_\pi\subset \stackrel{\Leftrightarrow}{G'}$.
+
+	If there exists $\pi\in S_n'$ s.t. $H_\pi$ is a collection of even
+	circuits, then this immediately yields a perfect matching in $G$
+	(using every second edge of each circuit).
+	
+	Otherwise, $\forall \pi\in S_n'$, $H_\pi$ contains an odd circuit.
+	Let $r(\pi)\in S_n'$ arise from $\pi$ by reversing edges on the unique
+	odd circuit containing a vertex with minimum index $\Rightarrow 
+	r(r(\pi))=\pi$ and $\mathrm{sgn}(\pi)=\mathrm{sgn}(r(\pi))$.
+	The second part is true since for reversing an odd cycle, we need
+	an even number of swaps.  Let $v_{i_1},\ldots,v_{i_{2k+1}}$ be the
+	''first'' odd circuit.	Then $r(\pi)$ is attained by $2k$ swaps:
+	For $j=1,\ldots,k$ swap $(\pi(i_{2j-1}), \pi(i_{2k}))$ and
+	$(\pi(i_{2j}), \pi(i_{2k+1}))$.
+	
+	$\prod_{i=1}^n t_{v_iv_{\pi(i)}}^*=-\prod_{i=1}^nt_{v_iv_{r(\pi(i))}}^*$
+	since there is an odd number of sign changes to $t^*$.
+	$\Rightarrow \det(T_G(X))=0$. We have shown that if $G$ has no perfect
+	matching, then $\det T_G(X)=0$.
+	
+	Assume that $G$ has a perfect matching $M$. Define $\pi$ as
+	$\pi(i)=j, \pi(j)=i$ where $\{i,j\}\in M$.
+	$\Rightarrow \prod_{i=1}^n t_{v_iv_{\pi(i)}}^*=\prod_{e\in M}-X_e^2$
+	cannot be canceled out. In particular, $\det T_G(X)\neq0$.
+\end{proof}
+
+\begin{remark}
+	Picking $X'\in [0,1]^{E(G)}$ at random, we almost surely have (since
+	the zero set of a non-zero polynomial is a set of measure zero):
+	\[\det T_G(X')\neq0 \Leftrightarrow G\text{ has a perfect matching}\]
+\end{remark}
+
+\begin{theorem}[Lovász 1979]
+	Let $G$ be a simple graph and $X\in [0,1]^{E(G)}$ chosen randomly.
+	Then almost surely $\mathrm{rank}(T_G(X))=2\nu(G)$.
+\end{theorem}
+
+
+\subsection{Tutte's Matching Theorem}
+Let $X\subseteq V(G)$. $G-X$ consists of even and odd (in terms of the
+number of vertices) connected components. We define $q_G(X)$ to be the
+number of odd components in $G-X$.
+
+\begin{definition}
+	A graph $G$ satisfies the \emph{Tutte Condition} if $q_G(X)\leq\abs{X}$
+	for all $X\subseteq V(G)$. $\emptyset\neq X\subseteq V(G)$ is called
+	\emph{barrier} if $q_G(X)=\abs{X}$.
+\end{definition}
+
+\begin{lemma}\label{prop:tutte-even} %TODO Proposition
+	For any graph $G$ and any $X\subseteq V(G)$:
+	\[q_G(X)-\abs{X} \equiv \abs{V(G)}\mod 2\]
+\end{lemma}
+
+\begin{definition}
+	A graph $G$ is \emph{factor-critical} if $G-v$ has a perfect matching
+	for all $v\in V(G)$. A matching is called \emph{near-perfect} if it
+	covers $\abs{V(G)}-1$ vertices.
+\end{definition}
+
+\begin{lemma} % TODO Proposition
+	 If $G$ is factor-critical, then it is connected.
+\end{lemma}
+
+\begin{theorem}[Tutte 1947]
+	A graph $G$ has a perfect matching $\Leftrightarrow$ Tutte Condition
+	holds (i.e. $q_G(X)\leq\abs{X}\ \forall X\subseteq V(G)$)
+\end{theorem}
+\begin{proof}\ 
+\begin{enumerate}
+	\item[''$\Rightarrow$'':] Clear
+	\item[''$\Leftarrow$'':] We proceed by induction on $\abs{V(G)}$.
+	The case $\abs{V(G)}=2$ is clear.
+	
+	Generally, if the Tutte Condition holds, then $\abs{V(G)}$ must be
+	even (pick $X=\emptyset$).
+	Proposition \ref{prop:tutte-even} $\Rightarrow q_G(X)-\abs{X}$ is even.
+	Every $x\in V(G)$ induces a barrier $\{x\}$. Let $X$ be a maximum
+	barrier. Then $G-X$ doesn't have any even components (since otherwise
+	a single vertex of such a component could be added to $X$).
+	
+	\textbf{Claim:} Each odd component is factor-critical. \\
+	Let $C$ be an odd component in $G-X$, $v\in V(C)$. Assume that $C-v$
+	does not have a perfect matching. Induction Hypothesis $\Rightarrow$
+	$C-v$ violates Tutte Condition. \\
+	$\Rightarrow \exists Y\subseteq V(C-v): q_{C-v}(Y)>\abs{Y}$ \\
+	$\stackrel{\ref{prop:tutte-even}}{\Rightarrow} q_{C-v}(Y)\geq \abs{Y}+2$ \\
+	Observe $X\cap\{v\}=Y\cap\{v\}=X\cap Y=\emptyset$:
+	\begin{align*}
+	q_G(X\cup Y\cup\{v\})&=q_G(X)-1+q_C(Y\cup\{v\}) \\
+	&=\abs{X}-1+q_{C-v}(Y) \\
+	&\geq\abs{X}-1+\abs{Y}+2 \\
+	&=\abs{X\cup Y}+1 \\
+	&=\abs{X\cup Y\cup\{v\}}
+	\end{align*}
+	$\Rightarrow X\cup Y\cup\{v\}$ is a barrier \\
+	$\Rightarrow$ Claim
+	
+	Let $G'$ arise from $G$ by contracting each odd component into a
+	single vertex. We have $V(G')=X\dot\cup Z$ and $G'$ is bipartite.
+	We have to show that $G'$ has a perfect matching. If not, then
+	$\exists A\subseteq Z: \abs{\Gamma_{G'}(A)}<\abs{A}$ \\
+	$\Rightarrow q_G(\Gamma_{G'}(A))\geq \abs{A}>\abs{\Gamma_{G'}(A)}$
+	which contradicts the Tutte Condition.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Berge 1958]
+	\[\abs{V(G)}=2\nu(G)+\max_{X\subseteq V(G)}(q_G(X)-\abs{X})\]
+\end{theorem}
+
+
+\end{document}
