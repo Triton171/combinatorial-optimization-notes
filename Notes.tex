@@ -38,16 +38,26 @@
 \newcommand{\ceil}[1]{\lceil #1 \rceil}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\set}[1]{\{#1\}}
 \renewcommand{\d}{\mathop{}\!\mathrm{d}}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\End}{End}
 
+\newenvironment{graph}[1][]{
+	\begin{tikzpicture}[
+		vertex/.style={circle,fill,inner sep=0,minimum size=5},
+		dedge/.style={-Stealth},
+		#1
+	]
+}{\end{tikzpicture}}
+
 % Theorems, definitions, etc.
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{cor}[theorem]{Corollary}
+\newtheorem{prop}[theorem]{Proposition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \theoremstyle{definition}
@@ -106,7 +116,7 @@
 	$\nu(G)\coloneqq$ max. cardinality of a matching in $G$
 
 	\item An \emph{edge cover} $C$ of a graph $G=(V,E)$ is a subset
-	of $E$ s.t.  $C=\bigcup_{e\in C}e$.
+	of $E$ s.t.  $V=\bigcup_{e\in C}e$.
 
 	$\zeta(G) \coloneqq$ min. cardinality of an edge cover in $G$
 	
@@ -217,7 +227,7 @@
 
 \subsection{Bipartite Matching}
 
-\begin{theorem}[König 1931]
+\begin{theorem}[König 1931]\label{thm:koenig-bipartite}
 	If $G$ is bipartite, then $\nu(G)=\tau(G)$
 \end{theorem}
 \begin{proof}
@@ -227,6 +237,34 @@
 	$\Rightarrow$ This is equal to the minimum number of vertices that
 	disconnect $t$ from $s$.
 \end{proof}
+
+\begin{figure}
+\centering
+\begin{graph}
+	\node[vertex] (s) at (-2,0) {};
+	\node[vertex] (a1) at (0,1) {};
+	\node[vertex] (a2) at (0,0) {};
+	\node[vertex] (a3) at (0,-1) {};
+	\node[vertex] (b1) at (2,0.5) {};
+	\node[vertex] (b2) at (2,-0.5) {};
+	\node[vertex] (t) at (4,0) {};
+	\node (sl) [above=0 of s] {$s$};
+	\node (tl) [above=0 of t] {$t$};
+	\node (al) at (0,1.5) {$A$};
+	\node (bl) at (2,1.5) {$B$};
+	
+	\draw[dedge] (s) -- (a1);
+	\draw[dedge] (s) -- (a2);
+	\draw[dedge] (s) -- (a3);
+	\draw[dedge] (a1) -- (b1);
+	\draw[dedge] (a1) -- (b2);
+	\draw[dedge] (a2) -- (b2);
+	\draw[dedge] (a3) -- (b2);
+	\draw[dedge] (b1) -- (t);
+	\draw[dedge] (b2) -- (t);
+\end{graph}
+\caption{Example of the construction in Theorem \ref{thm:koenig-bipartite}}
+\end{figure}
 
 \begin{theorem}[Hall 1935]
 	Let $G=(A\dot\cup B, E)$ be a bipartite graph. Then:
@@ -242,6 +280,9 @@
 		\abs{A}=\abs{B} \Leftrightarrow G \text{ has a perfect matching}
 	\]
 \end{cor}
+
+% Numbering is broken in the lecture
+\stepcounter{theorem}
 
 \begin{definition}
 	The MWPMP for bipartite graphs is called \emph{Assignment Problem}.
@@ -345,10 +386,10 @@ number of odd components in $G-X$.
 	\emph{barrier} if $q_G(X)=\abs{X}$.
 \end{definition}
 
-\begin{lemma}\label{prop:tutte-even} %TODO Proposition
+\begin{prop}\label{prop:tutte-even}
 	For any graph $G$ and any $X\subseteq V(G)$:
 	\[q_G(X)-\abs{X} \equiv \abs{V(G)}\mod 2\]
-\end{lemma}
+\end{prop}
 
 \begin{definition}
 	A graph $G$ is \emph{factor-critical} if $G-v$ has a perfect matching
@@ -356,9 +397,9 @@ number of odd components in $G-X$.
 	covers $\abs{V(G)}-1$ vertices.
 \end{definition}
 
-\begin{lemma} % TODO Proposition
+\begin{prop}\label{prop:factor-critical-conn}
 	 If $G$ is factor-critical, then it is connected.
-\end{lemma}
+\end{prop}
 
 \begin{theorem}[Tutte 1947]
 	A graph $G$ has a perfect matching $\Leftrightarrow$ Tutte Condition
@@ -406,6 +447,145 @@ number of odd components in $G-X$.
 \begin{theorem}[Berge 1958]
 	\[\abs{V(G)}=2\nu(G)+\max_{X\subseteq V(G)}(q_G(X)-\abs{X})\]
 \end{theorem}
+\begin{proof}
+For $X\subseteq V(G)$, any matching has at least $q_G(X)-\abs{X}$
+uncovered vertices, so ''$\geq$'' holds.
 
+For the other inequality, add $k\coloneqq\max_{X\subseteq V(G)}
+(q_G(X)-\abs{X})$ new vertices and connect them to all existing vertices,
+yielding a new graph $H$.
+
+We claim that $H$ has a perfect matching. This then implies:
+\[2\nu(G)+k\geq 2\nu(H)-k =\abs{V(H)}-k=\abs{V(G)}\]
+Assume that $H$ does not have a perfect matching. Then by Tutte's Theorem,
+there exists $Y\subseteq V(H)$ with $q_H(Y)>\abs{Y}$. By \ref{prop:tutte-even},
+$k\equiv \abs{V(G)}\mod 2$, therefore $\abs{V(H)}$ is even, so $Y\neq\emptyset$.
+$Y$ must contain all new vertices, otherwise $H-Y$ would be connected\footnote{
+	Note that $Y$ cannot contain all old vertices, since otherwise
+	$q_H(Y)<\abs{Y}$.
+} and $q_H(Y)\leq 1\leq\abs{Y}$. \\
+\[\Rightarrow q_G(Y\cap\abs{V(G)})=q_H(Y)>\abs{Y}=\abs{Y\cap V(G)}+k\]
+which is a contradiction to the choice of $k$.
+\end{proof}
+
+
+\subsection{Ear Decompositions of Factor-Critical Graphs}
+\begin{definition}
+Let $G$ be a graph. An \emph{ear decomposition} of $G$ is a sequence
+$r,P_1,\ldots,P_k$ with $G=(r,\emptyset)+P_1+\ldots+P_k$ such that each
+$P_i$ is either a path with exactly the endpoints located in
+$\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$ or a circuit where exactly one
+of the vertices belongs to $\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$.
+
+$P_1,\ldots,P_k$ are called \emph{ears}. If $\abs{V(P_1)}\geq 3$ and
+$P_2,\ldots,P_k$ are paths we call it a \emph{proper} ear decomposition.
+\end{definition}
+
+% Numbering in the lecture is broken
+\stepcounter{theorem}
+
+\begin{theorem}[Whitney 1932]
+Let $G$ be an undirected graph. Then:
+\[G\text{ 2-connected}\Leftrightarrow
+	G\text{ has a proper ear decomposition}\]
+\end{theorem}
+
+\begin{definition}
+An ear decomposition is \emph{odd} if every ear has odd length (in terms
+of the number of edges).
+\end{definition}
+
+\begin{theorem}
+Let $G$ be an undirected graph. Then
+\[G\text{ factor-critical}
+	\Leftrightarrow G\text{ has an odd ear decomposition}\]
+The first vertex $r$ of the ear decomposition can be chosen arbitrarily.
+\end{theorem}
+\begin{proof}\ 
+\begin{enumerate}
+\item[''$\Leftarrow$'':]
+Let $G$ be a graph with an odd ear decomposition $r,P_1,\ldots,P_k$.
+$P_1$ is an odd circuit, so it is factor-critical. We use induction on the
+number of ears. Let $P$ be the last ear and $G'$ be $G$ before adding $P$.
+By the induction hypothesis, $G'$ is factor-critical.
+Given $v\in V(G)$, we have to show that $G-v$ has a perfect matching.
+\begin{enumerate}
+	\item[Case 1:]
+	$v\in V(G')$. Then $G'-v$ has a perfect matching. Adding every second
+	edge of $P$ (excluding the endpoints) to it, yields a perfect matching
+	of $G-v$.
+	
+	\item[Case 2:]
+	$v\in V(G)\setminus V(G')$. Let $x,y$ be the endpoints of $P$. Without
+	loss of generality let $P_{[v,x]}$ be even. There exists a perfect
+	matching in $G'-x$. Together with every second edge of $P_{[v,y]}$
+	and $P_{[v,x]}$ this is a perfect matching in $G-v$.
+\end{enumerate}
+
+\item[''$\Rightarrow$'':]
+Let $r\in V(G)$ be any vertex. Let $M$ be a perfect matching in $G-r$.
+Suppose we have an odd ear decomposition for $G'\subseteq G$ with
+$r\in V(G')$ and $M\cap E(G')$ is a near-perfect matching in $G'$ (i.e.
+all vertices in $G'$ except for $r$ are matched with other vertices in $G'$).
+
+If $G'\neq G$, there is an edge $\set{x,y}\in E(G)\setminus E(G')$ with
+$x\in V(G')$ (by Proposition \ref{prop:factor-critical-conn}). If
+$y\in V(G')$, then $\set{x,y}$ can be chosen as the next ear. Otherwise,
+construct an $M$-alternating odd ear, starting with $\set{x,y}$. Let $N$
+be a matching in $G-y$. $M\Delta N$ contains a $y$-$r$-path $P$. Let $w$ be
+the first vertex in $P\cap V(G')$. $w$ is $M$-exposed in $P_{[y,w]}$, $y$
+is $N$-exposed in $P_{[y,w]}$. Therefore $P_{[y,w]}$ is even and together
+with $\set{x,y}$ it forms an $M$-alternating odd ear.
+
+Inductively, this argument yields an odd ear decomposition.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Let $G$ be factor-critical and $M$ a near-perfect matching.
+An $M$-alternating ear decomposition is an odd ear decomposition
+such that each ear is an $M$-alternating path or circuit $C$ with:
+\[\abs{E(C)\cap M}=\abs{E(C)\setminus M}-1\]
+\end{definition}
+
+\begin{cor}
+For any factor-critical graph $G$ and any near-perfect matching $M$ in $G$,
+there exists in $M$-alternating ear decomposition of $G$.
+\end{cor}
+
+\begin{definition}
+Let $G$ be factor-critical, $M$ a near-perfect matching and
+$r,P_1,\ldots,P_k$ an $M$-alternating ear decomposition of $G$.
+$\mu,\varphi: V(G)\to V(G)$ are \emph{associated with the ear
+decomposition} if:
+\begin{itemize}
+	\item $\set{x,y}\in M\Rightarrow \mu(x)=y$
+	\item $\set{x,y}\in E(P_i)\setminus M$ and $x\notin\set{r}
+		\cup\bigcup_{j\in [i]}V(P_j)$
+
+		$\Rightarrow \varphi(x)=y$
+	\item $\mu(r)=\varphi(r)=r$
+\end{itemize}
+\end{definition}
+
+% TODO Ear-Decomposition Algorithm
+
+\begin{prop}
+Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
+with an $M$-alternating ear decomposition. Then this ear decomposition is
+unique up to the order of the ears. The Ear-Decomposition-Algorithm
+correctly determines an explicit list of the ears in linear time.
+\end{prop}
+\begin{proof}
+Step 3 determines ears uniquely. The algorithm clearly runs in linear time.
+\end{proof}
+
+\begin{lemma}
+Let $G$ be factor-critical and $\mu,\varphi$ associated with an
+$M$-alternating ear decomposition. Then the maximal path given by the
+initial sequence $x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots$
+defines an $M$-alternating $x$-$r$-path of even length.
+\end{lemma}
+% TODO Counter-example
 
 \end{document}
