@@ -1034,6 +1034,7 @@ INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/te
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecbx0800.tfm
 INPUT Notes.aux
 INPUT ./Notes.out
 INPUT ./Notes.out
@@ -1053,6 +1054,7 @@ INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/te
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy9.pfb
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb
 INPUT /nix/store/ps8qcjxvhzri5z763frdhjqm7jlh193m-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb

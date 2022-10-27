@@ -577,15 +577,179 @@ unique up to the order of the ears. The Ear-Decomposition-Algorithm
 correctly determines an explicit list of the ears in linear time.
 \end{prop}
 \begin{proof}
-Step 3 determines ears uniquely. The algorithm clearly runs in linear time.
+Step 3 determines ears uniquely. The algorithm clearly runs in linear
+time.
 \end{proof}
 
 \begin{lemma}
 Let $G$ be factor-critical and $\mu,\varphi$ associated with an
 $M$-alternating ear decomposition. Then the maximal path given by the
-initial sequence $x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots$
+initial sequence
+\begin{equation}\label{eq:ear-alt-path}
+x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots
+\end{equation}
 defines an $M$-alternating $x$-$r$-path of even length.
 \end{lemma}
 % TODO Counter-example
+
+% Lecture 4, 27.10.22
+\begin{proof}
+We proceed by induction on the number of ears. Let $x\in
+V(G)\setminus\set{r}$ and $P_i$ be the ear containing $x$.
+A subsequence of (\ref{eq:ear-alt-path}) is a subpath $Q$ of $P_i$ from
+$x$ to $y\in\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$. $Q$ starts with a
+matching edge and ends with a non-matching edge, so it has even length.
+If $y=r$, we are done, otherwise the statement follows from the induction
+hypothesis.
+\end{proof}
+
+\subsection{Edmond's Matching Algorithm}
+\begin{definition}
+Let $G$ be a graph, $M$ a matching in $G$. A \emph{blossom} in $G$
+with respect to $M$ is a factor-critical subgraph of $B$ of $G$ such that
+$\abs{M\cap E(B)}=\frac{\abs{V(B)}-1}{2}$. The vertex $r\in V(B)$ that is
+exposed by $M$ is called the \emph{base} of $B$.
+\end{definition}
+
+\begin{definition}
+Let $G$ be a graph, $M$ a matching in $G$, $B$ a blossom and $Q$ a
+$M$-alternating $v$-$r$-path of even length from $v\in V(G)$ that is
+$M$-exposed to the base $r$ of $B$. Additionally, let
+$E(Q)\cap E(B)=\emptyset$. $B+Q$ is called a $M$-flower.
+\end{definition}
+
+\begin{lemma}
+Let $G$ be a graph, $M$ a matching in $G$. Suppose there is a $M$-flower
+$B+Q$. Let $G',M'$ result from $G$ and $M$ by contracting $V(B)$ into
+a single vertex. Then:
+\[
+	M\text{ maximum matching in $G$} \Leftrightarrow
+	M\text{ maximum matching in $G'$}
+\]
+\end{lemma}
+\begin{proof}\ 
+\begin{enumerate}
+\item[''$\Leftarrow$'':]
+Assume that $M$ is not maximum in $G$. $N\coloneqq M\Delta E(Q)$
+is a matching with $\abs{N}=\abs{M}$. \\
+$\Rightarrow \exists N$-augmenting path $P$ in $G$. At least one endpoint
+$x$ of $P$ is in $V(B)$. If $P$ and $B$ are disjoint, let $y$ be the other
+endpoint of $P$. Otherwise, let $y$ be the first vertex on $P$ in $B$.
+$P'\coloneqq P_{[x,y]}$ is an $N'$-augmenting path in $G'$, so
+$\abs{N'}=\abs{M'}<\mu(G')$.
+
+\item[''$\Rightarrow$'':]
+Assume that $M'$ is not maximum in $G'$, so there exists a matching $N'$
+in $G'$ with $\abs{N'}>\abs{M'}$. Let $N_0$ arise from $N'$ in $G$, then
+$N_0$ contains $\leq 1$ vertex from $V(B)$. Since $B$ is factor-critical,
+$N_0$ can be extended by $k\coloneqq\frac{\abs{V(G)}-1}{2}$ edges to a
+matching $N$ in $G$. We have
+\[\abs{N}=\abs{N_0}+k=\abs{N'}+k>\abs{M'}+k=\abs{M}\]
+so $M$ is not maximum.
+\end{enumerate}
+\end{proof}
+
+\stepcounter{theorem}
+\begin{lemma}
+Let $G$ be a graph, $M$ a matching in $G$. $X\subseteq V(G)$ is the set
+of exposed vertices. We can find a shortest $M$-alternating $X$-$X$-walk
+of positive length in $O(\abs{E(G)})$ time.
+\end{lemma}
+\begin{proof}
+Define $D\coloneqq (V(G), A)$ where:
+\[
+	A\coloneqq\set{(u,v)\ |\ \exists
+	x\in V(G): \set{u,x}\in E(G), \set{x,v}\in M}
+\]
+A shortest $X-\Gamma_G(X)$-path in $D$ corresponds to a shortest
+$X$-$X$-walk in $G$.
+\end{proof}
+
+\begin{theorem}\label{thm:augmenting-path-blossom}
+Let $P=v_0,\ldots,v_t$ be a shortest $M$-alternating $X$-$X$-walk in $G$.
+Then either
+\begin{itemize}
+	\item $P$ is an $M$-augmenting path \emph{or}
+	\item $v_0,\ldots,v_j$ is an $M$-flower for some $j\leq t$.
+\end{itemize}
+\end{theorem}
+\begin{proof}
+If $P$ is not a path, choose $i<j$ such that $v_i=v_j$ and $j$ minimal.
+Then $v_0,\ldots,v_{j-1}$ are distinct vertices. If $j-i$ is even,
+deleting $v_{i-1},\ldots,v_j$ from $P$ yields a shorter walk, so $j-i$
+is odd.
+\begin{enumerate}
+\item[Case 1:] $j$ is even. Then $i$ is odd and therefore $v_{i+1}=v_{j-1}$
+must be the matching mate of $V_i=v_j$ which contradicts the minimality of
+$j$.
+\item[Case 2:] $j$ is odd. Then $i$ is even, so $v_0,\ldots,v_i$ is an
+$M$-alternating path of even length and $v_i,\ldots,v_j$ is an
+$M$-alternating odd circuit, i.e. a blossom.
+\end{enumerate}
+\end{proof}
+
+\begin{algorithm}
+\caption{Edmond's Augmenting Path Search}
+\KwInput{Graph $G$, matching $M$}
+\KwOutput{An $M$-augmenting path (if one exists)}
+$X\coloneqq$ set of exposed vertices\;
+\If{$\exists M$-alternating $X$-$X$-walk of positive length}{
+	$P=v_0,\ldots,v_t\coloneqq$ a shortest such walk\;
+	\If{$P$ is a path}{
+		\KwRet{$P$}\;
+	}\Else{
+		Choose $j$ as in Theorem \ref{thm:augmenting-path-blossom}\;
+		$v_0,\ldots,v_j$ is an $M$-flower with blossom $B$\;
+		Recurse on $G/B$\;
+		Augment an $M/B$-augmenting path in $G/B$ to an $M$-augmenting
+		path $P'$ in $G$\;
+		\KwRet{$P'$}\;
+	}
+}\Else{
+	$\not\exists M$-augmenting path\;
+}
+\end{algorithm}
+
+\begin{theorem}
+Given a graph $G$, a maximum cardinality matching can be found in time
+$O(n^2m)$ where $n\coloneqq\abs{V(G)}, m\coloneqq\abs{E(G)}$
+\end{theorem}
+\begin{proof}
+Start with $M=\emptyset$ and iteratively find $M$-augmenting path $P$,
+set $M\coloneqq M\Delta E(P)$. If no such path exists, then $M$ is
+maximum. $P$ can be found in time $O(mn)$\footnote{
+	Here, $m$ is the time required for finding a walk and the recursion
+	depth is bounded by $n$.
+}. Since $M$ is maximum after at most $\frac{n}{2}$ augmentation, we have
+total running time $O(n^2m)$.
+\end{proof}
+
+
+\subsubsection{Growing forest - $O(n^3)$}
+\begin{definition}
+Let $G$ be a graph, $M$ a matching in $G$. An \emph{alternating forest}
+with respect to $M$ in $G$ is a forest $F$ in $G$ where:
+\begin{itemize}
+	\item $V(F)$ contains all $M$-exposed vertices, each tree of $F$
+	contains exactly one exposed vertex, its \emph{root}.
+	\item We call $v\in V(G)$ an outer (inner) vertex if it has even
+	(odd) distance from the root of its component.
+	\item $\forall v\in V(F)$ the unique path from $v$ to the root of
+	its component is $M$-alternating.
+	\item $v\in V(G)\setminus V(F)$ is called \emph{out-of-forest}.
+\end{itemize}
+Clearly, inner vertices always have degree 2.
+\end{definition}
+
+% TODO: 1.42 in the lecture
+\begin{prop}
+In any alternating forest, the number of outer vertices that are not the
+root equals the number of inner vertices.
+\end{prop}
+\begin{proof}
+For all outer vertices, there exists exactly one inner vertex on its path
+to the root.
+\end{proof}
+
 
 \end{document}
