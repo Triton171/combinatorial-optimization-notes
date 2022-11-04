@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -444,7 +445,7 @@ number of odd components in $G-X$.
 \end{enumerate}
 \end{proof}
 
-\begin{theorem}[Berge 1958]
+\begin{theorem}[Berge 1958]\label{tutte-berge}
 	\[\abs{V(G)}=2\nu(G)+\max_{X\subseteq V(G)}(q_G(X)-\abs{X})\]
 \end{theorem}
 \begin{proof}
@@ -570,7 +571,7 @@ decomposition} if:
 
 % TODO Ear-Decomposition Algorithm
 
-\begin{prop}
+\begin{prop}\label{lemma:ear-decomp-repr}
 Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
 with an $M$-alternating ear decomposition. Then this ear decomposition is
 unique up to the order of the ears. The Ear-Decomposition-Algorithm
@@ -738,7 +739,8 @@ with respect to $M$ in $G$ is a forest $F$ in $G$ where:
 	its component is $M$-alternating.
 	\item $v\in V(G)\setminus V(F)$ is called \emph{out-of-forest}.
 \end{itemize}
-Clearly, inner vertices always have degree 2.
+Clearly, inner vertices always have degree 2 (we always assume that there
+are no matching edges that can immediately be added to $F$).
 \end{definition}
 
 % TODO: 1.42 in the lecture
@@ -751,5 +753,145 @@ For all outer vertices, there exists exactly one inner vertex on its path
 to the root.
 \end{proof}
 
+% Lecture 03.11.22
+\begin{lemma}
+Given a graph $G$, a matching $M$, an alternating forest $F$ with respect
+to $M$ in $G$. Then, either $M$ is a maximum matching or $\exists$
+outer vertex $x\in V(F)$, an edge $\set{x,y}\notin E(F)$ such that one
+of the following holds:
+\begin{itemize}
+	\item Grow: $y\notin V(F)$ and therefore $\set{y,z}\in M$ with
+	$z\notin V(F)$. In this case, $y,z$ and $\set{x,y},\set{y,z}$ can
+	be added to $F$.
+
+	\item Augment: $y$ is an outer vertex in a different connected component
+	in $F$. In this case, $M$ can be augmented along $P(x)\cup\set{x,y}
+	\cup P(y)$ where $P(z)$ denotes the unique path from $z\in V(F)$ to
+	the root of its connected component.
+
+	\item Shrink: $y$ is an outer vertex in the same component as $x$.
+	Let $r$ be the first vertex on $P(x)$ that is also on $P(y)$. Then
+	$\abs{\delta_F(r)}\geq 3$, so $y$ is an outer vertex and
+	$\abs{E(F_{[x,r]})},\abs{E(F_{[y,r]})}$ are even. Together with
+	$\set{x,y}$ these paths form a blossom with $\geq 3$ vertices.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+We show that if none of these cases apply, $M$ is maximum. Let $X$ be
+the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
+of outer vertices. All outer vertices are isolated in $G-X$, so $G-X$
+and $q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
+vertices are exposed by any matching, so $M$ is maximum.
+\end{proof}
+
+\begin{definition}
+Let $G$ be a graph, $M$ a matching in $G$. A subgraph $F$ of $G$ is a
+\emph{general blossom forest} with respect to $M$ if there exists a
+partition $V(F)=V_1\dot\cup\ldots\dot\cup V_k$ such that $F_i=F[V_i]$
+is a maximal factor-critical subgraph of $F$ with $\abs{M\cap E(F_i)}
+=\frac{\abs{V_i}-1}{2}$ ($i\in [k]$) and after contracting each $V_i$,
+we obtain an $M$-alternating forest $F'$.
+ $F_i$ is called an outer (inner) blossom if $V_i$ is an outer (inner)
+vertex in $F'$.
+
+A \emph{special blossom forest} is a general blossom forest where each
+inner blossom is a single vertex.
+\end{definition}
+
+Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
+V(G)\to V(G)$:
+\begin{align*}
+	\mu(x)&\coloneqq \begin{cases}
+		x \qquad&\text{if $x$ is exposed in $M$} \\
+		y \qquad&\text{if $\set{x,y}\in M$}
+	\end{cases} \\
+	\varphi(x)&\coloneqq\begin{cases}
+		x \qquad&\text{if $x$ is the base of an outer blossom or
+			$x$ is out-of-forest} \\
+		y \qquad&\text{if $x$ is an inner vertex and
+			$\set{x,y}\in E(F)\setminus M$} \\
+		y \qquad&\text{\parbox[t]{8cm}{if $x$ is an outer vertex
+			(i.e. in an outer blossom)
+			and $\mu,\varphi$ are associated with an
+			$M$-alternating ear decomposition of $x$'s
+			blossom, $\set{x,y}\in E(F)\setminus M$}}
+	\end{cases} \\
+	\rho(x)&\coloneqq\begin{cases}
+		x \qquad&\text{if $x$ is an inner vertex or out-of-forest} \\
+		y \qquad&\text{\parbox[t]{8cm}{if $x$ is an outer vertex
+		and $y$ is the base of
+			the outer blossom containing $x$ ($y=x$ is
+			possible).}}
+	\end{cases}
+\end{align*}
+
+\begin{prop}
+Let $F$ be a special blossom forest with respect to $M$ and
+$\mu,\varphi,\rho$ as above. Then:
+\begin{enumerate}
+	\item
+	For all outer vertices $x$, $P(x)\coloneqq$
+	maximal path given by subsequence of
+	$x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots$
+	is an $M$-alternating path from $x$ to $q$ where $q$ is the root
+	of the component containing $x$.
+	
+	\item
+	A vertex $x$ is
+	\begin{itemize}
+		\item
+		an outer vertex $\Leftrightarrow \mu(x)=x\lor
+		\varphi(\mu(x))\neq\mu(x)$
+		\item
+		an inner vertex $\Leftrightarrow \varphi(\mu(x))=\mu(x)
+		\land \varphi(x)\neq x$
+		\item
+		out-of-forest $\Leftrightarrow \mu(x)\neq x \land \varphi(x)=x
+		\land \varphi(\mu(x))=\mu(x)$
+	\end{itemize}
+\end{enumerate}
+\end{prop}
+\begin{proof}\ 
+\begin{enumerate}
+\item
+By definition of $\mu,\varphi$ and lemma \ref{lemma:ear-decomp-repr}
+some initial subsequence of $P(x)$ ends at the base $r$ of the blossom
+containing $x$. If $r=q$, we are done. Otherwise $\mu(r),\varphi(\mu(r))$
+are next elements in a sequence leading to outer vertex $\varphi(\mu(r))$.
+This can be iterated.
+
+\item
+Since the conditions are mutually exclusive, it suffices to
+show one implication for all the statements.
+\begin{itemize}
+	\item
+	If $x$ is outer, it is a root ($\mu(x)=x$) or $P(x)$ is a path of length
+	at least 2, so $\varphi(\mu(x))\neq\mu(x)$.
+
+	\item
+	If $x$ is inner, then $\mu(x)$ is the base of an outer blossom.
+	Therefore $\varphi(\mu(x))=\mu(x)$. $P(\mu(x))$ is a path of length
+	at least 2, so $\varphi(x)\neq x$.
+	
+	\item
+	If $x$ is out-of-forest, then $x$ is covered by $M$ so $\mu(x)\neq x$.
+	By definition of $\varphi$, $\varphi(x)=x$. $\mu(x)$ is out-of-forest
+	as well, so $\varphi(\mu(x))=\mu(x)$.
+\end{itemize}
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+Following invariants hold:
+\begin{enumerate}[label=\alph*)]
+	\item $\set{\set{x,\mu(x)}\ |\ x\in V(G),\mu(x)\neq x}$ is a matching
+
+	\item The set $\set{\set{x,\mu(x)}\cup\set{x,\varphi(x)}\ |\ x\in V(G)
+	, \varphi(\mu(x))=\mu(x)\land \varphi(x)\neq x} \cup \set{ \set{x,\varphi(x)}
+	\cup\set{x,\mu(x)}\ 
+	|\ \varphi(x)\neq x\land \varphi(\mu(x))\neq\mu(x)}$ forms the edge set of
+	a special blossom forest
+\end{enumerate}
+\end{lemma}
 
 \end{document}
