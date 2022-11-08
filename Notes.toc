@@ -7,3 +7,4 @@
 \contentsline {subsection}{\numberline {1.5}Ear Decompositions of Factor-Critical Graphs}{8}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Edmond's Matching Algorithm}{10}{subsection.1.6}%
 \contentsline {subsubsection}{\numberline {1.6.1}Growing forest - $O(n^3)$}{12}{subsubsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.7}Gallai-Edmonds Decomposition}{15}{subsection.1.7}%

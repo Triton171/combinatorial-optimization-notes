@@ -59,6 +59,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{cor}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
+\newtheorem*{claim}{Claim}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \theoremstyle{definition}
@@ -784,7 +785,7 @@ and $q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
 vertices are exposed by any matching, so $M$ is maximum.
 \end{proof}
 
-\begin{definition}
+\begin{definition}\label{def:special-blossom-forest}
 Let $G$ be a graph, $M$ a matching in $G$. A subgraph $F$ of $G$ is a
 \emph{general blossom forest} with respect to $M$ if there exists a
 partition $V(F)=V_1\dot\cup\ldots\dot\cup V_k$ such that $F_i=F[V_i]$
@@ -825,7 +826,7 @@ V(G)\to V(G)$:
 	\end{cases}
 \end{align*}
 
-\begin{prop}
+\begin{prop}\label{special-blossom-forest-repr}
 Let $F$ be a special blossom forest with respect to $M$ and
 $\mu,\varphi,\rho$ as above. Then:
 \begin{enumerate}
@@ -883,15 +884,159 @@ show one implication for all the statements.
 
 \begin{lemma}
 Following invariants hold:
-\begin{enumerate}[label=\alph*)]
+\begin{enumerate}[label=\alph*)]\label{edmond-matching-lemma}
 	\item $\set{\set{x,\mu(x)}\ |\ x\in V(G),\mu(x)\neq x}$ is a matching
+	\label{edmond-matching-lemma-a}
 
-	\item The set $\set{\set{x,\mu(x)}\cup\set{x,\varphi(x)}\ |\ x\in V(G)
-	, \varphi(\mu(x))=\mu(x)\land \varphi(x)\neq x} \cup \set{ \set{x,\varphi(x)}
-	\cup\set{x,\mu(x)}\ 
-	|\ \varphi(x)\neq x\land \varphi(\mu(x))\neq\mu(x)}$ forms the edge set of
-	a special blossom forest
+	\item $\set{\set{x,\mu(x)}\ |\ \underbrace{x\in
+	V(G),\varphi(\mu(x))=\mu(x) \land \varphi(x)\neq x}
+		_{\text{inner vertices}}
+	}\cup\set{\set{x,\varphi(x)}\ |\ x\in V(G), \varphi(x)\neq x}$
+	forms the edge set of a special blossom forest.
+	\label{edmond-matching-lemma-b}
+	
+	\item $\mu,\varphi,\rho$ satisfy the conditions in definition
+	\ref{def:special-blossom-forest} (special blossom forest).
+	\label{edmond-matching-lemma-c}
 \end{enumerate}
 \end{lemma}
+
+% Lecture 08.11.22
+\begin{proof}
+\ref{edmond-matching-lemma-a} holds as $\mu$ only changes in \emph{Augment}.
+\ref{edmond-matching-lemma-b} is correct after initialization and after
+the reset in the \emph{Augment} step. It is preserved by \emph{Grow} steps.
+
+In a \emph{Shrink} step, $r$ (the first vertex that the paths from $x,y$ to the
+root share) is a root or has $\abs{\delta(r)}=3$ (i.e. it is the base of
+a blossom), so it is an outer vertex. We define a blossom
+$B\coloneqq \set{v\in V(G)\ |\ \varphi(v)\in V(P(x)_{[x,r]})\cup
+V(P(y)_{[y,r]})}$. Consider $\set{u,v}\in F$ with $u\in B, v\notin B$. If
+$\set{u,v}\in M$, we have $u=r, v=\mu(r)$ (since $F[B]$ contains a near-perfect
+matching). $u$ was an outer vertex before shrinking and $F[B]$ being
+factor-critical follows from \ref{edmond-matching-lemma-c} and the
+characterization by ear-decompositions.
+
+For \ref{edmond-matching-lemma-c}, it's clear that $\mu$ always represents
+a matching. $\varphi(x)=x$ if $x$ is not an outer vertex. Therefore,
+$\mu+\varphi$ represent an $M$-alternating ear decomposition of $B$. During
+\emph{Shrink}, $\varphi(v)$ is not changed if $\varphi(v)=r$. Therefore,
+the odd ear decomposition for $B'\coloneqq$ blossom containing $r$, is
+the correct starting point. The next ear is $P(x)_{[x,x']}\cup P(y)_{[y,y']}
++\set{x,y}$, where $x'$ ($y'$) is the first vertex in $B'$ on $P(x)_{[x,r]}$
+($P(y)_{[y,r]}$).
+
+For each ear $Q$ of a former blossom $B''\subseteq B$, $Q\setminus
+\left(E(P(x))\cup E(P(y))\right)$ form a new ear (since it is created
+by removing an even path). $\varphi,\mu$ represent this ear-decomposition.
+\end{proof}
+
+
+\begin{theorem}\label{thm:edmonds-matching-alg}
+Edmond's cardinality matching algorithm correctly determines a maximum
+matching in $O(n^3)$ time, where $n\coloneqq\abs{V(G)}$.
+\end{theorem}
+\begin{proof}
+By lemma \ref{edmond-matching-lemma} and proposition
+\ref{special-blossom-forest-repr}, the algorithm maintains a special
+blossom forest. Let $M,F$ be the final matching and forest. $x$ an outer
+vertex implies that $\forall y\in\Gamma(x): y$ is inner and $\varphi(y)=\varphi(x)$.
+Define:
+\begin{align*}
+	B&\coloneqq \text{set of inner vertices} \\
+	B&\coloneqq \text{set of bases of (outer) blossoms}
+\end{align*}
+Then every unmatched vertex is in $B$. Matched vertices in $B$ have
+matching mates in $X$ and $\abs{B}=\abs{X}+\abs{V(G)}-2\abs{M}$. (Outer)
+blossoms are odd connected components in $G-X$, so by Berge's theorem
+(\ref{tutte-berge}), at least $\abs{B}-\abs{X}$ vertices remain uncovered
+by any matching, so $M$ is maximum.
+
+We now consider the running time: The status (outer, inner, out-of-forest)
+for a given vertex can be checked in constant time (proposition
+\ref{special-blossom-forest-repr}). Therefore, \emph{Grow}, \emph{Augment}
+and \emph{Shrink} can be implemented in $O(n)$ time. There are at most
+$n$ calls to \emph{Grow} and \emph{Shrink} per augment and at most
+$\frac{n}{2}$ \emph{Augments}. This implies the running time $O(n^3)$.
+\end{proof}
+
+\begin{remark}
+The time for \emph{Shrink} can be reduced to $O(\log n)$ using a binary
+tree, leading to a running time of $O(nm\log n)$ in total. Tarjan (1974),
+Gabow \& Tarjan (1983) proved a running time of $O(nm\alpha(m,n))$ (where
+$\alpha$ is the inverse Ackermann function) or $O(nm)$.
+\end{remark}
+
+\begin{remark}
+It's not necessary to reset everything after augmenting. It suffices to
+reset the 2 trees that were changed by the augmentation. Gabow \& Tarjan
+(1983) showed that it's possible to augment all paths of the same length in
+$O(m)$ time. There are $2\sqrt{\nu(G)}+2$ different path lengths, so
+in total this results in a running time of $O(\sqrt{n}m)$.
+\end{remark}
+
+\begin{remark}[Skew-symmetric flows]
+Goldberg \& Karzanov (2003) (and Fremuth-Pagen \& Jungnickel (2003))
+used \emph{Generalized Max-Flow} to achieve a running time of
+$O(\sqrt{n}m\frac{\log\frac{m}{n}}{\log n})$.
+\end{remark}
+
+
+\subsection{Gallai-Edmonds Decomposition}
+
+\begin{prop}\label{prop:gallai-edmonds}
+Let $G$ be a graph, $X\subseteq V(G)$ with $\abs{V(G)}-2\nu(G)=q_G(X)
+-\abs{X}$. Then any maximum matching of $G$
+\begin{itemize}
+	\item contains a perfect matching in the even components of $G-X$.
+	\item contains a near-perfect matching in odd components of $G-X$.
+	\item matches all $x\in X$ to distinct odd components.
+\end{itemize}
+\end{prop}
+\begin{proof}
+Follows directly from Berge's theorem (\ref{tutte-berge}).
+\end{proof}
+
+\begin{theorem}
+Let $G$ be a graph and:
+\[
+	Y\coloneqq\set{v\in V(G)\ |\ 
+	\exists \text{ maximum matching that exposes } v}
+\]
+Define $X\coloneqq\Gamma(Y)$ and
+$W\coloneqq V(G)\setminus \left(X\cup Y\right)$. Then:
+\begin{enumerate}
+	\item $X$ attains $\max_{X'\subseteq V(G)}q_G(X')-\abs{X'}$.
+	\item $G[Y]$ is the union of factor-critical subgraphs and
+	$G[W]$ is the union of even connected components.
+	\item Any maximum matching in $G$
+	\begin{itemize}
+		\item contains a perfect matching in $G[W]$.
+		\item contains a near-perfect matching in each component of $G[Y]$.
+		\item matches all $x\in X$ to distinct connected components
+	\end{itemize}
+\end{enumerate}
+$Y,X,W$ is called \emph{Gallai-Edmonds decomposition} of $G$.
+\end{theorem}
+\begin{proof}
+Consider the matching $M$ and special blossom forest $F$ at the end
+of the algorithm. Let $X'$ ($Y'$) be the set of inner (outer) vertices
+and $W'$ the set of out-of-forest vertices.
+\begin{claim}
+$X',Y',W'$ satisfy 1., 2. and 3.
+\end{claim}
+(Proof of theorem \ref{thm:edmonds-matching-alg}).
+
+Proposition \ref{prop:gallai-edmonds} implies that any maximum matching
+covers all vertices in $V(G)\setminus Y'$, so $Y\subseteq Y'$. For
+the other inclusion, let $v\in Y'$. Then $M\Delta P(v)$ is a maximum
+matching exposing $v$, so $v\in Y$ and $Y'=Y$. By definition, $X=X'$
+and $W=W'$.
+\end{proof}
+
+\begin{cor}
+A graph $G$ has a perfect matching $\Leftrightarrow \forall U\subseteq V(G)$,
+$G-U$ has at most $\abs{U}$ factor-critical components.
+\end{cor}
 
 \end{document}
