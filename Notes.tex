@@ -60,6 +60,7 @@
 \newtheorem{cor}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \theoremstyle{definition}
@@ -1038,5 +1039,164 @@ and $W=W'$.
 A graph $G$ has a perfect matching $\Leftrightarrow \forall U\subseteq V(G)$,
 $G-U$ has at most $\abs{U}$ factor-critical components.
 \end{cor}
+
+% Lecture 10.11.22
+
+\subsection{Minimum Weight Perfect Matching}
+We use the following Integer Programming formulation:
+\begin{align*}
+	\min &\sum_{e\in E(G)}c_ex_e \\
+	\text{s.t.}\quad &\sum_{e\in\delta(v)}x_e=1 \qquad v\in V(G) \\
+	&x_e\in\set{0,1}
+\end{align*}
+and the corresponding relaxation where we only require $x_e\geq0$. The
+dual problem of this is:
+\begin{align*}
+	\max &\sum_{v\in V(G)}z_v \\
+	\text{s.t.}\quad &z_v+z_w\leq c_e \qquad \set{v,w}\in E(G)
+\end{align*}
+
+\begin{prop}[Hungarian Method]
+Let $G$ be a graph, $c\in\bR^{E(G)}$ and $z\in\bR^{V(G)}$ with
+$z_v+z_w\leq c_e$ for all $e=\set{v,w}\in E(G)$. Define:
+\[G_z\coloneqq (V(G), \set{e=\set{v,w}\ |\ z_v+z_w=c_e})\]
+Let $M$ be a matching in $G_z$, $F$ a maximal alternating forest in $G_z$
+with respect to $M$. Let $X$/$Y$ be the set of inner/outer vertices. Then:
+\begin{enumerate}
+	\item If $M$ is a perfect matching in $G_z$, then it is a minimum-weight
+	perfect matching in $G$.
+	\item If $\Gamma_G(y)\subseteq X$ for all $y\in Y$, then $M$ is a
+	maximum matching.
+	\item If neither 1. nor 2. hold, define:
+	\[
+		\epsilon\coloneqq\min\set{
+		\min_{e=\set{v,w\in E(G[Y])}}\frac{c_e-z_v-z_w}{2},
+		\min_{e\in \delta(Y)\cap \delta(V(F))}c_e-z_v-z_w}
+	\]
+	Set $z_v'\coloneqq z_v-\epsilon$ for all $v\in X$,
+	$z_v'\coloneqq z_v+\epsilon$ for all $v\in Y$ and $z_v'\coloneqq z_v$
+	for all $v\in V(G)\setminus(X\cup Y)$. Then $z'$ is a feasible dual
+	solution and $M\cup E(F)\subseteq E(G_{z'})$. Additionally,
+	$\Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$ for some $y\in Y$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}
+\item
+Let $M'$ be a minimum-weight perfect matching.
+\begin{align*}
+	\sum_{e\in M'}c_e&=\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M'}(c_e-z_v-z_w) \\
+	&\geq \sum_{v\in V(G)}z_v \\
+	&=\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M}(c_e-z_v-z_w) \\
+	&=\sum_{e\in M}c_e
+\end{align*}
+
+\item
+Each outer vertex is an odd blossom (singleton) of $G-x$. By Berge
+(\ref{tutte-berge}), at least $\abs{Y}-\abs{X}$ vertices remain uncovered.
+
+\item
+$z'$ stays feasible by the choice of $\epsilon$. Edges in $E(F),M$ remain
+tight. By 1. and 2., $\exists y\in Y:\ \Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$.
+
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+For bipartite graphs, the adjacency matrix is totally unimodular, so the LP
+has integral vertices.
+\end{remark}
+
+\begin{figure}[h]
+\begin{graph}
+	\node[vertex] (v1) at (0,-1) {};
+	\node[vertex] (v2) at (0,1) {};
+	\node[vertex] (v3) at (1,0) {};
+	\node[vertex] (v4) at (2,0) {};
+	\node[vertex] (v5) at (3,1) {};
+	\node[vertex] (v6) at (3,-1) {};
+	
+	\draw (v1) -- node[left] {1} (v2);
+	\draw (v1) -- node[above] {2} (v3);
+	\draw (v2) -- node[below] {3} (v3);
+	\draw (v3) -- node[left] {1} (v4);
+	\draw (v4) -- node[left] {1} (v5);
+	\draw (v4) -- node[left] {1} (v6);
+	\draw (v5) -- node[left] {1} (v6);
+	\draw (v1) -- node[left] {1} (v6);
+	\draw (v2) -- node[left] {1} (v5);
+\end{graph}
+\end{figure}
+
+
+We define $\cA\coloneqq\set{X\subseteq V(G) \text{ odd}}$ and add the
+blossom inequalities
+\[\sum_{e\in\delta(X)}x_e\geq 1 \qquad \forall X\in\cA\]
+to the LP relaxation. The new dual problem is then:
+\begin{align*}
+	\max &\sum_{A\in\cA}z_A \\
+	\text{s.t.}\quad &\sum_{A\in\cA,e\in\delta(A)}z_A\leq c_e \\
+	&z_A\geq0 \qquad (A\in\cA, \abs{A}\geq3)
+\end{align*}
+
+Edmond's Algorithm starts with an empty matching $x=0$ and dual feasible
+solution:
+\[z_A\coloneqq \begin{cases}
+	\frac{1}{2}\min\set{c(e)\ |\ e\in\delta(A)} \qquad&\abs{A}=1 \\
+	0 \qquad&\text{else}
+\end{cases}\]
+We always ensure that $z$ is dual feasible and that $(x,z)$ satisfy
+complementary slackness:
+\begin{align*}
+	x_e>0 &\Rightarrow \sum_{A\in\cA,e\in\delta(A)} z_A=c_e \\
+	z_A>0, \abs{A}>1 &\Rightarrow \sum_{e\in\delta(A)}x_e=1
+\end{align*}
+
+\begin{definition}
+$c_z(e)\coloneqq c(e)-\sum_{A\in\cA,e\in\delta(A)}z_A$ is the
+\emph{reduced cost} of $e$.
+\end{definition}
+
+\begin{theorem}
+There are at most $\frac{7}{2}\abs{V(G)}^2$ of the repeat-until loop
+in algorithm 4.
+\end{theorem}
+\begin{proof}
+$\cB$ is laminar at any time, i.e. for $X,Y\in\cB$ we have
+$(X\subseteq Y)\lor (Y\subseteq X)\lor (X\cap Y=\emptyset)$. Therefore
+$\abs{\cB}\leq 2\abs{V(G)}$.
+\begin{observation}
+Any $U$ added to $\cB$ during \emph{Shrink} will not be ''unpacked'' before
+the next \emph{Augment}.
+\end{observation}
+\begin{proof}
+After \emph{Shrink}, there exists an even length $M$-augmenting $R$-$U$-path.
+It remains in $G_z$ until the next \emph{Augment} or until $U$ is included
+in another blossom $U'\supseteq U$ which is not resolved before an
+\emph{Augment} (inductively).
+\end{proof}
+
+Between 2 augments:
+\begin{itemize}
+	\item $\#$ \emph{Unpacks} $\leq \abs{\cB}$ at beginning of the sequence
+	\item $\#$ \emph{Shrinks} $\leq \abs{\cB}$ at the end of the sequence
+\end{itemize}
+Therefore, there are at most $4\abs{V(G)}$ \emph{Unpack} and \emph{Shrink} operations
+between 2 augments. For each dual change without \emph{Unpack}, we have:
+$z_B>0\quad \forall B\in\cB$, so $\epsilon$ is not determined by $z_B$.
+Therefore $\exists e=\set{X,Y}$ with $X\notin\cX, Y\in\cY$ where
+$c_z(e)$ becomes 0.
+\begin{enumerate}
+	\item[Case 1:] $X\notin\cY$. Then $\abs{V(G_z)\setminus(\cX\cup\cY)}$
+	decreases.
+	\item[Case 2:] $X\in\cY$. Then $\exists$ $X$-$Y$ $M$-alternating walk
+	in the next iteration.
+\end{enumerate}
+In particular, such a dual change can occur at most $\abs{V(G)}$ times
+between 2 augmentations.
+
+In total, there are at most $\frac{1}{2}\abs{V(G)}$ \emph{Augment} steps.
+Therefore, there are $\frac{1}{2}\abs{V(G)}^2(4+\abs{V(G)}+2\abs{V(G)})$
+\end{proof}
 
 \end{document}
