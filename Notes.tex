@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 
+\usepackage{bbm}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -1157,7 +1158,7 @@ $c_z(e)\coloneqq c(e)-\sum_{A\in\cA,e\in\delta(A)}z_A$ is the
 \emph{reduced cost} of $e$.
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:min-weight-matching-it}
 There are at most $\frac{7}{2}\abs{V(G)}^2$ of the repeat-until loop
 in algorithm 4.
 \end{theorem}
@@ -1197,6 +1198,168 @@ between 2 augmentations.
 
 In total, there are at most $\frac{1}{2}\abs{V(G)}$ \emph{Augment} steps.
 Therefore, there are $\frac{1}{2}\abs{V(G)}^2(4+\abs{V(G)}+2\abs{V(G)})$
+\end{proof}
+
+% Lecture 15.11
+% TODO
+\begin{algorithm}
+\caption{Minimum-Weight Perfect Matching}
+\KwInput{Graph $G$ with edge weights $c: E(G)\to\bR$}
+\KwOutput{A minimum-weight perfect matching $M$ in $(G,c)$}
+
+\end{algorithm}
+
+
+\begin{cor}
+A minimum-weight perfect matching can be computed in $O(n^2m)$ time
+where $n\coloneqq\abs{V(G)}$ and $m=\abs{E(G)}$.
+\end{cor}
+\begin{proof}
+Theorem \ref{thm:min-weight-matching-it} times $O(m)$.
+\end{proof}
+
+\begin{remark}
+To achieve $O(n^3)$ running time, one can modify the algorithm:
+\begin{enumerate}
+	\item Use a General Blossom Forest to avoid recomputing the $R$-$R$-walks
+	from scratch. We then have mappings $\mu_v,\varphi_v^i,\rho_v^i$
+	for $1\leq i\leq k_v$ where $k_v$ is the number of blossoms that
+	contain $v$.
+	
+	\item Store all vertices in a heap (ordered by their criticality for
+	dual-feasibility) to speed up the computation of $\epsilon$.
+\end{enumerate}
+Gabow (1990) showed a running time of $O(n(m+n\log n))$. Gabow \& Tarjan
+(1991) showed a running time of $O(m\log(nW)\sqrt{n\alpha(m,n)\log n})$
+where $W\coloneqq \max_{e\in E(G)}\abs{c(e)}$.
+\end{remark}
+
+\begin{theorem}
+Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
+\begin{align*}
+	x_e&\geq 0 &e\in E(G) \\
+	x(\delta(v))&=1 &v\in V(G) \\
+	x(\delta(A))&\geq 1 &A\subseteq V(G)\text{ with $\abs{A}$ odd}
+\end{align*}
+is the convex hull of all perfect matchings in $G$. It is called the \emph{perfect
+matching polytope}.
+\end{theorem}
+\begin{proof}
+For any objective function $c: E(G)\to\bR$, the minimum-weight perfect
+matching algorithm produces an integral primal and a dual solution that
+satisfy complementary slackness. In particular, all vertices of the
+polytope are integral.
+\end{proof}
+
+\begin{theorem}\label{thm:perf-match-poly}
+Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
+\begin{align*}
+	x_e&\geq0 &e\in E(G) \\
+	x(\delta(v))&\leq1 &v\in V(G) \\
+	x(E(G[A]))&\leq\frac{\abs{A}-1}{2}
+		&A\subseteq V(G)\text{ with $\abs{A}$ odd}
+\end{align*}
+is the convex hull of all matchings in $G$. It is called the \emph{matching
+polytope}.
+\end{theorem}
+\begin{proof}
+Any matching solution $x$ satisfies these conditions. Let $x$ be any
+solution that satisfies the conditions. We have to show that $x$ is a
+convex combination of matching solutions. Define $H$ by:
+\begin{align*}
+	V(H)\coloneqq &\set{(v,i)\ |\ v\in V(G),i\in\set{1,2}} \\
+	E(H)\coloneqq &\set{\set{(v,i),(w,i)}\ |\ \set{v,w}\in E(G),i\in\set{1,2}} \\
+	\cup &\set{\set{(v,1),(v,2)}\ |\ v\in V(G)}
+\end{align*}
+We set $y_{\set{(v,i),(w,i)}}\coloneqq x_{\set{v,w}}$ for all $\set{v,w}
+\in E(G),i\in\set{1,2}$ and $y_{\set{(v,1),(v,2)}}\coloneqq 1-x(\delta(v))$
+for all $v\in V(G)$. Then $y\geq0$ and $y(\delta_H(x))=1$ for all
+$x\in V(H)$.
+\begin{claim}
+$y$ satisfies the inequalities of the perfect matching polytope
+(in particular the blossom inequalities).
+\end{claim}
+If this is true, by \ref{thm:perf-match-poly} $y$ is a convex combination
+of perfect matchings. $H[\set{(v,1)\ |\ v\in V(G)}]$ is isomorphic to $G$,
+so $x$ is a convex combination of matchings in $G$.
+
+We now prove the claim:
+Let $X\subseteq V(G)$ with $\abs{X}$ odd. We have to show that
+$y(\delta_H(X))\geq1$. Define:
+\begin{align*}
+	A\coloneqq&\set{v\in V(G)\ |\ (v,1)\in X,(v,2)\notin X} \\
+	B\coloneqq&\set{v\in V(G)\ |\ (v,1)\in X, (v,2)\in X} \\
+	C\coloneqq&\set{v\in V(G)\ |\ (v,1)\notin X,(v,2)\in X}
+\end{align*}
+Define $A_i\coloneqq A\cap (V(G)\times \set{i})$ and $B_i\coloneqq B\cap
+(V(G)\times \set{i})$. $\abs{B_1\cup B_2}$ is even, so (since $\abs{X}$ is
+odd) $\abs{A}$ or $\abs{C}$ is odd. Without loss of generality, let $\abs{A}$
+be odd.
+\begin{align*}
+	\sum_{e\in\delta_H(X)}y_e
+	&\geq \sum_{v\in A_1}\underbrace{\sum_{e\in\delta_H(v)}y_e}_{=1}
+		-2\cdot\sum_{e\in E(H[A_1])}y_e-\sum_{e\in \delta(A_1)\cap\delta(B_1)}y_e \\
+	&+\sum_{e\in \delta(A_2)\cap\delta(B_2)} \\
+	&=\abs{A_1}-2\cdot\sum_{e\in E(G[A])}x_e \\
+	&\geq \abs{A_1}-(\abs{A}-1) \\
+	&=1
+\end{align*}
+
+\end{proof}
+
+\begin{theorem}
+	The matching polyhedron is TDI (Totally Dual Integral), i.e. for all
+	$c\in \bZ^{E(G)}$ for which the dual program of ($\max c^tx s.t.\ldots$)
+	has a finite optimum solution, it has an integral optimum solution.
+\end{theorem}
+\begin{proof}
+The dual is
+\begin{align*}
+	\min \sum_{v\in V(G)}y_v+\sum_{e\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}z_A \\
+	s.t.\sum_{v\in e}y_v
+		+\sum_{A\in\cA,\ \abs{A}>1,e\in E(G[A])}z_A&\geq c(e) &e\in E(G) \\
+	y,z&\geq0
+\end{align*}
+Let $(G,c)$ be a counterexample such that  $\abs{V(G)}+\abs{E(G)}+
+\sum_{e\in E(G)}\abs{c(e)}$ is minimum. Then:
+\begin{itemize}
+	\item $c(e)\geq 1$ for all
+	$e\in E(G)$, since otherwise $e$ could be deleted. 
+	\item $G$ has no isolated vertices.
+\end{itemize}
+\begin{claim}
+In an optimum solution $(y,z)$, $y=0$.
+\end{claim}
+\begin{proof}
+If $y_v>0$, then $x(\delta(v))=1$ for all optimum solutions $x$. Decreasing
+$c(e)$ by 1 for all $e\in\delta(v)$ yields a smaller feasible instance
+$(G,c')$ where the weight of $x$ is decreased by 1 and $x$ remains optimum.
+By assumption, $(G,c')$ is not a counterexample, so there exists an integral
+optimum solution $(y',z')$. Increasing $y'_v$ by one yields some optimum
+in $(G,c)$ which has optimum integral solution $(y'+\mathbbm{1}_v,z')$.
+\end{proof}
+
+Let $(y=0,z)$ be a dual optimum solution such that 
+\[\sum_{A\in\cA, \abs{A}>1} \abs{A}^2z_A\]
+is maximum.
+\begin{claim}
+$\cF\coloneqq\set{A: z_A>0}$ is laminar.
+\end{claim}
+If not, there exist $X,Y\in\cF:\ X\cap Y,X\setminus Y,Y\setminus X\neq\emptyset$.
+We proceed by ''uncrossing''. Let $\epsilon\coloneqq \set{z_X,z_Y}>0$.
+\begin{enumerate}
+	\item[Case 1:] $\abs{X\cap Y}$ is odd. Then $\abs{X\cup Y}$ is odd.
+	Define:
+	\begin{align*}
+	z'_X&\coloneqq z_X-\epsilon \\
+	z_y'&\coloneqq z_y-\epsilon \\
+	z'_{X\cap Y}&\coloneqq z_{X\cap Y}+\epsilon &\text{(unless $\abs{X\cap Y}=1$)} \\
+	z'_{X\cup Y}&\coloneqq z_{X\cup Y}+\epsilon \\
+	z'_A&\coloneqq z_A &\text{elsewhere}
+	\end{align*}
+\end{enumerate}
+Then $(y,z')$ is a dual optimum solution.
+
 \end{proof}
 
 \end{document}

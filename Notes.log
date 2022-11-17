@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/NixOS.org) (preloaded format=pdflatex 1980.1.1)  10 NOV 2022 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/NixOS.org) (preloaded format=pdflatex 1980.1.1)  15 NOV 2022 15:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -69,6 +69,14 @@ Package csquotes Info: ... configuration file loaded successfully.
 tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
 ))
+(/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
+tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/amsmath/amsmath.sty
 Package: amsmath 2021/10/15 v2.17l AMS math features
@@ -884,28 +892,28 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 ) (./Notes.aux)
 \openout1 = `Notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 77.
+Package hyperref Info: Link coloring OFF on input line 78.
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/hyperref/nameref.sty
@@ -921,9 +929,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count330
 )
-LaTeX Info: Redefining \ref on input line 77.
-LaTeX Info: Redefining \pageref on input line 77.
-LaTeX Info: Redefining \nameref on input line 77.
+LaTeX Info: Redefining \ref on input line 78.
+LaTeX Info: Redefining \pageref on input line 78.
+LaTeX Info: Redefining \nameref on input line 78.
  (./Notes.out) (./Notes.out)
 \@outlinefile=\write4
 \openout4 = `Notes.out'.
@@ -955,14 +963,14 @@ tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 80.
 
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 80.
 
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
@@ -978,7 +986,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ] [3] [4]
-Overfull \hbox (25.15811pt too wide) in paragraph at lines 319--322
+Overfull \hbox (25.15811pt too wide) in paragraph at lines 320--323
 [][]\T1/cmr/m/it/10.95 Remark \T1/cmr/m/n/10.95 1.15\T1/cmr/m/it/10.95 . []$\OM
 L/cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95
  )$ \T1/cmr/m/n/10.95 is shew-symmetric (i.e. $\OML/cmm/m/it/10.95 T[]\OT1/cmr/
@@ -990,7 +998,7 @@ m/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95 ))$
  []
 
 
-Overfull \hbox (29.85649pt too wide) in paragraph at lines 326--328
+Overfull \hbox (29.85649pt too wide) in paragraph at lines 327--329
 [][]\T1/cmr/bx/n/10.95 Theorem 1.16 \T1/cmr/m/n/10.95 (Tutte)\T1/cmr/bx/n/10.95
  . []\T1/cmr/m/it/10.95 A sim-ple graph $\OML/cmm/m/it/10.95 G$ \T1/cmr/m/it/10
 .95 has a per-fect match-ing $\OMS/cmsy/m/n/10.95 , []\OT1/cmr/m/n/10.95 (\OML/
@@ -999,19 +1007,19 @@ cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95 )
  []
 
 [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 462--470
+Underfull \hbox (badness 10000) in paragraph at lines 463--471
 
  []
 
 [7] [8]
-Overfull \hbox (0.23868pt too wide) in paragraph at lines 555--557
+Overfull \hbox (0.23868pt too wide) in paragraph at lines 556--558
 [][]\T1/cmr/bx/n/10.95 Corollary 1.31. []\T1/cmr/m/it/10.95 For any factor-crit
 ical graph $\OML/cmm/m/it/10.95 G$ \T1/cmr/m/it/10.95 and any near-perfect matc
 h-
  []
 
 
-Overfull \hbox (15.78326pt too wide) in paragraph at lines 588--591
+Overfull \hbox (15.78326pt too wide) in paragraph at lines 589--592
 [][]\T1/cmr/bx/n/10.95 Lemma 1.34. []\T1/cmr/m/it/10.95 Let $\OML/cmm/m/it/10.9
 5 G$ \T1/cmr/m/it/10.95 be factor-critical and $\OML/cmm/m/it/10.95 ^^V; '$ \T1
 /cmr/m/it/10.95 as-so-ci-ated with an $\OML/cmm/m/it/10.95 M$\T1/cmr/m/it/10.95
@@ -1022,65 +1030,90 @@ Overfull \hbox (15.78326pt too wide) in paragraph at lines 588--591
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17] [18] [19] (./Notes.aux)
+[17] [18]
+Overfull \hbox (9.31912pt too wide) in paragraph at lines 1229--1231
+[]\T1/cmr/m/n/10.95 Store all ver-tices in a heap (or-dered by their crit-i-cal
+-ity for dual-feasibility)
+ []
+
+[19]
+Overfull \hbox (7.51732pt too wide) in paragraph at lines 1273--1278
+\T1/cmr/m/n/10.95 We set $\OML/cmm/m/it/10.95 y[] [][]\OT1/cmr/m/n/10.95 = \OML
+/cmm/m/it/10.95 x[]$ \T1/cmr/m/n/10.95 for all $\OMS/cmsy/m/n/10.95 f\OML/cmm/m
+/it/10.95 v; w\OMS/cmsy/m/n/10.95 g 2 \OML/cmm/m/it/10.95 E\OT1/cmr/m/n/10.95 (
+\OML/cmm/m/it/10.95 G\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; i \OMS/cmsy/m/n/
+10.95 2 f\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 2\OMS/cms
+y/m/n/10.95 g$ \T1/cmr/m/n/10.95 and $\OML/cmm/m/it/10.95 y[] [][]\OT1/cmr/m/n/
+10.95 =
+ []
+
+[20]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 133
+9.
+
+(/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
+tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+) [21] [22] (./Notes.aux)
 Package rerunfilecheck Info: File `Notes.out' has not changed.
 (rerunfilecheck)             Checksum: 9EE1012CAF6D6FE6F0A7A1D190DF7E03;1956.
  ) 
 Here is how much of TeX's memory you used:
- 26035 strings out of 478278
- 501946 string characters out of 5825089
- 757816 words of memory out of 5000000
- 43671 multiletter control sequences out of 15000+600000
- 488519 words of font info for 76 fonts, out of 8000000 for 9000
+ 26108 strings out of 478278
+ 503725 string characters out of 5825089
+ 759063 words of memory out of 5000000
+ 43720 multiletter control sequences out of 15000+600000
+ 489046 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  100i,21n,104p,475b,720s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texm
-f/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/nix/store/6dlpv8zinqdg595lybb6s1nh
-1irxwkgc-texlive-combined-2021/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts
-1.enc}</nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/
-texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb></nix/store/6dlpv8zinqdg595lybb
-6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/s
-hare/texmf/fonts/type1/public/amsfonts/cm/cmmi6.pfb></nix/store/6dlpv8zinqdg595
-lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts
-/cm/cmmi8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-202
-1/share/texmf/fonts/type1/public/amsfonts/cm/cmmi9.pfb></nix/store/6dlpv8zinqdg
+ </home/daniel/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk>
+{/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
+fonts/enc/dvips/cm-super/cm-super-t1.enc}{/nix/store/6dlpv8zinqdg595lybb6s1nh1i
+rxwkgc-texlive-combined-2021/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.
+enc}</nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/te
+xmf/fonts/type1/public/amsfonts/cm/cmex10.pfb></nix/store/6dlpv8zinqdg595lybb6s
+1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/cm/cm
+mi10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/sha
+re/texmf/fonts/type1/public/amsfonts/cm/cmmi6.pfb></nix/store/6dlpv8zinqdg595ly
+bb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/
+share/texmf/fonts/type1/public/amsfonts/cm/cmmi9.pfb></nix/store/6dlpv8zinqdg59
+5lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-20
+21/share/texmf/fonts/type1/public/amsfonts/cm/cmr6.pfb></nix/store/6dlpv8zinqdg
 595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-
-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmr6.pfb></nix/store/6dlpv8zinq
-dg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/ams
-fonts/cm/cmr8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined
--2021/share/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb></nix/store/6dlpv8zin
-qdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combi
-ned-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy6.pfb></nix/store/6dlpv
-8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-co
-mbined-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy9.pfb></nix/store/6d
-lpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-t
-exlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></nix
-/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts
-/type1/public/cm-super/sfbx1095.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkg
-c-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></
-nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fo
-nts/type1/public/cm-super/sfbx1440.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irx
-wkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb
-></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf
-/fonts/type1/public/cm-super/sfrm0800.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1
-irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm0900.
-pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/te
-xmf/fonts/type1/public/cm-super/sfrm1095.pfb></nix/store/6dlpv8zinqdg595lybb6s1
-nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm12
-00.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share
-/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></nix/store/6dlpv8zinqdg595lybb
-6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sft
-i0800.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/sh
-are/texmf/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on Notes.pdf (19 pages, 476140 bytes).
+nts/cm/cmr8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2
+021/share/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb></nix/store/6dlpv8zinqd
+g595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combine
+d-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy6.pfb></nix/store/6dlpv8z
+inqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-comb
+ined-2021/share/texmf/fonts/type1/public/amsfonts/cm/cmsy9.pfb></nix/store/6dlp
+v8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-tex
+live-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></nix/s
+tore/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/t
+ype1/public/cm-super/sfbx1095.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-
+texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></ni
+x/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/font
+s/type1/public/cm-super/sfbx1440.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwk
+gc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb><
+/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/f
+onts/type1/public/cm-super/sfrm0800.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1ir
+xwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm0900.pf
+b></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texm
+f/fonts/type1/public/cm-super/sfrm1095.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh
+1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm1200
+.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/t
+exmf/fonts/type1/public/cm-super/sfrm1728.pfb></nix/store/6dlpv8zinqdg595lybb6s
+1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfti0
+800.pfb></nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/shar
+e/texmf/fonts/type1/public/cm-super/sfti1095.pfb>
+Output written on Notes.pdf (22 pages, 487532 bytes).
 PDF statistics:
- 443 PDF objects out of 1000 (max. 8388607)
- 364 compressed objects within 4 object streams
- 135 named destinations out of 1000 (max. 500000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 392 compressed objects within 4 object streams
+ 148 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
