@@ -21,6 +21,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
 % Algorithms
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \SetKwInput{KwInput}{Input}
@@ -384,6 +385,31 @@ Let $X\subseteq V(G)$. $G-X$ consists of even and odd (in terms of the
 number of vertices) connected components. We define $q_G(X)$ to be the
 number of odd components in $G-X$.
 
+\begin{figure}[tbh]
+	\centering
+	\begin{tikzpicture}
+		\node[draw, circle, minimum size =2cm] (X) at (0,0) {X};
+		\begin{scope}[every node/.style={draw, isosceles triangle, isosceles triangle apex angle=60, minimum size=0.5cm}, node distance = 2cm]
+			\node[rotate=270] (a) [left of=X]  {};
+			\node[rotate=230] (b) [left of =X]  {};
+			\node[rotate=310] (c) [left of =X]  {};			
+		\end{scope}
+		\begin{scope}[every node/.style={draw, minimum size=0.5cm}, node distance = 2cm]
+			\node[rotate=270] (d) [right of=X]  {};
+			\node[rotate=230] (e) [right of =X]  {};
+			\node[rotate=310] (f) [right of =X]  {};			
+		\end{scope}
+		\draw (X) -- (a);
+		\draw (X) -- (b);
+		\draw (X) -- (c);
+		\draw (X) -- (d);
+		\draw (X) -- (e);
+		\draw (X) -- (f);
+		\node (even) at (5,-1.5) {even componenets};
+		\node (odd) at (5,1.5) {odd componenets};
+	\end{tikzpicture}	
+\end{figure}
+
 \begin{definition}
 	A graph $G$ satisfies the \emph{Tutte Condition} if $q_G(X)\leq\abs{X}$
 	for all $X\subseteq V(G)$. $\emptyset\neq X\subseteq V(G)$ is called
@@ -506,6 +532,7 @@ Let $G$ be an undirected graph. Then
 The first vertex $r$ of the ear decomposition can be chosen arbitrarily.
 \end{theorem}
 \begin{proof}\ 
+	%TODO : two figures within proof
 \begin{enumerate}
 \item[''$\Leftarrow$'':]
 Let $G$ be a graph with an odd ear decomposition $r,P_1,\ldots,P_k$.
@@ -594,7 +621,39 @@ x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots
 \end{equation}
 defines an $M$-alternating $x$-$r$-path of even length.
 \end{lemma}
-% TODO Counter-example
+
+\begin{figure}
+	\centering
+	\begin{graph}
+		\node[vertex] (a) at (0,0) {};
+		\node[vertex] (b) at (0,1) {};
+		\node[vertex] (c) at (0,2) {};
+		\node[vertex] (d) at (2,0) {};
+		\node[vertex] (e) at (2,1) {};
+		\node[vertex] (f) at (2,2) {};
+		\node[vertex] (r) at (4,1) {};
+		\node (rl) [above of =r, node distance =0.5cm] {r};
+
+		\draw[dedge] (a) -- (b);
+		\draw[dedge] (b) -- (c);
+		\draw[dedge] (d) -- (r);
+		\draw[dedge] (e) -- (r);
+		\draw[dedge] (f) -- (r);
+		\draw[dedge] (c) to[in=140,out=220] (a);
+		\draw[double] (a) -- (d);
+		\draw[double] (b) -- (e);
+		\draw[double] (c) -- (f);
+
+		\node (x) at (7,2) {x};
+		\node (phi) at (9,2) {$\varphi(x)$};
+		\draw[dedge] (x) -- (phi);
+		\node[vertex] (g) at (7,0) {};
+		\node[vertex] (h) at (9,0) {};
+		\draw[double] (g) to (h);
+		\node (M) at (8,0.3) {M-edge};
+	\end{graph}
+	\captionof{figure}{Counter example for the reverse porposition.}
+\end{figure}
 
 % Lecture 4, 27.10.22
 \begin{proof}
