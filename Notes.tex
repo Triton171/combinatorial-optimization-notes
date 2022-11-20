@@ -1108,7 +1108,7 @@ For bipartite graphs, the adjacency matrix is totally unimodular, so the LP
 has integral vertices.
 \end{remark}
 
-\begin{figure}[h]
+\begin{figure}[htb]
 \begin{graph}
 	\node[vertex] (v1) at (0,-1) {};
 	\node[vertex] (v2) at (0,1) {};
@@ -1357,9 +1357,183 @@ We proceed by ''uncrossing''. Let $\epsilon\coloneqq \set{z_X,z_Y}>0$.
 	z'_{X\cup Y}&\coloneqq z_{X\cup Y}+\epsilon \\
 	z'_A&\coloneqq z_A &\text{elsewhere}
 	\end{align*}
+	Then $(y,z')$ is a dual optimum solution.
+	
+	\item[Case 2:] $\abs{X\cap Y}$ is even. Then $\abs{X\setminus Y}$ and
+	$\abs{Y\setminus X}$ are odd. Define:
+	\begin{align*}
+		z_X'&\coloneqq z_X-\epsilon \\
+		z_Y'&\coloneqq z_Y-\epsilon \\
+		z_{X\setminus Y}'&\coloneqq z_{X\setminus Y}+\epsilon
+			&\text{unless $\abs{X\setminus Y}=1$} \\
+		z_{Y\setminus X}'&\coloneqq z_{Y\setminus X}+\epsilon
+			&\text{unless $\abs{Y\setminus X}=1$} \\ 
+		z_{A}'&\coloneqq z_A &\text{elsewhere}
+		y_v'&\coloneqq \epsilon &\forall v\in X\cap Y \\
+		y_v'&\coloneqq 0 &\forall v\notin X\cap Y
+	\end{align*}
+	Then $(y',z')$ is feasible. The objective value is:
+	\begin{align*}
+		&\sum_{v\in V(G)}y_v'
+			+\sum_{A\in\cA,\ \abs{A}>1}z_A'\frac{\abs{A}-1}{2} \\
+		=&\epsilon\cdot\abs{X\cap Y}
+			+\sum_{A\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2} \\
+		+&\epsilon\left(\frac{\abs{X\setminus Y}-1}{2}
+			+\frac{\abs{Y\setminus X}-1}{2}-\frac{\abs{X}-1}{2}
+			-\frac{\abs{Y}-1}{2}\right) \\
+		=&\mathrm{objective}(y,z)
+	\end{align*}
+	Therefore $(y',z')$ is an optimum solution with $y'\neq0$, which is
+	a contradiction to the previous claim.
 \end{enumerate}
-Then $(y,z')$ is a dual optimum solution.
+We can conclude that $\cF$ is laminar.
 
+Let $A\in\cF$ with $z_A\notin\bZ$ and $\abs{A}$ is maximal. Define
+$\epsilon\coloneqq z_A-\floor{z_A}>0$. Let $A_1,\ldots,A_k$ be the
+inclusion-wise maximal proper subsets of $A$ in $\cF$. Since $\cF$ is
+laminar, $A_i\cap A_j=\emptyset$ for $i\neq j$. Define:
+\begin{align*}
+	z_A'&\coloneqq z_A-\epsilon \\
+	z_{A_i}'&\coloneqq z_A+\epsilon &1\leq i\leq k \\
+	z_D'&\coloneqq z_D &\text{elsewhere}
+\end{align*}
+Then $(y,z')$ is dual feasible with objective value:
+\begin{align*}
+	\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B'
+	&<\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B
+\end{align*}
+This contradicts the optimality of $(y,z)$, so there exists no counter
+example.
+\end{proof}
+
+% Lecture 17.11.22
+
+\begin{theorem}
+Let $G$ be a graph.
+\[P\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)}\]
+is the functional matching polytope.
+\[Q\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}\]
+If $G$ is bipartite, then $P$ and $Q$ are integral.
+\end{theorem}
+\begin{proof}
+The adjacency matrices of bipartite graphs are totally unimodular.
+\end{proof}
+
+\begin{theorem}
+Let $G$ be a graph. The vertices of the fractional perfect matching
+polytope satisfy
+\begin{align*}
+	x_e&=\begin{cases}
+		\frac{1}{2} \qquad&\text{if }e\in E(C_1)\cup\ldots\cup E(C_k) \\
+		1 \qquad&\text{if }e\in M \\
+		0 \qquad&\text{else}
+	\end{cases}
+\end{align*}
+where $C_1,\ldots,C_k$ are vertex-disjoint odd circuits and $M$ is a perfect
+matching in $G-\left(V(C_1)\cup\ldots\cup V(C_k)\right)$.
+\end{theorem}
+\begin{proof}
+Exercise 6.3
+\end{proof}
+
+\section{\texorpdfstring{$T$}{T}-Joins and \texorpdfstring{$b$}{b}-Matchings}
+\begin{definition}
+Let $G$ be a graph, $T\subseteq V(G)$. A subset $J\subseteq E(G)$ is called
+\emph{T-join} if $T$ is the set of odd-degree vertices in $(V(G),J)$.
+\end{definition}
+
+\begin{prop}\label{prop:t-join-symm-diff}
+Let $G$ be a graph, $T,T'\subseteq V(G)$, $J$ a $T$-join ad $J'$ a $T'$-join.
+Then $J\Delta J'$ is a $T\Delta T'$-join.
+\end{prop}
+\begin{proof}
+For $v\in V(G)$:
+\begin{align*}
+	\abs{\delta_{J\cap J'}(v)}&\equiv \abs{\delta_J(v)}+\abs{\delta_{J'}(v)} \\
+	&\equiv \abs{\set{v}\cap T}+\abs{\set{v}\cap T'} \\
+	&\equiv \abs{\set{v}\cap (T\Delta T')} \mod 2
+\end{align*}
+\end{proof}
+
+\begin{prop}
+Let $G$ be a graph, $T\subseteq V(G)$.
+\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{for each
+connected component }C\]
+\end{prop}
+\begin{proof}\ 
+\begin{enumerate}
+\item[''$\Rightarrow$'':]
+Let $J$ be a $T$-join. For each connected component $C$:
+\begin{align*}
+	\sum_{v\in V(C)}\abs{J\cap \delta(v)}&=2\abs{J\cap E(C)}
+\end{align*}
+Therefore $\abs{J\cap\delta(v)}$ is odd for an even number of vertices and
+$\abs{V(C)\cap T}$ is even.
+
+\item[''$\Leftarrow$'':]
+Partition $T$ into pairs $\set{v_1,w_1},\ldots,\set{v_k,w_k}$ such that
+$v_i$ and $w_i$ are in the same component for all $i$. Let $P_i$ be a
+$v_i$-$w_i$-path in $G$. Define $J\coloneqq E(P_1)\Delta E(P_2)\Delta\ldots
+\Delta E(P_k)$. By proposition \ref{prop:t-join-symm-diff}, this is a
+$T$-join.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}\label{thm:t-join-alg}
+Let $G$ be a graph, $c: E(G)\to\bR$ and $T\subseteq V(G)$. In strongly
+polynomial time (e.g. $O(n^2m)$) we can determine if a $T$-join exists and
+if so, compute a minimum-weight $T$-join.
+\end{theorem}
+\begin{proof}
+In $O(m)$ ($m\coloneqq\abs{E(G)}$), we can check if a $T$-join exists. If
+so:
+\begin{enumerate}
+	\item Eliminate negative weights.
+	\begin{align*}
+		N&\coloneqq\set{e\in E(G)\ |\ c(e)<0} \\
+		U&\coloneqq\set{v\in V(G)\ |\ \abs{\delta_N(v)}\text{ odd}} \\
+		T'&\coloneqq T\Delta U \\
+		c'(e)&\coloneqq \abs{c(e)} &e\in E(G)
+	\end{align*}
+	\begin{claim}
+	If $J'$ is a minimum $T'$-join with respect to $c'$, then $J'\Delta N$
+	is a minimum $T$-join with respect to $c$.
+	\end{claim}
+	Let $\tilde J$ be a $T$-join. Then $\tilde J\Delta N$ is a $T'$-join, so
+	$c'(\tilde J)\leq c'(\tilde J\Delta N)$ and
+	\[c(J)=c'(J')+c(N)\leq c'(\tilde J\Delta N)+c(N)=c(\tilde J)\]
+	which proves the claim.
+	
+	\item We can now assume that $c\geq0$. A minimum-weight $T$-join does
+	not have cycles of positive weight. We can eliminate cycles of weight
+	0 without changing the cost. We can then restrict ourselves to searching
+	for collections of $T$-$T$-paths.
+	
+	Let $K_T$ be the metric closure of $T$ with respect to $G$. It can
+	be computed in $O(n\cdot(m+n\log n))$ by using Dijkstra for all vertices.
+	Find a minimum-weight perfect matching $M$ in $K_T$. Each $e=\set{s,t}
+	\in M$ induces a path $P_{s,t}$. Then the symmetric difference
+	$\Delta_{\set{s,t}\in M}E(P_{s,t})$ is a minimum-weight $T$-join in $G$.
+\end{enumerate}
+\end{proof}
+
+\stepcounter{theorem}
+\begin{cor}
+A maximum-weight $T$-join can be computed as fast as a minimum-weight
+$T$-join.
+\end{cor}
+\begin{proof}
+Set $c'\coloneqq -c$.
+\end{proof}
+
+\begin{cor}
+Let $G$ be a graph, $c: E(G)\to\bR$. We can find a cycle of negative length
+in $G$ in $O(n^2m)$ time.
+\end{cor}
+\begin{proof}
+Apply theorem \ref{thm:t-join-alg} to $T=\emptyset$. If $c(J)<0$,
+$(V(G),J)$ contains a cycle $C$. If $c(C)=0$, we can eliminate it and
+recurse, otherwise return $C$. 
 \end{proof}
 
 \end{document}

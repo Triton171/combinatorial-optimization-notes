@@ -9,3 +9,4 @@
 \contentsline {subsubsection}{\numberline {1.6.1}Growing forest - $O(n^3)$}{12}{subsubsection.1.6.1}%
 \contentsline {subsection}{\numberline {1.7}Gallai-Edmonds Decomposition}{15}{subsection.1.7}%
 \contentsline {subsection}{\numberline {1.8}Minimum Weight Perfect Matching}{16}{subsection.1.8}%
+\contentsline {section}{\numberline {2}$T$-Joins and $b$-Matchings}{24}{section.2}%
