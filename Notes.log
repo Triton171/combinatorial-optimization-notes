@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/NixOS.org) (preloaded format=pdflatex 1980.1.1)  21 NOV 2022 12:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/NixOS.org) (preloaded format=pdflatex 1980.1.1)  21 NOV 2022 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -901,28 +901,28 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 ) (./Notes.aux)
 \openout1 = `Notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 79.
+Package hyperref Info: Link coloring OFF on input line 80.
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/hyperref/nameref.sty
@@ -938,9 +938,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count330
 )
-LaTeX Info: Redefining \ref on input line 79.
-LaTeX Info: Redefining \pageref on input line 79.
-LaTeX Info: Redefining \nameref on input line 79.
+LaTeX Info: Redefining \ref on input line 80.
+LaTeX Info: Redefining \pageref on input line 80.
+LaTeX Info: Redefining \nameref on input line 80.
  (./Notes.out) (./Notes.out)
 \@outlinefile=\write4
 \openout4 = `Notes.out'.
@@ -972,14 +972,14 @@ tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 81.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
 
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 81.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
 
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
@@ -995,7 +995,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ] [3] [4]
-Overfull \hbox (25.15811pt too wide) in paragraph at lines 317--320
+Overfull \hbox (25.15811pt too wide) in paragraph at lines 318--321
 [][]\T1/cmr/m/it/10.95 Remark \T1/cmr/m/n/10.95 1.15\T1/cmr/m/it/10.95 . []$\OM
 L/cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95
  )$ \T1/cmr/m/n/10.95 is shew-symmetric (i.e. $\OML/cmm/m/it/10.95 T[]\OT1/cmr/
@@ -1007,7 +1007,7 @@ m/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95 ))$
  []
 
 
-Overfull \hbox (29.85649pt too wide) in paragraph at lines 323--325
+Overfull \hbox (29.85649pt too wide) in paragraph at lines 324--326
 [][]\T1/cmr/bx/n/10.95 Theorem 1.16 \T1/cmr/m/n/10.95 (Tutte)\T1/cmr/bx/n/10.95
  . []\T1/cmr/m/it/10.95 A sim-ple graph $\OML/cmm/m/it/10.95 G$ \T1/cmr/m/it/10
 .95 has a per-fect match-ing $\OMS/cmsy/m/n/10.95 , []\OT1/cmr/m/n/10.95 (\OML/
@@ -1016,33 +1016,33 @@ cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95 )
  []
 
 [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 483--491
+Underfull \hbox (badness 10000) in paragraph at lines 484--492
 
  []
 
 [7] [8]
-Overfull \hbox (0.23868pt too wide) in paragraph at lines 576--578
+Overfull \hbox (0.23868pt too wide) in paragraph at lines 577--579
 [][]\T1/cmr/bx/n/10.95 Corollary 1.31. []\T1/cmr/m/it/10.95 For any factor-crit
 ical graph $\OML/cmm/m/it/10.95 G$ \T1/cmr/m/it/10.95 and any near-perfect matc
 h-
  []
 
 
-Overfull \hbox (15.78326pt too wide) in paragraph at lines 609--612
+Overfull \hbox (15.78326pt too wide) in paragraph at lines 645--648
 [][]\T1/cmr/bx/n/10.95 Lemma 1.34. []\T1/cmr/m/it/10.95 Let $\OML/cmm/m/it/10.9
 5 G$ \T1/cmr/m/it/10.95 be factor-critical and $\OML/cmm/m/it/10.95 ^^V; '$ \T1
 /cmr/m/it/10.95 as-so-ci-ated with an $\OML/cmm/m/it/10.95 M$\T1/cmr/m/it/10.95
  -alternating
  []
 
-[9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
-Overfull \hbox (9.31912pt too wide) in paragraph at lines 1278--1280
+[9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19]
+Overfull \hbox (9.31912pt too wide) in paragraph at lines 1317--1319
 []\T1/cmr/m/n/10.95 Store all ver-tices in a heap (or-dered by their crit-i-cal
 -ity for dual-feasibility)
  []
 
-[19]
-Overfull \hbox (7.51732pt too wide) in paragraph at lines 1322--1327
+[20]
+Overfull \hbox (7.51732pt too wide) in paragraph at lines 1361--1366
 \T1/cmr/m/n/10.95 We set $\OML/cmm/m/it/10.95 y[] [][]\OT1/cmr/m/n/10.95 = \OML
 /cmm/m/it/10.95 x[]$ \T1/cmr/m/n/10.95 for all $\OMS/cmsy/m/n/10.95 f\OML/cmm/m
 /it/10.95 v; w\OMS/cmsy/m/n/10.95 g 2 \OML/cmm/m/it/10.95 E\OT1/cmr/m/n/10.95 (
@@ -1052,28 +1052,28 @@ y/m/n/10.95 g$ \T1/cmr/m/n/10.95 and $\OML/cmm/m/it/10.95 y[] [][]\OT1/cmr/m/n/
 10.95 =
  []
 
-[20]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 138
-7.
+[21]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 142
+6.
 
 (/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/
 tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [21] [22] [23]
-Overfull \hbox (5.56418pt too wide) in paragraph at lines 1516--1519
+) [22] [23] [24]
+Overfull \hbox (5.56418pt too wide) in paragraph at lines 1555--1558
 \T1/cmr/m/n/10.95 Therefore $[]$ is odd for an even num-ber of ver-tices and $[
 ]$
  []
 
-[24] [25] (./Notes.aux)
+[25] [26] (./Notes.aux)
 Package rerunfilecheck Info: File `Notes.out' has not changed.
 (rerunfilecheck)             Checksum: 5A14DE90CCD6B79418EF76B7A4548303;2121.
  ) 
 Here is how much of TeX's memory you used:
- 26812 strings out of 478278
- 519502 string characters out of 5825089
- 781765 words of memory out of 5000000
- 44399 multiletter control sequences out of 15000+600000
+ 26840 strings out of 478278
+ 519854 string characters out of 5825089
+ 783836 words of memory out of 5000000
+ 44402 multiletter control sequences out of 15000+600000
  492040 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  100i,21n,104p,475b,806s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1123,10 +1123,10 @@ s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm
 re/texmf/fonts/type1/public/cm-super/sfti0800.pfb></nix/store/6dlpv8zinqdg595ly
 bb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/s
 fti1095.pfb>
-Output written on Notes.pdf (25 pages, 511932 bytes).
+Output written on Notes.pdf (26 pages, 515167 bytes).
 PDF statistics:
- 516 PDF objects out of 1000 (max. 8388607)
- 427 compressed objects within 5 object streams
- 164 named destinations out of 1000 (max. 500000)
+ 551 PDF objects out of 1000 (max. 8388607)
+ 460 compressed objects within 5 object streams
+ 189 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

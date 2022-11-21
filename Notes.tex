@@ -26,6 +26,7 @@
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \SetKwInput{KwInput}{Input}
 \SetKwInput{KwOutput}{Output}
+\SetKw{KwGoto}{go to}
 \DontPrintSemicolon
 %Define short commands for different letters
 \foreach \x in {A,...,Z}{
@@ -348,8 +349,8 @@ perfect matching exists in $G$
 	$\Rightarrow r(r(\pi))=\pi$ and
 	$\mathrm{sgn}(\pi)=\mathrm{sgn}(r(\pi))$. The second part is true
 	since for reversing an odd cycle, we need an even number of swaps.
-	Let $v_{i_1},\ldots,v_{i_{2k+1}}$ be the ''first'' odd circuit.
-	Then $r(\pi)$ is attained by $2k$ swaps: For $j=1,\ldots,k$ swap
+	Let $v_{i_1},\ldots,v_{i_{2k+1}}$ be the ''first'' odd circuit. Then
+	$r(\pi)$ is attained by $2k$ swaps: For $j=1,\ldots,k$ swap
 	$(\pi(i_{2j-1}), \pi(i_{2k}))$ and $(\pi(i_{2j}), \pi(i_{2k+1}))$.
 
 	$\prod_{i=1}^n t_{v_iv_{\pi(i)}}^*=-\prod_{i=1}^nt_{v_iv_{r(\pi(i))}}^*$
@@ -526,7 +527,7 @@ be the number of odd components in $G-X$.
 	arbitrarily.
 \end{theorem}
 \begin{proof}\
-	%TODO : two figures within proof
+	% TODO : two figures within proof
 	\begin{enumerate}
 		\item[''$\Leftarrow$'':]
 		Let $G$ be a graph with an odd ear decomposition $r,P_1,\ldots,P_k$.
@@ -592,8 +593,6 @@ be the number of odd components in $G-X$.
 	\end{itemize}
 \end{definition}
 
-% TODO Ear-Decomposition Algorithm
-
 \begin{prop}\label{lemma:ear-decomp-repr}
 	Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
 	with an $M$-alternating ear decomposition. Then this ear decomposition is
@@ -605,7 +604,44 @@ be the number of odd components in $G-X$.
 	time.
 \end{proof}
 
-\begin{lemma}
+\begin{algorithm}[htbp]
+	\caption{Ear Decomposition Algorithm}
+	\KwInput{Factor-critical graph $G$, functions $\mu,\varphi$ associated
+		with an $M$-alternating ear decomposition}
+	\KwOutput{An $M$-alternating ear decomposition $r,P_1,\ldots,P_k$}
+
+	$X\coloneqq\set{r}$ where $r$ is the vertex with $\mu(r)=r$\;
+	$k\coloneqq0$, $S\coloneqq$ empty stack\;
+	\While{$X\neq V(G)$}{
+		\If{$S$ is non-empty}{
+			Let $v\in V(G)\setminus X$ be an endpoint of the topmost element of the
+			stack\;
+		}\Else{
+			Choose $v\in V(G)\setminus X$ arbitrarily\;
+		}
+		$x\coloneqq v,\ y\coloneqq \mu(v),\ P\coloneqq (\set{x,y},\set{\set{x,y}})$\;
+		\While{$\varphi(\varphi(x))=x$}{
+			$P\coloneqq P+\set{x,\varphi(x)}+\set{\varphi(x),\mu(\varphi(x))}$\;
+			$x\coloneqq\mu(\varphi(x))$\;
+		}
+		\While{$\varphi(\varphi(y))=y$}{
+			$P\coloneqq P+\set{y,\varphi(y)}+\set{\varphi(y),\mu(\varphi(y))}$\;
+			$y\coloneqq\mu(\varphi(y))$\;
+		}
+		$P\coloneqq P+\set{x,\varphi(x)}+\set{y,\varphi(y)}$\;
+		$P$ is the ear containing $y$ as an inner vertex. Put $P$ on $S$.\;
+		\While{Both endpoints of the topmost element $P$ of the stack $S$ are in
+		$X$}{
+			Delete $P$ from $S$\;
+			$k\coloneqq k+1,\ P_k\coloneqq P,\ X\coloneqq X\cup V(P)$\;
+		}
+	}
+	\ForAll{$\set{y,z}\in E(G)\setminus (E(P_1)\cup\ldots\cup E(P_k))$}{
+		$k\coloneqq k+1,\ P_k\coloneqq (\set{y,z},\set{\set{y,z}})$\;
+	}
+\end{algorithm}
+
+\begin{lemma}\label{lemma:factor-critical-alt-path}
 	Let $G$ be factor-critical and $\mu,\varphi$ associated with an
 	$M$-alternating ear decomposition. Then the maximal path given by the
 	initial sequence
@@ -645,7 +681,10 @@ be the number of odd components in $G-X$.
 		\draw[double] (g) to (h);
 		\node (M) at (8,0.3) {M-edge};
 	\end{graph}
-	\captionof{figure}{Counter example for the reverse porposition.}
+	\caption{
+		Counter example for the reverse implication of lemma
+		\ref{lemma:factor-critical-alt-path}
+	}
 \end{figure}
 
 % Lecture 4, 27.10.22
@@ -858,7 +897,7 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 	\mu(x)     & \coloneqq \begin{cases}
 		                       x \qquad & \text{if $x$ is exposed in $M$} \\
 		                       y \qquad & \text{if $\set{x,y}\in M$}
-	                       \end{cases}               \\
+	                       \end{cases}                                                                       \\
 	\varphi(x) & \coloneqq\begin{cases}
 		                      x \qquad & \text{if $x$ is the base of an outer blossom or
 		                      $x$ is out-of-forest}                                                                     \\
