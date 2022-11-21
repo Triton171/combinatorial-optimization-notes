@@ -26,7 +26,7 @@
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \SetKwInput{KwInput}{Input}
 \SetKwInput{KwOutput}{Output}
-\SetKw{KwGoto}{go to}
+\SetKw{KwContinue}{continue}
 \DontPrintSemicolon
 %Define short commands for different letters
 \foreach \x in {A,...,Z}{
@@ -639,6 +639,7 @@ be the number of odd components in $G-X$.
 	\ForAll{$\set{y,z}\in E(G)\setminus (E(P_1)\cup\ldots\cup E(P_k))$}{
 		$k\coloneqq k+1,\ P_k\coloneqq (\set{y,z},\set{\set{y,z}})$\;
 	}
+	\KwRet{$r,P_1,\ldots,P_k$}
 \end{algorithm}
 
 \begin{lemma}\label{lemma:factor-critical-alt-path}
@@ -836,7 +837,6 @@ be the number of odd components in $G-X$.
 	are no matching edges that can immediately be added to $F$).
 \end{definition}
 
-% TODO: 1.42 in the lecture
 \begin{prop}
 	In any alternating forest, the number of outer vertices that are not the
 	root equals the number of inner vertices.
@@ -1021,6 +1021,54 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 	by removing an even path). $\varphi,\mu$ represent this
 	ear-decomposition.
 \end{proof}
+
+\begin{algorithm}[htbp]
+	\caption{Edmond's Cardinality Matching Algorithm}
+	\KwInput{A graph $G$}
+	\KwOutput{A maximum matching $M$ (defined by $\set{x,\mu(x)}$)}
+	
+	$\mu(v)\coloneqq v,\ \varphi(v)\coloneqq v,\ \rho(v)\coloneqq v,\ 
+	scanned(v)\coloneqq$ false for all $v\in V(G)$\;
+	\tcp{Outer Vertex Scan:}
+	\While{$\exists$ outer vertex $x$ with $scanned(x)=\mathrm{false}$}{
+		Let $y$ be a neighbor of $x$ such that $y$ is either out-of-forest
+		or $y$ is outer with $\rho(y)\neq \rho(x)$\;
+		\If{such a $y$ does not exist}{
+			$scanned(x)=$true, \KwContinue\;
+		}
+		\tcp{Grow:}
+		\If{$y$ is out-of-forest}{
+			$\varphi(y)\coloneqq x$, \KwContinue\;
+		}
+		\tcp{Augment:}
+		\ElseIf{$P(x)$ and $P(y)$ are vertex-disjoint}{
+			$\mu(\varphi(v))=v,\ \mu(v)=\varphi(v)$ for all $v\in V(P(x)\cap P(y))$
+				with odd distance from $x$ or $y$ on $P(x)$ or $P(y)$, respectively\;
+			$\mu(x)\coloneqq y,\ \mu(y)\coloneqq x$\;
+			$\varphi(v)\coloneqq v, \rho(v)\coloneqq v, scanned(v)\coloneqq$ false
+				for all $v\in V(G)$\;
+		}
+		\tcp{Shrink:}
+		\Else{
+			Let $r$ be the first vertex on $V(P(x))\cap V(P(y))$ with $\rho(r)=r$\;
+			\ForAll{$v\in V(P(x)_{[x,r]})\cup V(P(y)_{y,r})$ with odd distance
+				from $x$ or $y$ on $P(x)_{[x,r]}$ or $P(y)_{[y,r]}$, respectively
+				and $\rho(\varphi(v))\neq r$}{
+				$\varphi(\varphi(v))\coloneqq v$\;
+			}
+			\If{$\rho(x)\neq r$}{
+				$\varphi(x)\coloneqq y$\;
+			}
+			\If{$\rho(y)\neq r$}{
+				$\varphi(y)\coloneqq x$\;
+			}
+			\ForAll{$v\in V(G)$ with $\rho(v)\in V(P(x)_{[x,r]})\cup V(P(y)_{[y,r]})$}{
+				$\rho(v)\coloneqq r$\;
+			}
+		}
+	}
+	\KwRet{$\mu$}
+\end{algorithm}
 
 \begin{theorem}\label{thm:edmonds-matching-alg}
 	Edmond's cardinality matching algorithm correctly determines a maximum

@@ -1061,6 +1061,11 @@ INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/te
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ecbx0800.tfm
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/base/t1cmtt.fd
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/base/t1cmtt.fd
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/base/t1cmtt.fd
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/base/t1cmtt.fd
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/jknappen/ec/ectt1095.tfm
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/bbm-macros/ubbm.fd
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/bbm-macros/ubbm.fd
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/bbm-macros/ubbm.fd
@@ -1116,3 +1121,4 @@ INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/te
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfti0800.pfb
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sfti1095.pfb
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb
