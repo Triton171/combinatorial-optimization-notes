@@ -107,71 +107,68 @@
 	\end{itemize}
 \end{itemize}
 
-
-
-
 \section{Matchings}
 \subsection{Introduction}
 
-\begin{definition}\ 
-\begin{enumerate}
-	\item A \emph{matching} $M$ in a graph $G=(V,E)$ is a set of
-	pairwise disjointed edges, i.e. they don't have a common endpoint.
+\begin{definition}\
+	\begin{enumerate}
+		\item A \emph{matching} $M$ in a graph $G=(V,E)$ is a set of pairwise
+		disjointed edges, i.e. they don't have a common endpoint.
 
-	$\nu(G)\coloneqq$ max. cardinality of a matching in $G$
+		$\nu(G)\coloneqq$ max. cardinality of a matching in $G$
 
-	\item An \emph{edge cover} $C$ of a graph $G=(V,E)$ is a subset
-	of $E$ s.t.  $V=\bigcup_{e\in C}e$.
+		\item An \emph{edge cover} $C$ of a graph $G=(V,E)$ is a subset of $E$ s.t.
+		$V=\bigcup_{e\in C}e$.
 
-	$\zeta(G) \coloneqq$ min. cardinality of an edge cover in $G$
-	
-	\item A matching is called \emph{perfect} (or \emph{1-factor})
-	if it is an edge cover
-	
-	\item $v\in V$ with $v\in e\in M$ is called \emph{$M$-covered}
-	
-	\item $v\in V$ is called \emph{$M$-exposed} if it is not
-	$M$-covered
-\end{enumerate}
+		$\zeta(G) \coloneqq$ min. cardinality of an edge cover in $G$
+
+		\item A matching is called \emph{perfect} (or \emph{1-factor}) if it is an
+		edge cover
+
+		\item $v\in V$ with $v\in e\in M$ is called \emph{$M$-covered}
+
+		\item $v\in V$ is called \emph{$M$-exposed} if it is not
+		$M$-covered
+	\end{enumerate}
 \end{definition}
 
-\begin{definition}\ 
-\begin{enumerate}
-	\item A \emph{stable set} (independent set) $S$ is a set of
-	pairwise non-adjacent vertices.
-	
-	$\alpha(G)\coloneqq$ max. cardinality of a stable set
-	
-	\item A \emph{vertex cover} $C$ is a subset of $V$ s.t.
-	$E=\bigcup_{\{x,y\}\in E,\ x\in G}\{x,y\}$
-	
-	$\tau(G)\coloneqq$ min. cardinality of a vertex cover
-\end{enumerate}
+\begin{definition}\
+	\begin{enumerate}
+		\item A \emph{stable set} (independent set) $S$ is a set of pairwise
+		non-adjacent vertices.
+
+		$\alpha(G)\coloneqq$ max. cardinality of a stable set
+
+		\item A \emph{vertex cover} $C$ is a subset of $V$ s.t.
+		$E=\bigcup_{\{x,y\}\in E,\ x\in G}\{x,y\}$
+
+		$\tau(G)\coloneqq$ min. cardinality of a vertex cover
+	\end{enumerate}
 \end{definition}
 
-\begin{lemma}\ 
-\begin{enumerate}
-	\item $\alpha(G)+\tau(G) = \abs{V}$
-	\item $\nu(G) + \zeta(G) = \abs{V}$ if $G$ has no isolated vertices
-	\item $\zeta(G)=\alpha(G)$ if $G$ is bipartite and has no isolated
-	vertices
-\end{enumerate}
+\begin{lemma}\
+	\begin{enumerate}
+		\item $\alpha(G)+\tau(G) = \abs{V}$
+		\item $\nu(G) + \zeta(G) = \abs{V}$ if $G$ has no isolated vertices
+		\item $\zeta(G)=\alpha(G)$ if $G$ is bipartite and has no isolated
+		vertices
+	\end{enumerate}
 \end{lemma}
 
 \begin{problem}{Cardinalty Matching Problem}\\
-	Input: Graph $G=(V,E)$ \\
-	Task: Find a maximum cardinality matching
+Input: Graph $G=(V,E)$ \\
+Task: Find a maximum cardinality matching
 \end{problem}
 
 \begin{problem}{Maximum Weight Matching Problem (MWMP)}\\
-	Input: Graph $G$, $c:E\to \bR$ \\
-	Task: Find a matching $M$ maximizing $c(M)$
+Input: Graph $G$, $c:E\to \bR$ \\
+Task: Find a matching $M$ maximizing $c(M)$
 \end{problem}
 
 \begin{problem}{Minimum Weight Perfect Matching (MWPMP)}\\
-	Input: Graph $G$, $c:E\to\bR$\\
-	Task: Find a perfect matching of minimum weight or decide that no
-	perfect matching exists in $G$
+Input: Graph $G$, $c:E\to\bR$\\
+Task: Find a perfect matching of minimum weight or decide that no
+perfect matching exists in $G$
 \end{problem}
 
 \begin{lemma}
@@ -183,14 +180,14 @@
 	($K\coloneqq 1+\sum_{e\in E}\abs{c(e)}$). \\
 	$\Rightarrow$ Any maximum weight matching is a maximum cardinality
 	matching
-	
+
 	Given a MVMP instance $(G,c)$, define $G'$ as 2 copies of $G$ where
-	the 2 copies of a vertex are joined by an edge. \\
-	$\Rightarrow$ $G'$ has a perfect matching. Define:
+	the 2 copies of a vertex are joined by an edge. \\ $\Rightarrow$ $G'$
+	has a perfect matching. Define:
 	\[c'(e)\coloneqq \begin{cases}
-		-c(e) \quad&\text{if $e$ is in the first copy} \\
-		0 &\text{else}
-	\end{cases}\]
+			-c(e) \quad & \text{if $e$ is in the first copy} \\
+			0           & \text{else}
+		\end{cases}\]
 	A minimum weight perfect matching in $G'$ gives us a maximum weight
 	matching in $G$.
 \end{proof}
@@ -206,28 +203,28 @@
 	Given a matching $M$ in $G$ and an inclusion-wise maximal
 	$M$-alternating path $P$,
 	\[M\Delta P\coloneqq M\setminus P\cup P\setminus M\]
-	is a matching. If $P$ is $M$-augmenting, then
-	$\abs{M\Delta P}=\abs{M}+1$.
+	is a matching. If $P$ is $M$-augmenting, then $\abs{M\Delta
+			P}=\abs{M}+1$.
 \end{lemma}
 
 \begin{theorem}[Petersen 1891, Berge 1957]{Augmenting Path Theorem}
 	Given a graph $G=(V,E)$ and a matching $M$ in $G$:
 	\[\abs{M}=\nu(G) \Leftrightarrow \not\exists \text{$M$-augmenting
-	path $P$ in $G$}\]
+			path $P$ in $G$}\]
 \end{theorem}
-\begin{proof}\ 
-\begin{enumerate}
-	\item[''$\Rightarrow$'':] Clear
-	\item[''$\Leftarrow$'':] Assume there exists a matching $M'$
-	with $\abs{M'}>\abs{M}$. Let $G'\coloneqq (V, M\Delta M')$. \\
-	$\Rightarrow$ $\abs{\delta_{G'}(v)}\leq 2\ \forall v\in V$ \\
-	$\Rightarrow G'$ is the union of disjoint circuits and paths \\
-	$\Rightarrow$ all circuits are even and have the same number of edges
-	from $M$ and $M'$ \\
-	$\Rightarrow \exists$ a path $P$ in $G'$ starting and ending with an
-	edge in $M'$ \\
-	$\Rightarrow P$ is an alternating path
-\end{enumerate}
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':] Clear
+		\item[''$\Leftarrow$'':] Assume there exists a matching $M'$
+		with $\abs{M'}>\abs{M}$. Let $G'\coloneqq (V, M\Delta M')$. \\
+		$\Rightarrow$ $\abs{\delta_{G'}(v)}\leq 2\ \forall v\in V$ \\
+		$\Rightarrow G'$ is the union of disjoint circuits and paths \\
+		$\Rightarrow$ all circuits are even and have the same number of edges
+		from $M$ and $M'$ \\
+		$\Rightarrow \exists$ a path $P$ in $G'$ starting and ending with an
+		edge in $M'$ \\
+		$\Rightarrow P$ is an alternating path
+	\end{enumerate}
 \end{proof}
 
 \subsection{Bipartite Matching}
@@ -244,31 +241,31 @@
 \end{proof}
 
 \begin{figure}
-\centering
-\begin{graph}
-	\node[vertex] (s) at (-2,0) {};
-	\node[vertex] (a1) at (0,1) {};
-	\node[vertex] (a2) at (0,0) {};
-	\node[vertex] (a3) at (0,-1) {};
-	\node[vertex] (b1) at (2,0.5) {};
-	\node[vertex] (b2) at (2,-0.5) {};
-	\node[vertex] (t) at (4,0) {};
-	\node (sl) [above=0 of s] {$s$};
-	\node (tl) [above=0 of t] {$t$};
-	\node (al) at (0,1.5) {$A$};
-	\node (bl) at (2,1.5) {$B$};
-	
-	\draw[dedge] (s) -- (a1);
-	\draw[dedge] (s) -- (a2);
-	\draw[dedge] (s) -- (a3);
-	\draw[dedge] (a1) -- (b1);
-	\draw[dedge] (a1) -- (b2);
-	\draw[dedge] (a2) -- (b2);
-	\draw[dedge] (a3) -- (b2);
-	\draw[dedge] (b1) -- (t);
-	\draw[dedge] (b2) -- (t);
-\end{graph}
-\caption{Example of the construction in Theorem \ref{thm:koenig-bipartite}}
+	\centering
+	\begin{graph}
+		\node[vertex] (s) at (-2,0) {};
+		\node[vertex] (a1) at (0,1) {};
+		\node[vertex] (a2) at (0,0) {};
+		\node[vertex] (a3) at (0,-1) {};
+		\node[vertex] (b1) at (2,0.5) {};
+		\node[vertex] (b2) at (2,-0.5) {};
+		\node[vertex] (t) at (4,0) {};
+		\node (sl) [above=0 of s] {$s$};
+		\node (tl) [above=0 of t] {$t$};
+		\node (al) at (0,1.5) {$A$};
+		\node (bl) at (2,1.5) {$B$};
+
+		\draw[dedge] (s) -- (a1);
+		\draw[dedge] (s) -- (a2);
+		\draw[dedge] (s) -- (a3);
+		\draw[dedge] (a1) -- (b1);
+		\draw[dedge] (a1) -- (b2);
+		\draw[dedge] (a2) -- (b2);
+		\draw[dedge] (a3) -- (b2);
+		\draw[dedge] (b1) -- (t);
+		\draw[dedge] (b2) -- (t);
+	\end{graph}
+	\caption{Example of the construction in Theorem \ref{thm:koenig-bipartite}}
 \end{figure}
 
 \begin{theorem}[Hall 1935]
@@ -300,7 +297,6 @@
 	Use the Successive Shortest Paths algorithm in an auxiliary graph.
 \end{proof}
 
-
 \subsection{The Tutte Matrix \& Randomized Matching}
 
 \begin{definition}
@@ -310,9 +306,9 @@
 	where
 	\[
 		t^*_{vw}\coloneqq \begin{cases}
-			X_{\{v,w\}} \quad&\text{if $(v,w)\in E(G)$} \\
-			-X_{\{v,w\}} &\text{if $-(v,w)\in E(G)$} \\
-			0 &\text{else}
+			X_{\{v,w\}} \quad & \text{if $(v,w)\in E(G)$}  \\
+			-X_{\{v,w\}}      & \text{if $-(v,w)\in E(G)$} \\
+			0                 & \text{else}
 		\end{cases}
 	\]
 \end{definition}
@@ -323,10 +319,9 @@
 	$\det(T_G(X))$ is a polyomial in $X$.
 \end{remark}
 
-
 \begin{theorem}[Tutte]
 	A simple graph $G$ has a perfect matching $\Leftrightarrow
-	\det(T_G(X))\neq0$
+		\det(T_G(X))\neq0$
 \end{theorem}
 \begin{proof}
 	Let $V(G)=\{v_1,\ldots,v_n\}$ and $S_n$ be the permutation group.
@@ -335,10 +330,10 @@
 		t_{v_i,v_{\pi(i)}}^*
 	\end{align*}
 	Let $S_n'\coloneqq\{\pi\in S_n\ |\ \prod_{i=1}^n
-	t_{v_i,v_{\pi_i}}^*\neq0\}$. Each $\pi\in S_n$ corresponds to a
+		t_{v_i,v_{\pi_i}}^*\neq0\}$. Each $\pi\in S_n$ corresponds to a
 	digraph $H_\pi\coloneqq (V(G), \{(v_i,v_{\pi(i)})\ |\ i\in [n]\footnote{
-		This is an abbreviation for $\{1,\ldots,n\}$.
-	}\})$.
+			This is an abbreviation for $\{1,\ldots,n\}$.
+		}\})$.
 	We have $\abs{\delta^+(v)=1=\abs{\delta^-(v)}}\ \forall v\in V(H_\pi)$
 	$\Rightarrow H_\pi$ is the union of disjoint circuits.
 	If $\pi\in S_n'$, then $H_\pi\subset \stackrel{\Leftrightarrow}{G'}$.
@@ -346,26 +341,26 @@
 	If there exists $\pi\in S_n'$ s.t. $H_\pi$ is a collection of even
 	circuits, then this immediately yields a perfect matching in $G$
 	(using every second edge of each circuit).
-	
+
 	Otherwise, $\forall \pi\in S_n'$, $H_\pi$ contains an odd circuit.
-	Let $r(\pi)\in S_n'$ arise from $\pi$ by reversing edges on the unique
-	odd circuit containing a vertex with minimum index $\Rightarrow 
-	r(r(\pi))=\pi$ and $\mathrm{sgn}(\pi)=\mathrm{sgn}(r(\pi))$.
-	The second part is true since for reversing an odd cycle, we need
-	an even number of swaps.  Let $v_{i_1},\ldots,v_{i_{2k+1}}$ be the
-	''first'' odd circuit.	Then $r(\pi)$ is attained by $2k$ swaps:
-	For $j=1,\ldots,k$ swap $(\pi(i_{2j-1}), \pi(i_{2k}))$ and
-	$(\pi(i_{2j}), \pi(i_{2k+1}))$.
-	
+	Let $r(\pi)\in S_n'$ arise from $\pi$ by reversing edges on the
+	unique odd circuit containing a vertex with minimum index
+	$\Rightarrow r(r(\pi))=\pi$ and
+	$\mathrm{sgn}(\pi)=\mathrm{sgn}(r(\pi))$. The second part is true
+	since for reversing an odd cycle, we need an even number of swaps.
+	Let $v_{i_1},\ldots,v_{i_{2k+1}}$ be the ''first'' odd circuit.
+	Then $r(\pi)$ is attained by $2k$ swaps: For $j=1,\ldots,k$ swap
+	$(\pi(i_{2j-1}), \pi(i_{2k}))$ and $(\pi(i_{2j}), \pi(i_{2k+1}))$.
+
 	$\prod_{i=1}^n t_{v_iv_{\pi(i)}}^*=-\prod_{i=1}^nt_{v_iv_{r(\pi(i))}}^*$
 	since there is an odd number of sign changes to $t^*$.
 	$\Rightarrow \det(T_G(X))=0$. We have shown that if $G$ has no perfect
 	matching, then $\det T_G(X)=0$.
-	
+
 	Assume that $G$ has a perfect matching $M$. Define $\pi$ as
-	$\pi(i)=j, \pi(j)=i$ where $\{i,j\}\in M$.
-	$\Rightarrow \prod_{i=1}^n t_{v_iv_{\pi(i)}}^*=\prod_{e\in M}-X_e^2$
-	cannot be canceled out. In particular, $\det T_G(X)\neq0$.
+	$\pi(i)=j, \pi(j)=i$ where $\{i,j\}\in M$. $\Rightarrow \prod_{i=1}^n
+		t_{v_iv_{\pi(i)}}^*=\prod_{e\in M}-X_e^2$ cannot be canceled out. In
+	particular, $\det T_G(X)\neq0$.
 \end{proof}
 
 \begin{remark}
@@ -379,11 +374,10 @@
 	Then almost surely $\mathrm{rank}(T_G(X))=2\nu(G)$.
 \end{theorem}
 
-
 \subsection{Tutte's Matching Theorem}
-Let $X\subseteq V(G)$. $G-X$ consists of even and odd (in terms of the
-number of vertices) connected components. We define $q_G(X)$ to be the
-number of odd components in $G-X$.
+Let $X\subseteq V(G)$. $G-X$ consists of even and odd (in terms of
+the number of vertices) connected components. We define $q_G(X)$ to
+be the number of odd components in $G-X$.
 
 \begin{figure}[tbh]
 	\centering
@@ -392,12 +386,12 @@ number of odd components in $G-X$.
 		\begin{scope}[every node/.style={draw, isosceles triangle, isosceles triangle apex angle=60, minimum size=0.5cm}, node distance = 2cm]
 			\node[rotate=270] (a) [left of=X]  {};
 			\node[rotate=230] (b) [left of =X]  {};
-			\node[rotate=310] (c) [left of =X]  {};			
+			\node[rotate=310] (c) [left of =X]  {};
 		\end{scope}
 		\begin{scope}[every node/.style={draw, minimum size=0.5cm}, node distance = 2cm]
 			\node[rotate=270] (d) [right of=X]  {};
 			\node[rotate=230] (e) [right of =X]  {};
-			\node[rotate=310] (f) [right of =X]  {};			
+			\node[rotate=310] (f) [right of =X]  {};
 		\end{scope}
 		\draw (X) -- (a);
 		\draw (X) -- (b);
@@ -407,7 +401,7 @@ number of odd components in $G-X$.
 		\draw (X) -- (f);
 		\node (even) at (5,-1.5) {even componenets};
 		\node (odd) at (5,1.5) {odd componenets};
-	\end{tikzpicture}	
+	\end{tikzpicture}
 \end{figure}
 
 \begin{definition}
@@ -428,198 +422,197 @@ number of odd components in $G-X$.
 \end{definition}
 
 \begin{prop}\label{prop:factor-critical-conn}
-	 If $G$ is factor-critical, then it is connected.
+	If $G$ is factor-critical, then it is connected.
 \end{prop}
 
 \begin{theorem}[Tutte 1947]
 	A graph $G$ has a perfect matching $\Leftrightarrow$ Tutte Condition
 	holds (i.e. $q_G(X)\leq\abs{X}\ \forall X\subseteq V(G)$)
 \end{theorem}
-\begin{proof}\ 
-\begin{enumerate}
-	\item[''$\Rightarrow$'':] Clear
-	\item[''$\Leftarrow$'':] We proceed by induction on $\abs{V(G)}$.
-	The case $\abs{V(G)}=2$ is clear.
-	
-	Generally, if the Tutte Condition holds, then $\abs{V(G)}$ must be
-	even (pick $X=\emptyset$).
-	Proposition \ref{prop:tutte-even} $\Rightarrow q_G(X)-\abs{X}$ is even.
-	Every $x\in V(G)$ induces a barrier $\{x\}$. Let $X$ be a maximum
-	barrier. Then $G-X$ doesn't have any even components (since otherwise
-	a single vertex of such a component could be added to $X$).
-	
-	\textbf{Claim:} Each odd component is factor-critical. \\
-	Let $C$ be an odd component in $G-X$, $v\in V(C)$. Assume that $C-v$
-	does not have a perfect matching. Induction Hypothesis $\Rightarrow$
-	$C-v$ violates Tutte Condition. \\
-	$\Rightarrow \exists Y\subseteq V(C-v): q_{C-v}(Y)>\abs{Y}$ \\
-	$\stackrel{\ref{prop:tutte-even}}{\Rightarrow} q_{C-v}(Y)\geq \abs{Y}+2$ \\
-	Observe $X\cap\{v\}=Y\cap\{v\}=X\cap Y=\emptyset$:
-	\begin{align*}
-	q_G(X\cup Y\cup\{v\})&=q_G(X)-1+q_C(Y\cup\{v\}) \\
-	&=\abs{X}-1+q_{C-v}(Y) \\
-	&\geq\abs{X}-1+\abs{Y}+2 \\
-	&=\abs{X\cup Y}+1 \\
-	&=\abs{X\cup Y\cup\{v\}}
-	\end{align*}
-	$\Rightarrow X\cup Y\cup\{v\}$ is a barrier \\
-	$\Rightarrow$ Claim
-	
-	Let $G'$ arise from $G$ by contracting each odd component into a
-	single vertex. We have $V(G')=X\dot\cup Z$ and $G'$ is bipartite.
-	We have to show that $G'$ has a perfect matching. If not, then
-	$\exists A\subseteq Z: \abs{\Gamma_{G'}(A)}<\abs{A}$ \\
-	$\Rightarrow q_G(\Gamma_{G'}(A))\geq \abs{A}>\abs{\Gamma_{G'}(A)}$
-	which contradicts the Tutte Condition.
-\end{enumerate}
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':] Clear
+		\item[''$\Leftarrow$'':] We proceed by induction on $\abs{V(G)}$.
+		The case $\abs{V(G)}=2$ is clear.
+
+		Generally, if the Tutte Condition holds, then $\abs{V(G)}$ must be
+		even (pick $X=\emptyset$). Proposition \ref{prop:tutte-even}
+		$\Rightarrow q_G(X)-\abs{X}$ is even. Every $x\in V(G)$ induces a
+		barrier $\{x\}$. Let $X$ be a maximum barrier. Then $G-X$ doesn't
+		have any even components (since otherwise a single vertex of such a
+		component could be added to $X$).
+
+		\textbf{Claim:} Each odd component is factor-critical. \\
+		Let $C$ be an odd component in $G-X$, $v\in V(C)$. Assume that $C-v$
+		does not have a perfect matching. Induction Hypothesis $\Rightarrow$
+		$C-v$ violates Tutte Condition. \\
+		$\Rightarrow \exists Y\subseteq V(C-v): q_{C-v}(Y)>\abs{Y}$ \\
+		$\stackrel{\ref{prop:tutte-even}}{\Rightarrow} q_{C-v}(Y)\geq \abs{Y}+2$ \\
+		Observe $X\cap\{v\}=Y\cap\{v\}=X\cap Y=\emptyset$:
+		\begin{align*}
+			q_G(X\cup Y\cup\{v\}) & =q_G(X)-1+q_C(Y\cup\{v\}) \\
+			                      & =\abs{X}-1+q_{C-v}(Y)     \\
+			                      & \geq\abs{X}-1+\abs{Y}+2   \\
+			                      & =\abs{X\cup Y}+1          \\
+			                      & =\abs{X\cup Y\cup\{v\}}
+		\end{align*}
+		$\Rightarrow X\cup Y\cup\{v\}$ is a barrier \\
+		$\Rightarrow$ Claim
+
+		Let $G'$ arise from $G$ by contracting each odd component into a
+		single vertex. We have $V(G')=X\dot\cup Z$ and $G'$ is bipartite. We
+		have to show that $G'$ has a perfect matching. If not, then $\exists
+			A\subseteq Z: \abs{\Gamma_{G'}(A)}<\abs{A}$ \\ $\Rightarrow
+			q_G(\Gamma_{G'}(A))\geq \abs{A}>\abs{\Gamma_{G'}(A)}$ which
+		contradicts the Tutte Condition.
+	\end{enumerate}
 \end{proof}
 
 \begin{theorem}[Berge 1958]\label{tutte-berge}
 	\[\abs{V(G)}=2\nu(G)+\max_{X\subseteq V(G)}(q_G(X)-\abs{X})\]
 \end{theorem}
 \begin{proof}
-For $X\subseteq V(G)$, any matching has at least $q_G(X)-\abs{X}$
-uncovered vertices, so ''$\geq$'' holds.
+	For $X\subseteq V(G)$, any matching has at least $q_G(X)-\abs{X}$
+	uncovered vertices, so ''$\geq$'' holds.
 
-For the other inequality, add $k\coloneqq\max_{X\subseteq V(G)}
-(q_G(X)-\abs{X})$ new vertices and connect them to all existing vertices,
-yielding a new graph $H$.
+	For the other inequality, add $k\coloneqq\max_{X\subseteq V(G)}
+		(q_G(X)-\abs{X})$ new vertices and connect them to all existing
+	vertices, yielding a new graph $H$.
 
-We claim that $H$ has a perfect matching. This then implies:
-\[2\nu(G)+k\geq 2\nu(H)-k =\abs{V(H)}-k=\abs{V(G)}\]
-Assume that $H$ does not have a perfect matching. Then by Tutte's Theorem,
-there exists $Y\subseteq V(H)$ with $q_H(Y)>\abs{Y}$. By \ref{prop:tutte-even},
-$k\equiv \abs{V(G)}\mod 2$, therefore $\abs{V(H)}$ is even, so $Y\neq\emptyset$.
-$Y$ must contain all new vertices, otherwise $H-Y$ would be connected\footnote{
-	Note that $Y$ cannot contain all old vertices, since otherwise
-	$q_H(Y)<\abs{Y}$.
-} and $q_H(Y)\leq 1\leq\abs{Y}$. \\
-\[\Rightarrow q_G(Y\cap\abs{V(G)})=q_H(Y)>\abs{Y}=\abs{Y\cap V(G)}+k\]
-which is a contradiction to the choice of $k$.
+	We claim that $H$ has a perfect matching. This then implies:
+	\[2\nu(G)+k\geq 2\nu(H)-k =\abs{V(H)}-k=\abs{V(G)}\]
+	Assume that $H$ does not have a perfect matching. Then by Tutte's
+	Theorem, there exists $Y\subseteq V(H)$ with $q_H(Y)>\abs{Y}$. By
+	\ref{prop:tutte-even}, $k\equiv \abs{V(G)}\mod 2$, therefore
+	$\abs{V(H)}$ is even, so $Y\neq\emptyset$. $Y$ must contain all new
+	vertices, otherwise $H-Y$ would be connected\footnote{ Note that $Y$
+		cannot contain all old vertices, since otherwise $q_H(Y)<\abs{Y}$. }
+	and $q_H(Y)\leq 1\leq\abs{Y}$. \\
+	\[\Rightarrow q_G(Y\cap\abs{V(G)})=q_H(Y)>\abs{Y}=\abs{Y\cap V(G)}+k\]
+	which is a contradiction to the choice of $k$.
 \end{proof}
-
 
 \subsection{Ear Decompositions of Factor-Critical Graphs}
 \begin{definition}
-Let $G$ be a graph. An \emph{ear decomposition} of $G$ is a sequence
-$r,P_1,\ldots,P_k$ with $G=(r,\emptyset)+P_1+\ldots+P_k$ such that each
-$P_i$ is either a path with exactly the endpoints located in
-$\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$ or a circuit where exactly one
-of the vertices belongs to $\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$.
+	Let $G$ be a graph. An \emph{ear decomposition} of $G$ is a sequence
+	$r,P_1,\ldots,P_k$ with $G=(r,\emptyset)+P_1+\ldots+P_k$ such that each
+	$P_i$ is either a path with exactly the endpoints located in
+	$\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$ or a circuit where exactly one
+	of the vertices belongs to $\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$.
 
-$P_1,\ldots,P_k$ are called \emph{ears}. If $\abs{V(P_1)}\geq 3$ and
-$P_2,\ldots,P_k$ are paths we call it a \emph{proper} ear decomposition.
+	$P_1,\ldots,P_k$ are called \emph{ears}. If $\abs{V(P_1)}\geq 3$ and
+	$P_2,\ldots,P_k$ are paths we call it a \emph{proper} ear decomposition.
 \end{definition}
 
 % Numbering in the lecture is broken
 \stepcounter{theorem}
 
 \begin{theorem}[Whitney 1932]
-Let $G$ be an undirected graph. Then:
-\[G\text{ 2-connected}\Leftrightarrow
-	G\text{ has a proper ear decomposition}\]
+	Let $G$ be an undirected graph. Then:
+	\[G\text{ 2-connected}\Leftrightarrow
+		G\text{ has a proper ear decomposition}\]
 \end{theorem}
 
 \begin{definition}
-An ear decomposition is \emph{odd} if every ear has odd length (in terms
-of the number of edges).
+	An ear decomposition is \emph{odd} if every ear has odd length (in terms
+	of the number of edges).
 \end{definition}
 
 \begin{theorem}
-Let $G$ be an undirected graph. Then
-\[G\text{ factor-critical}
-	\Leftrightarrow G\text{ has an odd ear decomposition}\]
-The first vertex $r$ of the ear decomposition can be chosen arbitrarily.
+	Let $G$ be an undirected graph. Then
+	\[G\text{ factor-critical}
+		\Leftrightarrow G\text{ has an odd ear decomposition}\]
+	The first vertex $r$ of the ear decomposition can be chosen
+	arbitrarily.
 \end{theorem}
-\begin{proof}\ 
+\begin{proof}\
 	%TODO : two figures within proof
-\begin{enumerate}
-\item[''$\Leftarrow$'':]
-Let $G$ be a graph with an odd ear decomposition $r,P_1,\ldots,P_k$.
-$P_1$ is an odd circuit, so it is factor-critical. We use induction on the
-number of ears. Let $P$ be the last ear and $G'$ be $G$ before adding $P$.
-By the induction hypothesis, $G'$ is factor-critical.
-Given $v\in V(G)$, we have to show that $G-v$ has a perfect matching.
-\begin{enumerate}
-	\item[Case 1:]
-	$v\in V(G')$. Then $G'-v$ has a perfect matching. Adding every second
-	edge of $P$ (excluding the endpoints) to it, yields a perfect matching
-	of $G-v$.
-	
-	\item[Case 2:]
-	$v\in V(G)\setminus V(G')$. Let $x,y$ be the endpoints of $P$. Without
-	loss of generality let $P_{[v,x]}$ be even. There exists a perfect
-	matching in $G'-x$. Together with every second edge of $P_{[v,y]}$
-	and $P_{[v,x]}$ this is a perfect matching in $G-v$.
-\end{enumerate}
+	\begin{enumerate}
+		\item[''$\Leftarrow$'':]
+		Let $G$ be a graph with an odd ear decomposition $r,P_1,\ldots,P_k$.
+		$P_1$ is an odd circuit, so it is factor-critical. We use induction on the
+		number of ears. Let $P$ be the last ear and $G'$ be $G$ before adding $P$.
+		By the induction hypothesis, $G'$ is factor-critical.
+		Given $v\in V(G)$, we have to show that $G-v$ has a perfect matching.
+		\begin{enumerate}
+			\item[Case 1:] $v\in V(G')$. Then $G'-v$ has a perfect matching. Adding
+			every second edge of $P$ (excluding the endpoints) to it, yields a
+			perfect matching of $G-v$.
 
-\item[''$\Rightarrow$'':]
-Let $r\in V(G)$ be any vertex. Let $M$ be a perfect matching in $G-r$.
-Suppose we have an odd ear decomposition for $G'\subseteq G$ with
-$r\in V(G')$ and $M\cap E(G')$ is a near-perfect matching in $G'$ (i.e.
-all vertices in $G'$ except for $r$ are matched with other vertices in $G'$).
+			\item[Case 2:] $v\in V(G)\setminus V(G')$. Let $x,y$ be the endpoints of
+			$P$. Without loss of generality let $P_{[v,x]}$ be even. There exists
+			a perfect matching in $G'-x$. Together with every second edge of
+			$P_{[v,y]}$ and $P_{[v,x]}$ this is a perfect matching in $G-v$.
+		\end{enumerate}
 
-If $G'\neq G$, there is an edge $\set{x,y}\in E(G)\setminus E(G')$ with
-$x\in V(G')$ (by Proposition \ref{prop:factor-critical-conn}). If
-$y\in V(G')$, then $\set{x,y}$ can be chosen as the next ear. Otherwise,
-construct an $M$-alternating odd ear, starting with $\set{x,y}$. Let $N$
-be a matching in $G-y$. $M\Delta N$ contains a $y$-$r$-path $P$. Let $w$ be
-the first vertex in $P\cap V(G')$. $w$ is $M$-exposed in $P_{[y,w]}$, $y$
-is $N$-exposed in $P_{[y,w]}$. Therefore $P_{[y,w]}$ is even and together
-with $\set{x,y}$ it forms an $M$-alternating odd ear.
+		\item[''$\Rightarrow$'':]
+		Let $r\in V(G)$ be any vertex. Let $M$ be a perfect matching in $G-r$.
+		Suppose we have an odd ear decomposition for $G'\subseteq G$ with
+		$r\in V(G')$ and $M\cap E(G')$ is a near-perfect matching in $G'$ (i.e.
+		all vertices in $G'$ except for $r$ are matched with other vertices in $G'$).
 
-Inductively, this argument yields an odd ear decomposition.
-\end{enumerate}
+		If $G'\neq G$, there is an edge $\set{x,y}\in E(G)\setminus E(G')$
+		with $x\in V(G')$ (by Proposition \ref{prop:factor-critical-conn}).
+		If $y\in V(G')$, then $\set{x,y}$ can be chosen as the next ear.
+		Otherwise, construct an $M$-alternating odd ear, starting with
+		$\set{x,y}$. Let $N$ be a matching in $G-y$. $M\Delta N$ contains a
+		$y$-$r$-path $P$. Let $w$ be the first vertex in $P\cap V(G')$. $w$
+		is $M$-exposed in $P_{[y,w]}$, $y$ is $N$-exposed in $P_{[y,w]}$.
+		Therefore $P_{[y,w]}$ is even and together with $\set{x,y}$ it forms
+		an $M$-alternating odd ear.
+
+		Inductively, this argument yields an odd ear decomposition.
+	\end{enumerate}
 \end{proof}
 
 \begin{definition}
-Let $G$ be factor-critical and $M$ a near-perfect matching.
-An $M$-alternating ear decomposition is an odd ear decomposition
-such that each ear is an $M$-alternating path or circuit $C$ with:
-\[\abs{E(C)\cap M}=\abs{E(C)\setminus M}-1\]
+	Let $G$ be factor-critical and $M$ a near-perfect matching.
+	An $M$-alternating ear decomposition is an odd ear decomposition
+	such that each ear is an $M$-alternating path or circuit $C$ with:
+	\[\abs{E(C)\cap M}=\abs{E(C)\setminus M}-1\]
 \end{definition}
 
 \begin{cor}
-For any factor-critical graph $G$ and any near-perfect matching $M$ in $G$,
-there exists in $M$-alternating ear decomposition of $G$.
+	For any factor-critical graph $G$ and any near-perfect matching $M$ in $G$,
+	there exists in $M$-alternating ear decomposition of $G$.
 \end{cor}
 
 \begin{definition}
-Let $G$ be factor-critical, $M$ a near-perfect matching and
-$r,P_1,\ldots,P_k$ an $M$-alternating ear decomposition of $G$.
-$\mu,\varphi: V(G)\to V(G)$ are \emph{associated with the ear
-decomposition} if:
-\begin{itemize}
-	\item $\set{x,y}\in M\Rightarrow \mu(x)=y$
-	\item $\set{x,y}\in E(P_i)\setminus M$ and $x\notin\set{r}
-		\cup\bigcup_{j\in [i]}V(P_j)$
+	Let $G$ be factor-critical, $M$ a near-perfect matching and
+	$r,P_1,\ldots,P_k$ an $M$-alternating ear decomposition of $G$.
+	$\mu,\varphi: V(G)\to V(G)$ are \emph{associated with the ear
+		decomposition} if:
+	\begin{itemize}
+		\item $\set{x,y}\in M\Rightarrow \mu(x)=y$
+		\item $\set{x,y}\in E(P_i)\setminus M$ and $x\notin\set{r}
+			\cup\bigcup_{j\in [i]}V(P_j)$
 
 		$\Rightarrow \varphi(x)=y$
-	\item $\mu(r)=\varphi(r)=r$
-\end{itemize}
+		\item $\mu(r)=\varphi(r)=r$
+	\end{itemize}
 \end{definition}
 
 % TODO Ear-Decomposition Algorithm
 
 \begin{prop}\label{lemma:ear-decomp-repr}
-Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
-with an $M$-alternating ear decomposition. Then this ear decomposition is
-unique up to the order of the ears. The Ear-Decomposition-Algorithm
-correctly determines an explicit list of the ears in linear time.
+	Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
+	with an $M$-alternating ear decomposition. Then this ear decomposition is
+	unique up to the order of the ears. The Ear-Decomposition-Algorithm
+	correctly determines an explicit list of the ears in linear time.
 \end{prop}
 \begin{proof}
-Step 3 determines ears uniquely. The algorithm clearly runs in linear
-time.
+	Step 3 determines ears uniquely. The algorithm clearly runs in linear
+	time.
 \end{proof}
 
 \begin{lemma}
-Let $G$ be factor-critical and $\mu,\varphi$ associated with an
-$M$-alternating ear decomposition. Then the maximal path given by the
-initial sequence
-\begin{equation}\label{eq:ear-alt-path}
-x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots
-\end{equation}
-defines an $M$-alternating $x$-$r$-path of even length.
+	Let $G$ be factor-critical and $\mu,\varphi$ associated with an
+	$M$-alternating ear decomposition. Then the maximal path given by the
+	initial sequence
+	\begin{equation}\label{eq:ear-alt-path}
+		x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots
+	\end{equation}
+	defines an $M$-alternating $x$-$r$-path of even length.
 \end{lemma}
 
 \begin{figure}
@@ -657,447 +650,444 @@ defines an $M$-alternating $x$-$r$-path of even length.
 
 % Lecture 4, 27.10.22
 \begin{proof}
-We proceed by induction on the number of ears. Let $x\in
-V(G)\setminus\set{r}$ and $P_i$ be the ear containing $x$.
-A subsequence of (\ref{eq:ear-alt-path}) is a subpath $Q$ of $P_i$ from
-$x$ to $y\in\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$. $Q$ starts with a
-matching edge and ends with a non-matching edge, so it has even length.
-If $y=r$, we are done, otherwise the statement follows from the induction
-hypothesis.
+	We proceed by induction on the number of ears. Let $x\in
+		V(G)\setminus\set{r}$ and $P_i$ be the ear containing $x$.
+	A subsequence of (\ref{eq:ear-alt-path}) is a subpath $Q$ of $P_i$ from
+	$x$ to $y\in\set{r}\cup\bigcup_{j\in[i-1]}V(P_j)$. $Q$ starts with a
+	matching edge and ends with a non-matching edge, so it has even length.
+	If $y=r$, we are done, otherwise the statement follows from the induction
+	hypothesis.
 \end{proof}
 
 \subsection{Edmond's Matching Algorithm}
 \begin{definition}
-Let $G$ be a graph, $M$ a matching in $G$. A \emph{blossom} in $G$
-with respect to $M$ is a factor-critical subgraph of $B$ of $G$ such that
-$\abs{M\cap E(B)}=\frac{\abs{V(B)}-1}{2}$. The vertex $r\in V(B)$ that is
-exposed by $M$ is called the \emph{base} of $B$.
+	Let $G$ be a graph, $M$ a matching in $G$. A \emph{blossom} in $G$
+	with respect to $M$ is a factor-critical subgraph of $B$ of $G$ such that
+	$\abs{M\cap E(B)}=\frac{\abs{V(B)}-1}{2}$. The vertex $r\in V(B)$ that is
+	exposed by $M$ is called the \emph{base} of $B$.
 \end{definition}
 
 \begin{definition}
-Let $G$ be a graph, $M$ a matching in $G$, $B$ a blossom and $Q$ a
-$M$-alternating $v$-$r$-path of even length from $v\in V(G)$ that is
-$M$-exposed to the base $r$ of $B$. Additionally, let
-$E(Q)\cap E(B)=\emptyset$. $B+Q$ is called a $M$-flower.
+	Let $G$ be a graph, $M$ a matching in $G$, $B$ a blossom and $Q$ a
+	$M$-alternating $v$-$r$-path of even length from $v\in V(G)$ that is
+	$M$-exposed to the base $r$ of $B$. Additionally, let
+	$E(Q)\cap E(B)=\emptyset$. $B+Q$ is called a $M$-flower.
 \end{definition}
 
 \begin{lemma}
-Let $G$ be a graph, $M$ a matching in $G$. Suppose there is a $M$-flower
-$B+Q$. Let $G',M'$ result from $G$ and $M$ by contracting $V(B)$ into
-a single vertex. Then:
-\[
-	M\text{ maximum matching in $G$} \Leftrightarrow
-	M\text{ maximum matching in $G'$}
-\]
+	Let $G$ be a graph, $M$ a matching in $G$. Suppose there is a $M$-flower
+	$B+Q$. Let $G',M'$ result from $G$ and $M$ by contracting $V(B)$ into
+	a single vertex. Then:
+	\[
+		M\text{ maximum matching in $G$} \Leftrightarrow
+		M\text{ maximum matching in $G'$}
+	\]
 \end{lemma}
-\begin{proof}\ 
-\begin{enumerate}
-\item[''$\Leftarrow$'':]
-Assume that $M$ is not maximum in $G$. $N\coloneqq M\Delta E(Q)$
-is a matching with $\abs{N}=\abs{M}$. \\
-$\Rightarrow \exists N$-augmenting path $P$ in $G$. At least one endpoint
-$x$ of $P$ is in $V(B)$. If $P$ and $B$ are disjoint, let $y$ be the other
-endpoint of $P$. Otherwise, let $y$ be the first vertex on $P$ in $B$.
-$P'\coloneqq P_{[x,y]}$ is an $N'$-augmenting path in $G'$, so
-$\abs{N'}=\abs{M'}<\mu(G')$.
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Leftarrow$'':]
+		Assume that $M$ is not maximum in $G$. $N\coloneqq M\Delta E(Q)$
+		is a matching with $\abs{N}=\abs{M}$. \\
+		$\Rightarrow \exists N$-augmenting path $P$ in $G$. At least one endpoint
+		$x$ of $P$ is in $V(B)$. If $P$ and $B$ are disjoint, let $y$ be the other
+		endpoint of $P$. Otherwise, let $y$ be the first vertex on $P$ in $B$.
+		$P'\coloneqq P_{[x,y]}$ is an $N'$-augmenting path in $G'$, so
+		$\abs{N'}=\abs{M'}<\mu(G')$.
 
-\item[''$\Rightarrow$'':]
-Assume that $M'$ is not maximum in $G'$, so there exists a matching $N'$
-in $G'$ with $\abs{N'}>\abs{M'}$. Let $N_0$ arise from $N'$ in $G$, then
-$N_0$ contains $\leq 1$ vertex from $V(B)$. Since $B$ is factor-critical,
-$N_0$ can be extended by $k\coloneqq\frac{\abs{V(G)}-1}{2}$ edges to a
-matching $N$ in $G$. We have
-\[\abs{N}=\abs{N_0}+k=\abs{N'}+k>\abs{M'}+k=\abs{M}\]
-so $M$ is not maximum.
-\end{enumerate}
+		\item[''$\Rightarrow$'':]
+		Assume that $M'$ is not maximum in $G'$, so there exists a matching $N'$
+		in $G'$ with $\abs{N'}>\abs{M'}$. Let $N_0$ arise from $N'$ in $G$, then
+		$N_0$ contains $\leq 1$ vertex from $V(B)$. Since $B$ is factor-critical,
+		$N_0$ can be extended by $k\coloneqq\frac{\abs{V(G)}-1}{2}$ edges to a
+		matching $N$ in $G$. We have
+		\[\abs{N}=\abs{N_0}+k=\abs{N'}+k>\abs{M'}+k=\abs{M}\]
+		so $M$ is not maximum.
+	\end{enumerate}
 \end{proof}
 
 \stepcounter{theorem}
 \begin{lemma}
-Let $G$ be a graph, $M$ a matching in $G$. $X\subseteq V(G)$ is the set
-of exposed vertices. We can find a shortest $M$-alternating $X$-$X$-walk
-of positive length in $O(\abs{E(G)})$ time.
+	Let $G$ be a graph, $M$ a matching in $G$. $X\subseteq V(G)$ is the set
+	of exposed vertices. We can find a shortest $M$-alternating $X$-$X$-walk
+	of positive length in $O(\abs{E(G)})$ time.
 \end{lemma}
 \begin{proof}
-Define $D\coloneqq (V(G), A)$ where:
-\[
-	A\coloneqq\set{(u,v)\ |\ \exists
-	x\in V(G): \set{u,x}\in E(G), \set{x,v}\in M}
-\]
-A shortest $X-\Gamma_G(X)$-path in $D$ corresponds to a shortest
-$X$-$X$-walk in $G$.
+	Define $D\coloneqq (V(G), A)$ where:
+	\[
+		A\coloneqq\set{(u,v)\ |\ \exists
+			x\in V(G): \set{u,x}\in E(G), \set{x,v}\in M}
+	\]
+	A shortest $X-\Gamma_G(X)$-path in $D$ corresponds to a shortest
+	$X$-$X$-walk in $G$.
 \end{proof}
 
 \begin{theorem}\label{thm:augmenting-path-blossom}
-Let $P=v_0,\ldots,v_t$ be a shortest $M$-alternating $X$-$X$-walk in $G$.
-Then either
-\begin{itemize}
-	\item $P$ is an $M$-augmenting path \emph{or}
-	\item $v_0,\ldots,v_j$ is an $M$-flower for some $j\leq t$.
-\end{itemize}
+	Let $P=v_0,\ldots,v_t$ be a shortest $M$-alternating $X$-$X$-walk in $G$.
+	Then either
+	\begin{itemize}
+		\item $P$ is an $M$-augmenting path \emph{or}
+		\item $v_0,\ldots,v_j$ is an $M$-flower for some $j\leq t$.
+	\end{itemize}
 \end{theorem}
 \begin{proof}
-If $P$ is not a path, choose $i<j$ such that $v_i=v_j$ and $j$ minimal.
-Then $v_0,\ldots,v_{j-1}$ are distinct vertices. If $j-i$ is even,
-deleting $v_{i-1},\ldots,v_j$ from $P$ yields a shorter walk, so $j-i$
-is odd.
-\begin{enumerate}
-\item[Case 1:] $j$ is even. Then $i$ is odd and therefore $v_{i+1}=v_{j-1}$
-must be the matching mate of $V_i=v_j$ which contradicts the minimality of
-$j$.
-\item[Case 2:] $j$ is odd. Then $i$ is even, so $v_0,\ldots,v_i$ is an
-$M$-alternating path of even length and $v_i,\ldots,v_j$ is an
-$M$-alternating odd circuit, i.e. a blossom.
-\end{enumerate}
+	If $P$ is not a path, choose $i<j$ such that $v_i=v_j$ and $j$ minimal.
+	Then $v_0,\ldots,v_{j-1}$ are distinct vertices. If $j-i$ is even,
+	deleting $v_{i-1},\ldots,v_j$ from $P$ yields a shorter walk, so $j-i$
+	is odd.
+	\begin{enumerate}
+		\item[Case 1:] $j$ is even. Then $i$ is odd and therefore $v_{i+1}=v_{j-1}$
+		must be the matching mate of $V_i=v_j$ which contradicts the
+		minimality of $j$.
+		\item[Case 2:] $j$ is odd. Then $i$ is even, so $v_0,\ldots,v_i$ is an
+		$M$-alternating path of even length and $v_i,\ldots,v_j$ is an
+		$M$-alternating odd circuit, i.e. a blossom.
+	\end{enumerate}
 \end{proof}
 
 \begin{algorithm}
-\caption{Edmond's Augmenting Path Search}
-\KwInput{Graph $G$, matching $M$}
-\KwOutput{An $M$-augmenting path (if one exists)}
-$X\coloneqq$ set of exposed vertices\;
-\If{$\exists M$-alternating $X$-$X$-walk of positive length}{
-	$P=v_0,\ldots,v_t\coloneqq$ a shortest such walk\;
-	\If{$P$ is a path}{
-		\KwRet{$P$}\;
+	\caption{Edmond's Augmenting Path Search}
+	\KwInput{Graph $G$, matching $M$}
+	\KwOutput{An $M$-augmenting path (if one exists)}
+	$X\coloneqq$ set of exposed vertices\;
+	\If{$\exists M$-alternating $X$-$X$-walk of positive length}{
+		$P=v_0,\ldots,v_t\coloneqq$ a shortest such walk\;
+		\If{$P$ is a path}{
+			\KwRet{$P$}\;
+		}\Else{
+			Choose $j$ as in Theorem \ref{thm:augmenting-path-blossom}\;
+			$v_0,\ldots,v_j$ is an $M$-flower with blossom $B$\;
+			Recurse on $G/B$\;
+			Augment an $M/B$-augmenting path in $G/B$ to an $M$-augmenting
+			path $P'$ in $G$\;
+			\KwRet{$P'$}\;
+		}
 	}\Else{
-		Choose $j$ as in Theorem \ref{thm:augmenting-path-blossom}\;
-		$v_0,\ldots,v_j$ is an $M$-flower with blossom $B$\;
-		Recurse on $G/B$\;
-		Augment an $M/B$-augmenting path in $G/B$ to an $M$-augmenting
-		path $P'$ in $G$\;
-		\KwRet{$P'$}\;
+		$\not\exists M$-augmenting path\;
 	}
-}\Else{
-	$\not\exists M$-augmenting path\;
-}
 \end{algorithm}
 
 \begin{theorem}
-Given a graph $G$, a maximum cardinality matching can be found in time
-$O(n^2m)$ where $n\coloneqq\abs{V(G)}, m\coloneqq\abs{E(G)}$
+	Given a graph $G$, a maximum cardinality matching can be found in time
+	$O(n^2m)$ where $n\coloneqq\abs{V(G)}, m\coloneqq\abs{E(G)}$
 \end{theorem}
 \begin{proof}
-Start with $M=\emptyset$ and iteratively find $M$-augmenting path $P$,
-set $M\coloneqq M\Delta E(P)$. If no such path exists, then $M$ is
-maximum. $P$ can be found in time $O(mn)$\footnote{
-	Here, $m$ is the time required for finding a walk and the recursion
-	depth is bounded by $n$.
-}. Since $M$ is maximum after at most $\frac{n}{2}$ augmentation, we have
-total running time $O(n^2m)$.
+	Start with $M=\emptyset$ and iteratively find $M$-augmenting path $P$,
+	set $M\coloneqq M\Delta E(P)$. If no such path exists, then $M$ is
+	maximum. $P$ can be found in time $O(mn)$\footnote{
+		Here, $m$ is the time required for finding a walk and the recursion
+		depth is bounded by $n$.
+	}. Since $M$ is maximum after at most $\frac{n}{2}$ augmentation, we have
+	total running time $O(n^2m)$.
 \end{proof}
-
 
 \subsubsection{Growing forest\texorpdfstring{ - $O(n^3)$}{}}
 \begin{definition}
-Let $G$ be a graph, $M$ a matching in $G$. An \emph{alternating forest}
-with respect to $M$ in $G$ is a forest $F$ in $G$ where:
-\begin{itemize}
-	\item $V(F)$ contains all $M$-exposed vertices, each tree of $F$
-	contains exactly one exposed vertex, its \emph{root}.
-	\item We call $v\in V(G)$ an outer (inner) vertex if it has even
-	(odd) distance from the root of its component.
-	\item $\forall v\in V(F)$ the unique path from $v$ to the root of
-	its component is $M$-alternating.
-	\item $v\in V(G)\setminus V(F)$ is called \emph{out-of-forest}.
-\end{itemize}
-Clearly, inner vertices always have degree 2 (we always assume that there
-are no matching edges that can immediately be added to $F$).
+	Let $G$ be a graph, $M$ a matching in $G$. An \emph{alternating forest}
+	with respect to $M$ in $G$ is a forest $F$ in $G$ where:
+	\begin{itemize}
+		\item $V(F)$ contains all $M$-exposed vertices, each tree of $F$
+		contains exactly one exposed vertex, its \emph{root}.
+		\item We call $v\in V(G)$ an outer (inner) vertex if it has even (odd)
+		distance from the root of its component.
+		\item $\forall v\in V(F)$ the unique path from $v$ to the root of
+		its component is $M$-alternating.
+		\item $v\in V(G)\setminus V(F)$ is called \emph{out-of-forest}.
+	\end{itemize}
+	Clearly, inner vertices always have degree 2 (we always assume that there
+	are no matching edges that can immediately be added to $F$).
 \end{definition}
 
 % TODO: 1.42 in the lecture
 \begin{prop}
-In any alternating forest, the number of outer vertices that are not the
-root equals the number of inner vertices.
+	In any alternating forest, the number of outer vertices that are not the
+	root equals the number of inner vertices.
 \end{prop}
 \begin{proof}
-For all outer vertices, there exists exactly one inner vertex on its path
-to the root.
+	For all outer vertices, there exists exactly one inner vertex on its path
+	to the root.
 \end{proof}
 
 % Lecture 03.11.22
 \begin{lemma}
-Given a graph $G$, a matching $M$, an alternating forest $F$ with respect
-to $M$ in $G$. Then, either $M$ is a maximum matching or $\exists$
-outer vertex $x\in V(F)$, an edge $\set{x,y}\notin E(F)$ such that one
-of the following holds:
-\begin{itemize}
-	\item Grow: $y\notin V(F)$ and therefore $\set{y,z}\in M$ with
-	$z\notin V(F)$. In this case, $y,z$ and $\set{x,y},\set{y,z}$ can
-	be added to $F$.
+	Given a graph $G$, a matching $M$, an alternating forest $F$ with respect
+	to $M$ in $G$. Then, either $M$ is a maximum matching or $\exists$
+	outer vertex $x\in V(F)$, an edge $\set{x,y}\notin E(F)$ such that one
+	of the following holds:
+	\begin{itemize}
+		\item Grow: $y\notin V(F)$ and therefore $\set{y,z}\in M$ with $z\notin
+			V(F)$. In this case, $y,z$ and $\set{x,y},\set{y,z}$ can be added to
+		$F$.
 
-	\item Augment: $y$ is an outer vertex in a different connected component
-	in $F$. In this case, $M$ can be augmented along $P(x)\cup\set{x,y}
-	\cup P(y)$ where $P(z)$ denotes the unique path from $z\in V(F)$ to
-	the root of its connected component.
+		\item Augment: $y$ is an outer vertex in a different connected component in
+		$F$. In this case, $M$ can be augmented along $P(x)\cup\set{x,y} \cup
+			P(y)$ where $P(z)$ denotes the unique path from $z\in V(F)$ to the
+		root of its connected component.
 
-	\item Shrink: $y$ is an outer vertex in the same component as $x$.
-	Let $r$ be the first vertex on $P(x)$ that is also on $P(y)$. Then
-	$\abs{\delta_F(r)}\geq 3$, so $y$ is an outer vertex and
-	$\abs{E(F_{[x,r]})},\abs{E(F_{[y,r]})}$ are even. Together with
-	$\set{x,y}$ these paths form a blossom with $\geq 3$ vertices.
-\end{itemize}
+		\item Shrink: $y$ is an outer vertex in the same component as $x$. Let $r$
+		be the first vertex on $P(x)$ that is also on $P(y)$. Then
+		$\abs{\delta_F(r)}\geq 3$, so $y$ is an outer vertex and
+		$\abs{E(F_{[x,r]})},\abs{E(F_{[y,r]})}$ are even. Together with
+		$\set{x,y}$ these paths form a blossom with $\geq 3$ vertices.
+	\end{itemize}
 \end{lemma}
 \begin{proof}
-We show that if none of these cases apply, $M$ is maximum. Let $X$ be
-the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
-of outer vertices. All outer vertices are isolated in $G-X$, so $G-X$
-and $q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
-vertices are exposed by any matching, so $M$ is maximum.
+	We show that if none of these cases apply, $M$ is maximum. Let $X$ be
+	the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
+	of outer vertices. All outer vertices are isolated in $G-X$, so $G-X$
+	and $q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
+	vertices are exposed by any matching, so $M$ is maximum.
 \end{proof}
 
 \begin{definition}\label{def:special-blossom-forest}
-Let $G$ be a graph, $M$ a matching in $G$. A subgraph $F$ of $G$ is a
-\emph{general blossom forest} with respect to $M$ if there exists a
-partition $V(F)=V_1\dot\cup\ldots\dot\cup V_k$ such that $F_i=F[V_i]$
-is a maximal factor-critical subgraph of $F$ with $\abs{M\cap E(F_i)}
-=\frac{\abs{V_i}-1}{2}$ ($i\in [k]$) and after contracting each $V_i$,
-we obtain an $M$-alternating forest $F'$.
- $F_i$ is called an outer (inner) blossom if $V_i$ is an outer (inner)
-vertex in $F'$.
+	Let $G$ be a graph, $M$ a matching in $G$. A subgraph $F$ of $G$ is a
+	\emph{general blossom forest} with respect to $M$ if there exists a
+	partition $V(F)=V_1\dot\cup\ldots\dot\cup V_k$ such that $F_i=F[V_i]$
+	is a maximal factor-critical subgraph of $F$ with $\abs{M\cap E(F_i)}
+		=\frac{\abs{V_i}-1}{2}$ ($i\in [k]$) and after contracting each $V_i$,
+	we obtain an $M$-alternating forest $F'$.
+	$F_i$ is called an outer (inner) blossom if $V_i$ is an outer (inner)
+	vertex in $F'$.
 
-A \emph{special blossom forest} is a general blossom forest where each
-inner blossom is a single vertex.
+	A \emph{special blossom forest} is a general blossom forest where
+	each inner blossom is a single vertex.
 \end{definition}
 
 Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
-V(G)\to V(G)$:
+	V(G)\to V(G)$:
 \begin{align*}
-	\mu(x)&\coloneqq \begin{cases}
-		x \qquad&\text{if $x$ is exposed in $M$} \\
-		y \qquad&\text{if $\set{x,y}\in M$}
-	\end{cases} \\
-	\varphi(x)&\coloneqq\begin{cases}
-		x \qquad&\text{if $x$ is the base of an outer blossom or
-			$x$ is out-of-forest} \\
-		y \qquad&\text{if $x$ is an inner vertex and
-			$\set{x,y}\in E(F)\setminus M$} \\
-		y \qquad&\text{\parbox[t]{8cm}{if $x$ is an outer vertex
-			(i.e. in an outer blossom)
-			and $\mu,\varphi$ are associated with an
-			$M$-alternating ear decomposition of $x$'s
-			blossom, $\set{x,y}\in E(F)\setminus M$}}
-	\end{cases} \\
-	\rho(x)&\coloneqq\begin{cases}
-		x \qquad&\text{if $x$ is an inner vertex or out-of-forest} \\
-		y \qquad&\text{\parbox[t]{8cm}{if $x$ is an outer vertex
-		and $y$ is the base of
-			the outer blossom containing $x$ ($y=x$ is
-			possible).}}
-	\end{cases}
+	\mu(x)     & \coloneqq \begin{cases}
+		                       x \qquad & \text{if $x$ is exposed in $M$} \\
+		                       y \qquad & \text{if $\set{x,y}\in M$}
+	                       \end{cases}               \\
+	\varphi(x) & \coloneqq\begin{cases}
+		                      x \qquad & \text{if $x$ is the base of an outer blossom or
+		                      $x$ is out-of-forest}                                                                     \\
+		                      y \qquad & \text{if $x$ is an inner vertex and
+		                      $\set{x,y}\in E(F)\setminus M$}                                                           \\
+		                      y \qquad & \text{\parbox[t]{8cm}{if $x$ is an outer vertex (i.e. in an outer blossom) and
+				                      $\mu,\varphi$ are associated with an $M$-alternating ear
+				                      decomposition of $x$'s blossom, $\set{x,y}\in E(F)\setminus M$}}
+	                      \end{cases} \\
+	\rho(x)    & \coloneqq\begin{cases}
+		                      x \qquad & \text{if $x$ is an inner vertex or out-of-forest}                          \\
+		                      y \qquad & \text{\parbox[t]{8cm}{if $x$ is an outer vertex and $y$ is the base of the
+				                      outer blossom containing $x$ ($y=x$ is possible).}}
+	                      \end{cases}
 \end{align*}
 
 \begin{prop}\label{special-blossom-forest-repr}
-Let $F$ be a special blossom forest with respect to $M$ and
-$\mu,\varphi,\rho$ as above. Then:
-\begin{enumerate}
-	\item
-	For all outer vertices $x$, $P(x)\coloneqq$
-	maximal path given by subsequence of
-	$x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots$
-	is an $M$-alternating path from $x$ to $q$ where $q$ is the root
-	of the component containing $x$.
-	
-	\item
-	A vertex $x$ is
-	\begin{itemize}
+	Let $F$ be a special blossom forest with respect to $M$ and
+	$\mu,\varphi,\rho$ as above. Then:
+	\begin{enumerate}
 		\item
-		an outer vertex $\Leftrightarrow \mu(x)=x\lor
-		\varphi(\mu(x))\neq\mu(x)$
+		For all outer vertices $x$, $P(x)\coloneqq$
+		maximal path given by subsequence of
+		$x,\mu(x),\varphi(\mu(x)),\mu(\varphi(\mu(x))),\ldots$
+		is an $M$-alternating path from $x$ to $q$ where $q$ is the root
+		of the component containing $x$.
+
 		\item
-		an inner vertex $\Leftrightarrow \varphi(\mu(x))=\mu(x)
-		\land \varphi(x)\neq x$
-		\item
-		out-of-forest $\Leftrightarrow \mu(x)\neq x \land \varphi(x)=x
-		\land \varphi(\mu(x))=\mu(x)$
-	\end{itemize}
-\end{enumerate}
+		A vertex $x$ is
+		\begin{itemize}
+			\item
+			an outer vertex $\Leftrightarrow \mu(x)=x\lor
+				\varphi(\mu(x))\neq\mu(x)$
+			\item
+			an inner vertex $\Leftrightarrow \varphi(\mu(x))=\mu(x)
+				\land \varphi(x)\neq x$
+			\item
+			out-of-forest $\Leftrightarrow \mu(x)\neq x \land \varphi(x)=x
+				\land \varphi(\mu(x))=\mu(x)$
+		\end{itemize}
+	\end{enumerate}
 \end{prop}
-\begin{proof}\ 
-\begin{enumerate}
-\item
-By definition of $\mu,\varphi$ and lemma \ref{lemma:ear-decomp-repr}
-some initial subsequence of $P(x)$ ends at the base $r$ of the blossom
-containing $x$. If $r=q$, we are done. Otherwise $\mu(r),\varphi(\mu(r))$
-are next elements in a sequence leading to outer vertex $\varphi(\mu(r))$.
-This can be iterated.
+\begin{proof}\
+	\begin{enumerate}
+		\item
+		By definition of $\mu,\varphi$ and lemma \ref{lemma:ear-decomp-repr}
+		some initial subsequence of $P(x)$ ends at the base $r$ of the blossom
+		containing $x$. If $r=q$, we are done. Otherwise $\mu(r),\varphi(\mu(r))$
+		are next elements in a sequence leading to outer vertex $\varphi(\mu(r))$.
+		This can be iterated.
 
-\item
-Since the conditions are mutually exclusive, it suffices to
-show one implication for all the statements.
-\begin{itemize}
-	\item
-	If $x$ is outer, it is a root ($\mu(x)=x$) or $P(x)$ is a path of length
-	at least 2, so $\varphi(\mu(x))\neq\mu(x)$.
+		\item
+		Since the conditions are mutually exclusive, it suffices to
+		show one implication for all the statements.
+		\begin{itemize}
+			\item
+			If $x$ is outer, it is a root ($\mu(x)=x$) or $P(x)$ is a path of length
+			at least 2, so $\varphi(\mu(x))\neq\mu(x)$.
 
-	\item
-	If $x$ is inner, then $\mu(x)$ is the base of an outer blossom.
-	Therefore $\varphi(\mu(x))=\mu(x)$. $P(\mu(x))$ is a path of length
-	at least 2, so $\varphi(x)\neq x$.
-	
-	\item
-	If $x$ is out-of-forest, then $x$ is covered by $M$ so $\mu(x)\neq x$.
-	By definition of $\varphi$, $\varphi(x)=x$. $\mu(x)$ is out-of-forest
-	as well, so $\varphi(\mu(x))=\mu(x)$.
-\end{itemize}
-\end{enumerate}
+			\item
+			If $x$ is inner, then $\mu(x)$ is the base of an outer blossom.
+			Therefore $\varphi(\mu(x))=\mu(x)$. $P(\mu(x))$ is a path of length
+			at least 2, so $\varphi(x)\neq x$.
+
+			\item
+			If $x$ is out-of-forest, then $x$ is covered by $M$ so $\mu(x)\neq x$.
+			By definition of $\varphi$, $\varphi(x)=x$. $\mu(x)$ is out-of-forest
+			as well, so $\varphi(\mu(x))=\mu(x)$.
+		\end{itemize}
+	\end{enumerate}
 \end{proof}
 
 \begin{lemma}
-Following invariants hold:
-\begin{enumerate}[label=\alph*)]\label{edmond-matching-lemma}
-	\item $\set{\set{x,\mu(x)}\ |\ x\in V(G),\mu(x)\neq x}$ is a matching
-	\label{edmond-matching-lemma-a}
+	Following invariants hold:
+	\begin{enumerate}[label=\alph*)]\label{edmond-matching-lemma}
+		\item $\set{\set{x,\mu(x)}\ |\ x\in V(G),\mu(x)\neq x}$ is a matching
+		\label{edmond-matching-lemma-a}
 
-	\item $\set{\set{x,\mu(x)}\ |\ \underbrace{x\in
-	V(G),\varphi(\mu(x))=\mu(x) \land \varphi(x)\neq x}
-		_{\text{inner vertices}}
-	}\cup\set{\set{x,\varphi(x)}\ |\ x\in V(G), \varphi(x)\neq x}$
-	forms the edge set of a special blossom forest.
-	\label{edmond-matching-lemma-b}
-	
-	\item $\mu,\varphi,\rho$ satisfy the conditions in definition
-	\ref{def:special-blossom-forest} (special blossom forest).
-	\label{edmond-matching-lemma-c}
-\end{enumerate}
+		\item $\set{\set{x,\mu(x)}\ |\ \underbrace{x\in
+				V(G),\varphi(\mu(x))=\mu(x) \land \varphi(x)\neq x}
+			_{\text{inner vertices}}
+			}\cup\set{\set{x,\varphi(x)}\ |\ x\in V(G), \varphi(x)\neq x}$
+		forms the edge set of a special blossom forest.
+		\label{edmond-matching-lemma-b}
+
+		\item $\mu,\varphi,\rho$ satisfy the conditions in definition
+		\ref{def:special-blossom-forest} (special blossom forest).
+		\label{edmond-matching-lemma-c}
+	\end{enumerate}
 \end{lemma}
 
 % Lecture 08.11.22
 \begin{proof}
-\ref{edmond-matching-lemma-a} holds as $\mu$ only changes in \emph{Augment}.
-\ref{edmond-matching-lemma-b} is correct after initialization and after
-the reset in the \emph{Augment} step. It is preserved by \emph{Grow} steps.
+	\ref{edmond-matching-lemma-a} holds as $\mu$ only changes in \emph{Augment}.
+	\ref{edmond-matching-lemma-b} is correct after initialization and after
+	the reset in the \emph{Augment} step. It is preserved by \emph{Grow} steps.
 
-In a \emph{Shrink} step, $r$ (the first vertex that the paths from $x,y$ to the
-root share) is a root or has $\abs{\delta(r)}=3$ (i.e. it is the base of
-a blossom), so it is an outer vertex. We define a blossom
-$B\coloneqq \set{v\in V(G)\ |\ \varphi(v)\in V(P(x)_{[x,r]})\cup
-V(P(y)_{[y,r]})}$. Consider $\set{u,v}\in F$ with $u\in B, v\notin B$. If
-$\set{u,v}\in M$, we have $u=r, v=\mu(r)$ (since $F[B]$ contains a near-perfect
-matching). $u$ was an outer vertex before shrinking and $F[B]$ being
-factor-critical follows from \ref{edmond-matching-lemma-c} and the
-characterization by ear-decompositions.
+	In a \emph{Shrink} step, $r$ (the first vertex that the paths from
+	$x,y$ to the root share) is a root or has $\abs{\delta(r)}=3$ (i.e.
+	it is the base of a blossom), so it is an outer vertex. We define a
+	blossom $B\coloneqq \set{v\in V(G)\ |\ \varphi(v)\in
+			V(P(x)_{[x,r]})\cup V(P(y)_{[y,r]})}$. Consider $\set{u,v}\in F$ with
+	$u\in B, v\notin B$. If $\set{u,v}\in M$, we have $u=r, v=\mu(r)$
+	(since $F[B]$ contains a near-perfect matching). $u$ was an outer
+	vertex before shrinking and $F[B]$ being factor-critical follows from
+	\ref{edmond-matching-lemma-c} and the characterization by
+	ear-decompositions.
 
-For \ref{edmond-matching-lemma-c}, it's clear that $\mu$ always represents
-a matching. $\varphi(x)=x$ if $x$ is not an outer vertex. Therefore,
-$\mu+\varphi$ represent an $M$-alternating ear decomposition of $B$. During
-\emph{Shrink}, $\varphi(v)$ is not changed if $\varphi(v)=r$. Therefore,
-the odd ear decomposition for $B'\coloneqq$ blossom containing $r$, is
-the correct starting point. The next ear is $P(x)_{[x,x']}\cup P(y)_{[y,y']}
-+\set{x,y}$, where $x'$ ($y'$) is the first vertex in $B'$ on $P(x)_{[x,r]}$
-($P(y)_{[y,r]}$).
+	For \ref{edmond-matching-lemma-c}, it's clear that $\mu$ always
+	represents a matching. $\varphi(x)=x$ if $x$ is not an outer vertex.
+	Therefore, $\mu+\varphi$ represent an $M$-alternating ear
+	decomposition of $B$. During \emph{Shrink}, $\varphi(v)$ is not
+	changed if $\varphi(v)=r$. Therefore, the odd ear decomposition for
+	$B'\coloneqq$ blossom containing $r$, is the correct starting point.
+	The next ear is $P(x)_{[x,x']}\cup P(y)_{[y,y']} +\set{x,y}$, where
+	$x'$ ($y'$) is the first vertex in $B'$ on $P(x)_{[x,r]}$
+	($P(y)_{[y,r]}$).
 
-For each ear $Q$ of a former blossom $B''\subseteq B$, $Q\setminus
-\left(E(P(x))\cup E(P(y))\right)$ form a new ear (since it is created
-by removing an even path). $\varphi,\mu$ represent this ear-decomposition.
+	For each ear $Q$ of a former blossom $B''\subseteq B$, $Q\setminus
+		\left(E(P(x))\cup E(P(y))\right)$ form a new ear (since it is created
+	by removing an even path). $\varphi,\mu$ represent this
+	ear-decomposition.
 \end{proof}
 
-
 \begin{theorem}\label{thm:edmonds-matching-alg}
-Edmond's cardinality matching algorithm correctly determines a maximum
-matching in $O(n^3)$ time, where $n\coloneqq\abs{V(G)}$.
+	Edmond's cardinality matching algorithm correctly determines a maximum
+	matching in $O(n^3)$ time, where $n\coloneqq\abs{V(G)}$.
 \end{theorem}
 \begin{proof}
-By lemma \ref{edmond-matching-lemma} and proposition
-\ref{special-blossom-forest-repr}, the algorithm maintains a special
-blossom forest. Let $M,F$ be the final matching and forest. $x$ an outer
-vertex implies that $\forall y\in\Gamma(x): y$ is inner and $\varphi(y)=\varphi(x)$.
-Define:
-\begin{align*}
-	B&\coloneqq \text{set of inner vertices} \\
-	B&\coloneqq \text{set of bases of (outer) blossoms}
-\end{align*}
-Then every unmatched vertex is in $B$. Matched vertices in $B$ have
-matching mates in $X$ and $\abs{B}=\abs{X}+\abs{V(G)}-2\abs{M}$. (Outer)
-blossoms are odd connected components in $G-X$, so by Berge's theorem
-(\ref{tutte-berge}), at least $\abs{B}-\abs{X}$ vertices remain uncovered
-by any matching, so $M$ is maximum.
+	By lemma \ref{edmond-matching-lemma} and proposition
+	\ref{special-blossom-forest-repr}, the algorithm maintains a special
+	blossom forest. Let $M,F$ be the final matching and forest. $x$ an outer
+	vertex implies that $\forall y\in\Gamma(x): y$ is inner and $\varphi(y)=\varphi(x)$.
+	Define:
+	\begin{align*}
+		B & \coloneqq \text{set of inner vertices}            \\
+		B & \coloneqq \text{set of bases of (outer) blossoms}
+	\end{align*}
+	Then every unmatched vertex is in $B$. Matched vertices in $B$ have
+	matching mates in $X$ and $\abs{B}=\abs{X}+\abs{V(G)}-2\abs{M}$. (Outer)
+	blossoms are odd connected components in $G-X$, so by Berge's theorem
+	(\ref{tutte-berge}), at least $\abs{B}-\abs{X}$ vertices remain uncovered
+	by any matching, so $M$ is maximum.
 
-We now consider the running time: The status (outer, inner, out-of-forest)
-for a given vertex can be checked in constant time (proposition
-\ref{special-blossom-forest-repr}). Therefore, \emph{Grow}, \emph{Augment}
-and \emph{Shrink} can be implemented in $O(n)$ time. There are at most
-$n$ calls to \emph{Grow} and \emph{Shrink} per augment and at most
-$\frac{n}{2}$ \emph{Augments}. This implies the running time $O(n^3)$.
+	We now consider the running time: The status (outer, inner,
+	out-of-forest) for a given vertex can be checked in constant time
+	(proposition \ref{special-blossom-forest-repr}). Therefore,
+	\emph{Grow}, \emph{Augment} and \emph{Shrink} can be implemented in
+	$O(n)$ time. There are at most $n$ calls to \emph{Grow} and
+	\emph{Shrink} per augment and at most $\frac{n}{2}$ \emph{Augments}.
+	This implies the running time $O(n^3)$.
 \end{proof}
 
 \begin{remark}
-The time for \emph{Shrink} can be reduced to $O(\log n)$ using a binary
-tree, leading to a running time of $O(nm\log n)$ in total. Tarjan (1974),
-Gabow \& Tarjan (1983) proved a running time of $O(nm\alpha(m,n))$ (where
-$\alpha$ is the inverse Ackermann function) or $O(nm)$.
+	The time for \emph{Shrink} can be reduced to $O(\log n)$ using a binary
+	tree, leading to a running time of $O(nm\log n)$ in total. Tarjan (1974),
+	Gabow \& Tarjan (1983) proved a running time of $O(nm\alpha(m,n))$ (where
+	$\alpha$ is the inverse Ackermann function) or $O(nm)$.
 \end{remark}
 
 \begin{remark}
-It's not necessary to reset everything after augmenting. It suffices to
-reset the 2 trees that were changed by the augmentation. Gabow \& Tarjan
-(1983) showed that it's possible to augment all paths of the same length in
-$O(m)$ time. There are $2\sqrt{\nu(G)}+2$ different path lengths, so
-in total this results in a running time of $O(\sqrt{n}m)$.
+	It's not necessary to reset everything after augmenting. It suffices to
+	reset the 2 trees that were changed by the augmentation. Gabow \& Tarjan
+	(1983) showed that it's possible to augment all paths of the same length in
+	$O(m)$ time. There are $2\sqrt{\nu(G)}+2$ different path lengths, so
+	in total this results in a running time of $O(\sqrt{n}m)$.
 \end{remark}
 
 \begin{remark}[Skew-symmetric flows]
-Goldberg \& Karzanov (2003) (and Fremuth-Pagen \& Jungnickel (2003))
-used \emph{Generalized Max-Flow} to achieve a running time of
-$O(\sqrt{n}m\frac{\log\frac{m}{n}}{\log n})$.
+	Goldberg \& Karzanov (2003) (and Fremuth-Pagen \& Jungnickel (2003))
+	used \emph{Generalized Max-Flow} to achieve a running time of
+	$O(\sqrt{n}m\frac{\log\frac{m}{n}}{\log n})$.
 \end{remark}
-
 
 \subsection{Gallai-Edmonds Decomposition}
 
 \begin{prop}\label{prop:gallai-edmonds}
-Let $G$ be a graph, $X\subseteq V(G)$ with $\abs{V(G)}-2\nu(G)=q_G(X)
--\abs{X}$. Then any maximum matching of $G$
-\begin{itemize}
-	\item contains a perfect matching in the even components of $G-X$.
-	\item contains a near-perfect matching in odd components of $G-X$.
-	\item matches all $x\in X$ to distinct odd components.
-\end{itemize}
+	Let $G$ be a graph, $X\subseteq V(G)$ with $\abs{V(G)}-2\nu(G)=q_G(X)
+		-\abs{X}$. Then any maximum matching of $G$
+	\begin{itemize}
+		\item contains a perfect matching in the even components of $G-X$.
+		\item contains a near-perfect matching in odd components of $G-X$.
+		\item matches all $x\in X$ to distinct odd components.
+	\end{itemize}
 \end{prop}
 \begin{proof}
-Follows directly from Berge's theorem (\ref{tutte-berge}).
+	Follows directly from Berge's theorem (\ref{tutte-berge}).
 \end{proof}
 
 \begin{theorem}
-Let $G$ be a graph and:
-\[
-	Y\coloneqq\set{v\in V(G)\ |\ 
-	\exists \text{ maximum matching that exposes } v}
-\]
-Define $X\coloneqq\Gamma(Y)$ and
-$W\coloneqq V(G)\setminus \left(X\cup Y\right)$. Then:
-\begin{enumerate}
-	\item $X$ attains $\max_{X'\subseteq V(G)}q_G(X')-\abs{X'}$.
-	\item $G[Y]$ is the union of factor-critical subgraphs and
-	$G[W]$ is the union of even connected components.
-	\item Any maximum matching in $G$
-	\begin{itemize}
-		\item contains a perfect matching in $G[W]$.
-		\item contains a near-perfect matching in each component of $G[Y]$.
-		\item matches all $x\in X$ to distinct connected components
-	\end{itemize}
-\end{enumerate}
-$Y,X,W$ is called \emph{Gallai-Edmonds decomposition} of $G$.
+	Let $G$ be a graph and:
+	\[
+		Y\coloneqq\set{v\in V(G)\ |\
+			\exists \text{ maximum matching that exposes } v}
+	\]
+	Define $X\coloneqq\Gamma(Y)$ and $W\coloneqq V(G)\setminus
+		\left(X\cup Y\right)$. Then:
+	\begin{enumerate}
+		\item $X$ attains $\max_{X'\subseteq V(G)}q_G(X')-\abs{X'}$.
+		\item $G[Y]$ is the union of factor-critical subgraphs and
+		$G[W]$ is the union of even connected components.
+		\item Any maximum matching in $G$
+		\begin{itemize}
+			\item contains a perfect matching in $G[W]$.
+			\item contains a near-perfect matching in each component of $G[Y]$.
+			\item matches all $x\in X$ to distinct connected components
+		\end{itemize}
+	\end{enumerate}
+	$Y,X,W$ is called \emph{Gallai-Edmonds decomposition} of $G$.
 \end{theorem}
 \begin{proof}
-Consider the matching $M$ and special blossom forest $F$ at the end
-of the algorithm. Let $X'$ ($Y'$) be the set of inner (outer) vertices
-and $W'$ the set of out-of-forest vertices.
-\begin{claim}
-$X',Y',W'$ satisfy 1., 2. and 3.
-\end{claim}
-(Proof of theorem \ref{thm:edmonds-matching-alg}).
+	Consider the matching $M$ and special blossom forest $F$ at the end
+	of the algorithm. Let $X'$ ($Y'$) be the set of inner (outer) vertices
+	and $W'$ the set of out-of-forest vertices.
+	\begin{claim}
+		$X',Y',W'$ satisfy 1., 2. and 3.
+	\end{claim}
+	(Proof of theorem \ref{thm:edmonds-matching-alg}).
 
-Proposition \ref{prop:gallai-edmonds} implies that any maximum matching
-covers all vertices in $V(G)\setminus Y'$, so $Y\subseteq Y'$. For
-the other inclusion, let $v\in Y'$. Then $M\Delta P(v)$ is a maximum
-matching exposing $v$, so $v\in Y$ and $Y'=Y$. By definition, $X=X'$
-and $W=W'$.
+	Proposition \ref{prop:gallai-edmonds} implies that any maximum
+	matching covers all vertices in $V(G)\setminus Y'$, so $Y\subseteq
+		Y'$. For the other inclusion, let $v\in Y'$. Then $M\Delta P(v)$ is a
+	maximum matching exposing $v$, so $v\in Y$ and $Y'=Y$. By definition,
+	$X=X'$ and $W=W'$.
 \end{proof}
 
 \begin{cor}
-A graph $G$ has a perfect matching $\Leftrightarrow \forall U\subseteq V(G)$,
-$G-U$ has at most $\abs{U}$ factor-critical components.
+	A graph $G$ has a perfect matching $\Leftrightarrow \forall U\subseteq V(G)$,
+	$G-U$ has at most $\abs{U}$ factor-critical components.
 \end{cor}
 
 % Lecture 10.11.22
@@ -1105,264 +1095,263 @@ $G-U$ has at most $\abs{U}$ factor-critical components.
 \subsection{Minimum Weight Perfect Matching}
 We use the following Integer Programming formulation:
 \begin{align*}
-	\min &\sum_{e\in E(G)}c_ex_e \\
-	\text{s.t.}\quad &\sum_{e\in\delta(v)}x_e=1 \qquad v\in V(G) \\
-	&x_e\in\set{0,1}
+	\min             & \sum_{e\in E(G)}c_ex_e                     \\
+	\text{s.t.}\quad & \sum_{e\in\delta(v)}x_e=1 \qquad v\in V(G) \\
+	                 & x_e\in\set{0,1}
 \end{align*}
 and the corresponding relaxation where we only require $x_e\geq0$. The
 dual problem of this is:
 \begin{align*}
-	\max &\sum_{v\in V(G)}z_v \\
-	\text{s.t.}\quad &z_v+z_w\leq c_e \qquad \set{v,w}\in E(G)
+	\max             & \sum_{v\in V(G)}z_v                      \\
+	\text{s.t.}\quad & z_v+z_w\leq c_e \qquad \set{v,w}\in E(G)
 \end{align*}
 
 \begin{prop}[Hungarian Method]
-Let $G$ be a graph, $c\in\bR^{E(G)}$ and $z\in\bR^{V(G)}$ with
-$z_v+z_w\leq c_e$ for all $e=\set{v,w}\in E(G)$. Define:
-\[G_z\coloneqq (V(G), \set{e=\set{v,w}\ |\ z_v+z_w=c_e})\]
-Let $M$ be a matching in $G_z$, $F$ a maximal alternating forest in $G_z$
-with respect to $M$. Let $X$/$Y$ be the set of inner/outer vertices. Then:
-\begin{enumerate}
-	\item If $M$ is a perfect matching in $G_z$, then it is a minimum-weight
-	perfect matching in $G$.
-	\item If $\Gamma_G(y)\subseteq X$ for all $y\in Y$, then $M$ is a
-	maximum matching.
-	\item If neither 1. nor 2. hold, define:
-	\[
-		\epsilon\coloneqq\min\set{
-		\min_{e=\set{v,w\in E(G[Y])}}\frac{c_e-z_v-z_w}{2},
-		\min_{e\in \delta(Y)\cap \delta(V(F))}c_e-z_v-z_w}
-	\]
-	Set $z_v'\coloneqq z_v-\epsilon$ for all $v\in X$,
-	$z_v'\coloneqq z_v+\epsilon$ for all $v\in Y$ and $z_v'\coloneqq z_v$
-	for all $v\in V(G)\setminus(X\cup Y)$. Then $z'$ is a feasible dual
-	solution and $M\cup E(F)\subseteq E(G_{z'})$. Additionally,
-	$\Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$ for some $y\in Y$.
-\end{enumerate}
+	Let $G$ be a graph, $c\in\bR^{E(G)}$ and $z\in\bR^{V(G)}$ with
+	$z_v+z_w\leq c_e$ for all $e=\set{v,w}\in E(G)$. Define:
+	\[G_z\coloneqq (V(G), \set{e=\set{v,w}\ |\ z_v+z_w=c_e})\]
+	Let $M$ be a matching in $G_z$, $F$ a maximal alternating forest in
+	$G_z$ with respect to $M$. Let $X$/$Y$ be the set of inner/outer
+	vertices. Then:
+	\begin{enumerate}
+		\item If $M$ is a perfect matching in $G_z$, then it is a minimum-weight
+		perfect matching in $G$.
+		\item If $\Gamma_G(y)\subseteq X$ for all $y\in Y$, then $M$ is a maximum
+		matching.
+		\item If neither 1. nor 2. hold, define:
+		\[
+			\epsilon\coloneqq\min\set{
+				\min_{e=\set{v,w\in E(G[Y])}}\frac{c_e-z_v-z_w}{2},
+				\min_{e\in \delta(Y)\cap \delta(V(F))}c_e-z_v-z_w}
+		\]
+		Set $z_v'\coloneqq z_v-\epsilon$ for all $v\in X$, $z_v'\coloneqq
+			z_v+\epsilon$ for all $v\in Y$ and $z_v'\coloneqq z_v$ for all $v\in
+			V(G)\setminus(X\cup Y)$. Then $z'$ is a feasible dual solution and
+		$M\cup E(F)\subseteq E(G_{z'})$. Additionally,
+		$\Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$ for some $y\in Y$.
+	\end{enumerate}
 \end{prop}
 \begin{proof}
-\begin{enumerate}
-\item
-Let $M'$ be a minimum-weight perfect matching.
-\begin{align*}
-	\sum_{e\in M'}c_e&=\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M'}(c_e-z_v-z_w) \\
-	&\geq \sum_{v\in V(G)}z_v \\
-	&=\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M}(c_e-z_v-z_w) \\
-	&=\sum_{e\in M}c_e
-\end{align*}
+	\begin{enumerate}
+		\item
+		Let $M'$ be a minimum-weight perfect matching.
+		\begin{align*}
+			\sum_{e\in M'}c_e & =\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M'}(c_e-z_v-z_w) \\
+			                  & \geq \sum_{v\in V(G)}z_v                                   \\
+			                  & =\sum_{v\in V(G)}z_v+\sum_{e=\set{v,w}\in M}(c_e-z_v-z_w)  \\
+			                  & =\sum_{e\in M}c_e
+		\end{align*}
 
-\item
-Each outer vertex is an odd blossom (singleton) of $G-x$. By Berge
-(\ref{tutte-berge}), at least $\abs{Y}-\abs{X}$ vertices remain uncovered.
+		\item
+		Each outer vertex is an odd blossom (singleton) of $G-x$. By Berge
+		(\ref{tutte-berge}), at least $\abs{Y}-\abs{X}$ vertices remain uncovered.
 
-\item
-$z'$ stays feasible by the choice of $\epsilon$. Edges in $E(F),M$ remain
-tight. By 1. and 2., $\exists y\in Y:\ \Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$.
+		\item
+		$z'$ stays feasible by the choice of $\epsilon$. Edges in $E(F),M$ remain
+		tight. By 1. and 2., $\exists y\in Y:\ \Gamma_{G_{z'}}(y)\setminus X\neq\emptyset$.
 
-\end{enumerate}
+	\end{enumerate}
 \end{proof}
 
 \begin{remark}
-For bipartite graphs, the adjacency matrix is totally unimodular, so the LP
-has integral vertices.
+	For bipartite graphs, the adjacency matrix is totally unimodular, so the LP
+	has integral vertices.
 \end{remark}
 
 \begin{figure}[htb]
-\begin{graph}
-	\node[vertex] (v1) at (0,-1) {};
-	\node[vertex] (v2) at (0,1) {};
-	\node[vertex] (v3) at (1,0) {};
-	\node[vertex] (v4) at (2,0) {};
-	\node[vertex] (v5) at (3,1) {};
-	\node[vertex] (v6) at (3,-1) {};
-	
-	\draw (v1) -- node[left] {1} (v2);
-	\draw (v1) -- node[above] {2} (v3);
-	\draw (v2) -- node[below] {3} (v3);
-	\draw (v3) -- node[left] {1} (v4);
-	\draw (v4) -- node[left] {1} (v5);
-	\draw (v4) -- node[left] {1} (v6);
-	\draw (v5) -- node[left] {1} (v6);
-	\draw (v1) -- node[left] {1} (v6);
-	\draw (v2) -- node[left] {1} (v5);
-\end{graph}
-\end{figure}
+	\begin{graph}
+		\node[vertex] (v1) at (0,-1) {};
+		\node[vertex] (v2) at (0,1) {};
+		\node[vertex] (v3) at (1,0) {};
+		\node[vertex] (v4) at (2,0) {};
+		\node[vertex] (v5) at (3,1) {};
+		\node[vertex] (v6) at (3,-1) {};
 
+		\draw (v1) -- node[left] {1} (v2);
+		\draw (v1) -- node[above] {2} (v3);
+		\draw (v2) -- node[below] {3} (v3);
+		\draw (v3) -- node[left] {1} (v4);
+		\draw (v4) -- node[left] {1} (v5);
+		\draw (v4) -- node[left] {1} (v6);
+		\draw (v5) -- node[left] {1} (v6);
+		\draw (v1) -- node[left] {1} (v6);
+		\draw (v2) -- node[left] {1} (v5);
+	\end{graph}
+\end{figure}
 
 We define $\cA\coloneqq\set{X\subseteq V(G) \text{ odd}}$ and add the
 blossom inequalities
 \[\sum_{e\in\delta(X)}x_e\geq 1 \qquad \forall X\in\cA\]
 to the LP relaxation. The new dual problem is then:
 \begin{align*}
-	\max &\sum_{A\in\cA}z_A \\
-	\text{s.t.}\quad &\sum_{A\in\cA,e\in\delta(A)}z_A\leq c_e \\
-	&z_A\geq0 \qquad (A\in\cA, \abs{A}\geq3)
+	\max             & \sum_{A\in\cA}z_A                       \\
+	\text{s.t.}\quad & \sum_{A\in\cA,e\in\delta(A)}z_A\leq c_e \\
+	                 & z_A\geq0 \qquad (A\in\cA, \abs{A}\geq3)
 \end{align*}
 
-Edmond's Algorithm starts with an empty matching $x=0$ and dual feasible
-solution:
+Edmond's Algorithm starts with an empty matching $x=0$ and dual
+feasible solution:
 \[z_A\coloneqq \begin{cases}
-	\frac{1}{2}\min\set{c(e)\ |\ e\in\delta(A)} \qquad&\abs{A}=1 \\
-	0 \qquad&\text{else}
-\end{cases}\]
+		\frac{1}{2}\min\set{c(e)\ |\ e\in\delta(A)} \qquad & \abs{A}=1   \\
+		0 \qquad                                           & \text{else}
+	\end{cases}\]
 We always ensure that $z$ is dual feasible and that $(x,z)$ satisfy
 complementary slackness:
 \begin{align*}
-	x_e>0 &\Rightarrow \sum_{A\in\cA,e\in\delta(A)} z_A=c_e \\
-	z_A>0, \abs{A}>1 &\Rightarrow \sum_{e\in\delta(A)}x_e=1
+	x_e>0            & \Rightarrow \sum_{A\in\cA,e\in\delta(A)} z_A=c_e \\
+	z_A>0, \abs{A}>1 & \Rightarrow \sum_{e\in\delta(A)}x_e=1
 \end{align*}
 
 \begin{definition}
-$c_z(e)\coloneqq c(e)-\sum_{A\in\cA,e\in\delta(A)}z_A$ is the
-\emph{reduced cost} of $e$.
+	$c_z(e)\coloneqq c(e)-\sum_{A\in\cA,e\in\delta(A)}z_A$ is the
+	\emph{reduced cost} of $e$.
 \end{definition}
 
 \begin{theorem}\label{thm:min-weight-matching-it}
-There are at most $\frac{7}{2}\abs{V(G)}^2$ of the repeat-until loop
-in algorithm 4.
+	There are at most $\frac{7}{2}\abs{V(G)}^2$ of the repeat-until loop
+	in algorithm 4.
 \end{theorem}
 \begin{proof}
-$\cB$ is laminar at any time, i.e. for $X,Y\in\cB$ we have
-$(X\subseteq Y)\lor (Y\subseteq X)\lor (X\cap Y=\emptyset)$. Therefore
-$\abs{\cB}\leq 2\abs{V(G)}$.
-\begin{observation}
-Any $U$ added to $\cB$ during \emph{Shrink} will not be ''unpacked'' before
-the next \emph{Augment}.
-\end{observation}
-\begin{proof}
-After \emph{Shrink}, there exists an even length $M$-augmenting $R$-$U$-path.
-It remains in $G_z$ until the next \emph{Augment} or until $U$ is included
-in another blossom $U'\supseteq U$ which is not resolved before an
-\emph{Augment} (inductively).
-\end{proof}
+	$\cB$ is laminar at any time, i.e. for $X,Y\in\cB$ we have
+	$(X\subseteq Y)\lor (Y\subseteq X)\lor (X\cap Y=\emptyset)$. Therefore
+	$\abs{\cB}\leq 2\abs{V(G)}$.
+	\begin{observation}
+		Any $U$ added to $\cB$ during \emph{Shrink} will not be ''unpacked'' before
+		the next \emph{Augment}.
+	\end{observation}
+	\begin{proof}
+		After \emph{Shrink}, there exists an even length $M$-augmenting $R$-$U$-path.
+		It remains in $G_z$ until the next \emph{Augment} or until $U$ is included
+		in another blossom $U'\supseteq U$ which is not resolved before an
+		\emph{Augment} (inductively).
+	\end{proof}
 
-Between 2 augments:
-\begin{itemize}
-	\item $\#$ \emph{Unpacks} $\leq \abs{\cB}$ at beginning of the sequence
-	\item $\#$ \emph{Shrinks} $\leq \abs{\cB}$ at the end of the sequence
-\end{itemize}
-Therefore, there are at most $4\abs{V(G)}$ \emph{Unpack} and \emph{Shrink} operations
-between 2 augments. For each dual change without \emph{Unpack}, we have:
-$z_B>0\quad \forall B\in\cB$, so $\epsilon$ is not determined by $z_B$.
-Therefore $\exists e=\set{X,Y}$ with $X\notin\cX, Y\in\cY$ where
-$c_z(e)$ becomes 0.
-\begin{enumerate}
-	\item[Case 1:] $X\notin\cY$. Then $\abs{V(G_z)\setminus(\cX\cup\cY)}$
-	decreases.
-	\item[Case 2:] $X\in\cY$. Then $\exists$ $X$-$Y$ $M$-alternating walk
-	in the next iteration.
-\end{enumerate}
-In particular, such a dual change can occur at most $\abs{V(G)}$ times
-between 2 augmentations.
+	Between 2 augments:
+	\begin{itemize}
+		\item $\#$ \emph{Unpacks} $\leq \abs{\cB}$ at beginning of the sequence
+		\item $\#$ \emph{Shrinks} $\leq \abs{\cB}$ at the end of the sequence
+	\end{itemize}
+	Therefore, there are at most $4\abs{V(G)}$ \emph{Unpack} and \emph{Shrink} operations
+	between 2 augments. For each dual change without \emph{Unpack}, we have:
+	$z_B>0\quad \forall B\in\cB$, so $\epsilon$ is not determined by $z_B$.
+	Therefore $\exists e=\set{X,Y}$ with $X\notin\cX, Y\in\cY$ where
+	$c_z(e)$ becomes 0.
+	\begin{enumerate}
+		\item[Case 1:] $X\notin\cY$. Then $\abs{V(G_z)\setminus(\cX\cup\cY)}$
+		decreases.
+		\item[Case 2:] $X\in\cY$. Then $\exists$ $X$-$Y$ $M$-alternating walk in
+		the next iteration.
+	\end{enumerate}
+	In particular, such a dual change can occur at most $\abs{V(G)}$ times
+	between 2 augmentations.
 
-In total, there are at most $\frac{1}{2}\abs{V(G)}$ \emph{Augment} steps.
-Therefore, there are $\frac{1}{2}\abs{V(G)}^2(4+\abs{V(G)}+2\abs{V(G)})$
+	In total, there are at most $\frac{1}{2}\abs{V(G)}$ \emph{Augment}
+	steps. Therefore, there are
+	$\frac{1}{2}\abs{V(G)}^2(4+\abs{V(G)}+2\abs{V(G)})$
 \end{proof}
 
 % Lecture 15.11
 % TODO
 \begin{algorithm}
-\caption{Minimum-Weight Perfect Matching}
-\KwInput{Graph $G$ with edge weights $c: E(G)\to\bR$}
-\KwOutput{A minimum-weight perfect matching $M$ in $(G,c)$}
+	\caption{Minimum-Weight Perfect Matching}
+	\KwInput{Graph $G$ with edge weights $c: E(G)\to\bR$}
+	\KwOutput{A minimum-weight perfect matching $M$ in $(G,c)$}
 
 \end{algorithm}
 
-
 \begin{cor}
-A minimum-weight perfect matching can be computed in $O(n^2m)$ time
-where $n\coloneqq\abs{V(G)}$ and $m=\abs{E(G)}$.
+	A minimum-weight perfect matching can be computed in $O(n^2m)$ time
+	where $n\coloneqq\abs{V(G)}$ and $m=\abs{E(G)}$.
 \end{cor}
 \begin{proof}
-Theorem \ref{thm:min-weight-matching-it} times $O(m)$.
+	Theorem \ref{thm:min-weight-matching-it} times $O(m)$.
 \end{proof}
 
 \begin{remark}
-To achieve $O(n^3)$ running time, one can modify the algorithm:
-\begin{enumerate}
-	\item Use a General Blossom Forest to avoid recomputing the $R$-$R$-walks
-	from scratch. We then have mappings $\mu_v,\varphi_v^i,\rho_v^i$
-	for $1\leq i\leq k_v$ where $k_v$ is the number of blossoms that
-	contain $v$.
-	
-	\item Store all vertices in a heap (ordered by their criticality for
-	dual-feasibility) to speed up the computation of $\epsilon$.
-\end{enumerate}
-Gabow (1990) showed a running time of $O(n(m+n\log n))$. Gabow \& Tarjan
-(1991) showed a running time of $O(m\log(nW)\sqrt{n\alpha(m,n)\log n})$
-where $W\coloneqq \max_{e\in E(G)}\abs{c(e)}$.
+	To achieve $O(n^3)$ running time, one can modify the algorithm:
+	\begin{enumerate}
+		\item Use a General Blossom Forest to avoid recomputing the $R$-$R$-walks
+		from scratch. We then have mappings $\mu_v,\varphi_v^i,\rho_v^i$ for
+		$1\leq i\leq k_v$ where $k_v$ is the number of blossoms that contain
+		$v$.
+
+		\item Store all vertices in a heap (ordered by their criticality for
+		dual-feasibility) to speed up the computation of $\epsilon$.
+	\end{enumerate}
+	Gabow (1990) showed a running time of $O(n(m+n\log n))$. Gabow \& Tarjan
+	(1991) showed a running time of $O(m\log(nW)\sqrt{n\alpha(m,n)\log n})$
+	where $W\coloneqq \max_{e\in E(G)}\abs{c(e)}$.
 \end{remark}
 
 \begin{theorem}
-Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
-\begin{align*}
-	x_e&\geq 0 &e\in E(G) \\
-	x(\delta(v))&=1 &v\in V(G) \\
-	x(\delta(A))&\geq 1 &A\subseteq V(G)\text{ with $\abs{A}$ odd}
-\end{align*}
-is the convex hull of all perfect matchings in $G$. It is called the \emph{perfect
-matching polytope}.
+	Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
+	\begin{align*}
+		x_e          & \geq 0 & e\in E(G)                                 \\
+		x(\delta(v)) & =1     & v\in V(G)                                 \\
+		x(\delta(A)) & \geq 1 & A\subseteq V(G)\text{ with $\abs{A}$ odd}
+	\end{align*}
+	is the convex hull of all perfect matchings in $G$. It is called the \emph{perfect
+		matching polytope}.
 \end{theorem}
 \begin{proof}
-For any objective function $c: E(G)\to\bR$, the minimum-weight perfect
-matching algorithm produces an integral primal and a dual solution that
-satisfy complementary slackness. In particular, all vertices of the
-polytope are integral.
+	For any objective function $c: E(G)\to\bR$, the minimum-weight perfect
+	matching algorithm produces an integral primal and a dual solution that
+	satisfy complementary slackness. In particular, all vertices of the
+	polytope are integral.
 \end{proof}
 
 \begin{theorem}\label{thm:perf-match-poly}
-Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
-\begin{align*}
-	x_e&\geq0 &e\in E(G) \\
-	x(\delta(v))&\leq1 &v\in V(G) \\
-	x(E(G[A]))&\leq\frac{\abs{A}-1}{2}
-		&A\subseteq V(G)\text{ with $\abs{A}$ odd}
-\end{align*}
-is the convex hull of all matchings in $G$. It is called the \emph{matching
-polytope}.
+	Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
+	\begin{align*}
+		x_e          & \geq0                                     & e\in E(G) \\
+		x(\delta(v)) & \leq1                                     & v\in V(G) \\
+		x(E(G[A]))   & \leq\frac{\abs{A}-1}{2}
+		             & A\subseteq V(G)\text{ with $\abs{A}$ odd}
+	\end{align*}
+	is the convex hull of all matchings in $G$. It is called the \emph{matching
+		polytope}.
 \end{theorem}
 \begin{proof}
-Any matching solution $x$ satisfies these conditions. Let $x$ be any
-solution that satisfies the conditions. We have to show that $x$ is a
-convex combination of matching solutions. Define $H$ by:
-\begin{align*}
-	V(H)\coloneqq &\set{(v,i)\ |\ v\in V(G),i\in\set{1,2}} \\
-	E(H)\coloneqq &\set{\set{(v,i),(w,i)}\ |\ \set{v,w}\in E(G),i\in\set{1,2}} \\
-	\cup &\set{\set{(v,1),(v,2)}\ |\ v\in V(G)}
-\end{align*}
-We set $y_{\set{(v,i),(w,i)}}\coloneqq x_{\set{v,w}}$ for all $\set{v,w}
-\in E(G),i\in\set{1,2}$ and $y_{\set{(v,1),(v,2)}}\coloneqq 1-x(\delta(v))$
-for all $v\in V(G)$. Then $y\geq0$ and $y(\delta_H(x))=1$ for all
-$x\in V(H)$.
-\begin{claim}
-$y$ satisfies the inequalities of the perfect matching polytope
-(in particular the blossom inequalities).
-\end{claim}
-If this is true, by \ref{thm:perf-match-poly} $y$ is a convex combination
-of perfect matchings. $H[\set{(v,1)\ |\ v\in V(G)}]$ is isomorphic to $G$,
-so $x$ is a convex combination of matchings in $G$.
+	Any matching solution $x$ satisfies these conditions. Let $x$ be any
+	solution that satisfies the conditions. We have to show that $x$ is a
+	convex combination of matching solutions. Define $H$ by:
+	\begin{align*}
+		V(H)\coloneqq & \set{(v,i)\ |\ v\in V(G),i\in\set{1,2}}                     \\
+		E(H)\coloneqq & \set{\set{(v,i),(w,i)}\ |\ \set{v,w}\in E(G),i\in\set{1,2}} \\
+		\cup          & \set{\set{(v,1),(v,2)}\ |\ v\in V(G)}
+	\end{align*}
+	We set $y_{\set{(v,i),(w,i)}}\coloneqq x_{\set{v,w}}$ for all $\set{v,w}
+		\in E(G),i\in\set{1,2}$ and $y_{\set{(v,1),(v,2)}}\coloneqq 1-x(\delta(v))$
+	for all $v\in V(G)$. Then $y\geq0$ and $y(\delta_H(x))=1$ for all
+	$x\in V(H)$.
+	\begin{claim}
+		$y$ satisfies the inequalities of the perfect matching polytope
+		(in particular the blossom inequalities).
+	\end{claim}
+	If this is true, by \ref{thm:perf-match-poly} $y$ is a convex combination
+	of perfect matchings. $H[\set{(v,1)\ |\ v\in V(G)}]$ is isomorphic to $G$,
+	so $x$ is a convex combination of matchings in $G$.
 
-We now prove the claim:
-Let $X\subseteq V(G)$ with $\abs{X}$ odd. We have to show that
-$y(\delta_H(X))\geq1$. Define:
-\begin{align*}
-	A\coloneqq&\set{v\in V(G)\ |\ (v,1)\in X,(v,2)\notin X} \\
-	B\coloneqq&\set{v\in V(G)\ |\ (v,1)\in X, (v,2)\in X} \\
-	C\coloneqq&\set{v\in V(G)\ |\ (v,1)\notin X,(v,2)\in X}
-\end{align*}
-Define $A_i\coloneqq A\cap (V(G)\times \set{i})$ and $B_i\coloneqq B\cap
-(V(G)\times \set{i})$. $\abs{B_1\cup B_2}$ is even, so (since $\abs{X}$ is
-odd) $\abs{A}$ or $\abs{C}$ is odd. Without loss of generality, let $\abs{A}$
-be odd.
-\begin{align*}
-	\sum_{e\in\delta_H(X)}y_e
-	&\geq \sum_{v\in A_1}\underbrace{\sum_{e\in\delta_H(v)}y_e}_{=1}
+	We now prove the claim: Let $X\subseteq V(G)$ with $\abs{X}$ odd. We
+	have to show that $y(\delta_H(X))\geq1$. Define:
+	\begin{align*}
+		A\coloneqq & \set{v\in V(G)\ |\ (v,1)\in X,(v,2)\notin X} \\
+		B\coloneqq & \set{v\in V(G)\ |\ (v,1)\in X, (v,2)\in X}   \\
+		C\coloneqq & \set{v\in V(G)\ |\ (v,1)\notin X,(v,2)\in X}
+	\end{align*}
+	Define $A_i\coloneqq A\cap (V(G)\times \set{i})$ and $B_i\coloneqq B\cap
+		(V(G)\times \set{i})$. $\abs{B_1\cup B_2}$ is even, so (since $\abs{X}$ is
+	odd) $\abs{A}$ or $\abs{C}$ is odd. Without loss of generality, let $\abs{A}$
+	be odd.
+	\begin{align*}
+		\sum_{e\in\delta_H(X)}y_e
+		 & \geq \sum_{v\in A_1}\underbrace{\sum_{e\in\delta_H(v)}y_e}_{=1}
 		-2\cdot\sum_{e\in E(H[A_1])}y_e-\sum_{e\in \delta(A_1)\cap\delta(B_1)}y_e \\
-	&+\sum_{e\in \delta(A_2)\cap\delta(B_2)} \\
-	&=\abs{A_1}-2\cdot\sum_{e\in E(G[A])}x_e \\
-	&\geq \abs{A_1}-(\abs{A}-1) \\
-	&=1
-\end{align*}
+		 & +\sum_{e\in \delta(A_2)\cap\delta(B_2)}                                \\
+		 & =\abs{A_1}-2\cdot\sum_{e\in E(G[A])}x_e                                \\
+		 & \geq \abs{A_1}-(\abs{A}-1)                                             \\
+		 & =1
+	\end{align*}
 
 \end{proof}
 
@@ -1372,227 +1361,227 @@ be odd.
 	has a finite optimum solution, it has an integral optimum solution.
 \end{theorem}
 \begin{proof}
-The dual is
-\begin{align*}
-	\min \sum_{v\in V(G)}y_v+\sum_{e\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}z_A \\
-	s.t.\sum_{v\in e}y_v
-		+\sum_{A\in\cA,\ \abs{A}>1,e\in E(G[A])}z_A&\geq c(e) &e\in E(G) \\
-	y,z&\geq0
-\end{align*}
-Let $(G,c)$ be a counterexample such that  $\abs{V(G)}+\abs{E(G)}+
-\sum_{e\in E(G)}\abs{c(e)}$ is minimum. Then:
-\begin{itemize}
-	\item $c(e)\geq 1$ for all
-	$e\in E(G)$, since otherwise $e$ could be deleted. 
-	\item $G$ has no isolated vertices.
-\end{itemize}
-\begin{claim}
-In an optimum solution $(y,z)$, $y=0$.
-\end{claim}
-\begin{proof}
-If $y_v>0$, then $x(\delta(v))=1$ for all optimum solutions $x$. Decreasing
-$c(e)$ by 1 for all $e\in\delta(v)$ yields a smaller feasible instance
-$(G,c')$ where the weight of $x$ is decreased by 1 and $x$ remains optimum.
-By assumption, $(G,c')$ is not a counterexample, so there exists an integral
-optimum solution $(y',z')$. Increasing $y'_v$ by one yields some optimum
-in $(G,c)$ which has optimum integral solution $(y'+\mathbbm{1}_v,z')$.
-\end{proof}
+	The dual is
+	\begin{align*}
+		\min \sum_{v\in V(G)}y_v+\sum_{e\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}z_A \\
+		s.t.\sum_{v\in e}y_v
+		+\sum_{A\in\cA,\ \abs{A}>1,e\in E(G[A])}z_A & \geq c(e) & e\in E(G)       \\
+		y,z                                         & \geq0
+	\end{align*}
+	Let $(G,c)$ be a counterexample such that  $\abs{V(G)}+\abs{E(G)}+
+		\sum_{e\in E(G)}\abs{c(e)}$ is minimum. Then:
+	\begin{itemize}
+		\item $c(e)\geq 1$ for all
+		$e\in E(G)$, since otherwise $e$ could be deleted.
+		\item $G$ has no isolated vertices.
+	\end{itemize}
+	\begin{claim}
+		In an optimum solution $(y,z)$, $y=0$.
+	\end{claim}
+	\begin{proof}
+		If $y_v>0$, then $x(\delta(v))=1$ for all optimum solutions $x$. Decreasing
+		$c(e)$ by 1 for all $e\in\delta(v)$ yields a smaller feasible instance
+		$(G,c')$ where the weight of $x$ is decreased by 1 and $x$ remains optimum.
+		By assumption, $(G,c')$ is not a counterexample, so there exists an integral
+		optimum solution $(y',z')$. Increasing $y'_v$ by one yields some optimum
+		in $(G,c)$ which has optimum integral solution $(y'+\mathbbm{1}_v,z')$.
+	\end{proof}
 
-Let $(y=0,z)$ be a dual optimum solution such that 
-\[\sum_{A\in\cA, \abs{A}>1} \abs{A}^2z_A\]
-is maximum.
-\begin{claim}
-$\cF\coloneqq\set{A: z_A>0}$ is laminar.
-\end{claim}
-If not, there exist $X,Y\in\cF:\ X\cap Y,X\setminus Y,Y\setminus X\neq\emptyset$.
-We proceed by ''uncrossing''. Let $\epsilon\coloneqq \set{z_X,z_Y}>0$.
-\begin{enumerate}
-	\item[Case 1:] $\abs{X\cap Y}$ is odd. Then $\abs{X\cup Y}$ is odd.
-	Define:
-	\begin{align*}
-	z'_X&\coloneqq z_X-\epsilon \\
-	z_y'&\coloneqq z_y-\epsilon \\
-	z'_{X\cap Y}&\coloneqq z_{X\cap Y}+\epsilon &\text{(unless $\abs{X\cap Y}=1$)} \\
-	z'_{X\cup Y}&\coloneqq z_{X\cup Y}+\epsilon \\
-	z'_A&\coloneqq z_A &\text{elsewhere}
-	\end{align*}
-	Then $(y,z')$ is a dual optimum solution.
-	
-	\item[Case 2:] $\abs{X\cap Y}$ is even. Then $\abs{X\setminus Y}$ and
-	$\abs{Y\setminus X}$ are odd. Define:
-	\begin{align*}
-		z_X'&\coloneqq z_X-\epsilon \\
-		z_Y'&\coloneqq z_Y-\epsilon \\
-		z_{X\setminus Y}'&\coloneqq z_{X\setminus Y}+\epsilon
-			&\text{unless $\abs{X\setminus Y}=1$} \\
-		z_{Y\setminus X}'&\coloneqq z_{Y\setminus X}+\epsilon
-			&\text{unless $\abs{Y\setminus X}=1$} \\ 
-		z_{A}'&\coloneqq z_A &\text{elsewhere}
-		y_v'&\coloneqq \epsilon &\forall v\in X\cap Y \\
-		y_v'&\coloneqq 0 &\forall v\notin X\cap Y
-	\end{align*}
-	Then $(y',z')$ is feasible. The objective value is:
-	\begin{align*}
-		&\sum_{v\in V(G)}y_v'
+	Let $(y=0,z)$ be a dual optimum solution such that
+	\[\sum_{A\in\cA, \abs{A}>1} \abs{A}^2z_A\]
+	is maximum.
+	\begin{claim}
+		$\cF\coloneqq\set{A: z_A>0}$ is laminar.
+	\end{claim}
+	If not, there exist $X,Y\in\cF:\ X\cap Y,X\setminus Y,Y\setminus X\neq\emptyset$.
+	We proceed by ''uncrossing''. Let $\epsilon\coloneqq \set{z_X,z_Y}>0$.
+	\begin{enumerate}
+		\item[Case 1:] $\abs{X\cap Y}$ is odd. Then $\abs{X\cup Y}$ is odd. Define:
+		\begin{align*}
+			z'_X         & \coloneqq z_X-\epsilon                                             \\
+			z_y'         & \coloneqq z_y-\epsilon                                             \\
+			z'_{X\cap Y} & \coloneqq z_{X\cap Y}+\epsilon & \text{(unless $\abs{X\cap Y}=1$)} \\
+			z'_{X\cup Y} & \coloneqq z_{X\cup Y}+\epsilon                                     \\
+			z'_A         & \coloneqq z_A                  & \text{elsewhere}
+		\end{align*}
+		Then $(y,z')$ is a dual optimum solution.
+
+		\item[Case 2:] $\abs{X\cap Y}$ is even. Then $\abs{X\setminus Y}$ and
+		$\abs{Y\setminus X}$ are odd. Define:
+		\begin{align*}
+			z_X'              & \coloneqq z_X-\epsilon                                         \\
+			z_Y'              & \coloneqq z_Y-\epsilon                                         \\
+			z_{X\setminus Y}' & \coloneqq z_{X\setminus Y}+\epsilon
+			                  & \text{unless $\abs{X\setminus Y}=1$}                           \\
+			z_{Y\setminus X}' & \coloneqq z_{Y\setminus X}+\epsilon
+			                  & \text{unless $\abs{Y\setminus X}=1$}                           \\
+			z_{A}'            & \coloneqq z_A                        & \text{elsewhere}
+			y_v'              & \coloneqq \epsilon                   & \forall v\in X\cap Y    \\
+			y_v'              & \coloneqq 0                          & \forall v\notin X\cap Y
+		\end{align*}
+		Then $(y',z')$ is feasible. The objective value is:
+		\begin{align*}
+			  & \sum_{v\in V(G)}y_v'
 			+\sum_{A\in\cA,\ \abs{A}>1}z_A'\frac{\abs{A}-1}{2} \\
-		=&\epsilon\cdot\abs{X\cap Y}
-			+\sum_{A\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2} \\
-		+&\epsilon\left(\frac{\abs{X\setminus Y}-1}{2}
+			= & \epsilon\cdot\abs{X\cap Y}
+			+\sum_{A\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}     \\
+			+ & \epsilon\left(\frac{\abs{X\setminus Y}-1}{2}
 			+\frac{\abs{Y\setminus X}-1}{2}-\frac{\abs{X}-1}{2}
-			-\frac{\abs{Y}-1}{2}\right) \\
-		=&\mathrm{objective}(y,z)
-	\end{align*}
-	Therefore $(y',z')$ is an optimum solution with $y'\neq0$, which is
-	a contradiction to the previous claim.
-\end{enumerate}
-We can conclude that $\cF$ is laminar.
+			-\frac{\abs{Y}-1}{2}\right)                        \\
+			= & \mathrm{objective}(y,z)
+		\end{align*}
+		Therefore $(y',z')$ is an optimum solution with $y'\neq0$, which is
+		a contradiction to the previous claim.
+	\end{enumerate}
+	We can conclude that $\cF$ is laminar.
 
-Let $A\in\cF$ with $z_A\notin\bZ$ and $\abs{A}$ is maximal. Define
-$\epsilon\coloneqq z_A-\floor{z_A}>0$. Let $A_1,\ldots,A_k$ be the
-inclusion-wise maximal proper subsets of $A$ in $\cF$. Since $\cF$ is
-laminar, $A_i\cap A_j=\emptyset$ for $i\neq j$. Define:
-\begin{align*}
-	z_A'&\coloneqq z_A-\epsilon \\
-	z_{A_i}'&\coloneqq z_A+\epsilon &1\leq i\leq k \\
-	z_D'&\coloneqq z_D &\text{elsewhere}
-\end{align*}
-Then $(y,z')$ is dual feasible with objective value:
-\begin{align*}
-	\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B'
-	&<\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B
-\end{align*}
-This contradicts the optimality of $(y,z)$, so there exists no counter
-example.
+	Let $A\in\cF$ with $z_A\notin\bZ$ and $\abs{A}$ is maximal. Define
+	$\epsilon\coloneqq z_A-\floor{z_A}>0$. Let $A_1,\ldots,A_k$ be the
+	inclusion-wise maximal proper subsets of $A$ in $\cF$. Since $\cF$ is
+	laminar, $A_i\cap A_j=\emptyset$ for $i\neq j$. Define:
+	\begin{align*}
+		z_A'     & \coloneqq z_A-\epsilon                    \\
+		z_{A_i}' & \coloneqq z_A+\epsilon & 1\leq i\leq k    \\
+		z_D'     & \coloneqq z_D          & \text{elsewhere}
+	\end{align*}
+	Then $(y,z')$ is dual feasible with objective value:
+	\begin{align*}
+		\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B'
+		 & <\sum_{B\in\cA,\ \abs{B}>1}\frac{\abs{B}-1}{2}z_B
+	\end{align*}
+	This contradicts the optimality of $(y,z)$, so there exists no counter
+	example.
 \end{proof}
 
 % Lecture 17.11.22
 
 \begin{theorem}
-Let $G$ be a graph.
-\[P\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)}\]
-is the functional matching polytope.
-\[Q\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}\]
-If $G$ is bipartite, then $P$ and $Q$ are integral.
+	Let $G$ be a graph.
+	\[P\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)}\]
+	is the functional matching polytope.
+	\[Q\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}\]
+	If $G$ is bipartite, then $P$ and $Q$ are integral.
 \end{theorem}
 \begin{proof}
-The adjacency matrices of bipartite graphs are totally unimodular.
+	The adjacency matrices of bipartite graphs are totally unimodular.
 \end{proof}
 
 \begin{theorem}
-Let $G$ be a graph. The vertices of the fractional perfect matching
-polytope satisfy
-\begin{align*}
-	x_e&=\begin{cases}
-		\frac{1}{2} \qquad&\text{if }e\in E(C_1)\cup\ldots\cup E(C_k) \\
-		1 \qquad&\text{if }e\in M \\
-		0 \qquad&\text{else}
-	\end{cases}
-\end{align*}
-where $C_1,\ldots,C_k$ are vertex-disjoint odd circuits and $M$ is a perfect
-matching in $G-\left(V(C_1)\cup\ldots\cup V(C_k)\right)$.
+	Let $G$ be a graph. The vertices of the fractional perfect matching
+	polytope satisfy
+	\begin{align*}
+		x_e & =\begin{cases}
+			       \frac{1}{2} \qquad & \text{if }e\in E(C_1)\cup\ldots\cup E(C_k) \\
+			       1 \qquad           & \text{if }e\in M                           \\
+			       0 \qquad           & \text{else}
+		       \end{cases}
+	\end{align*}
+	where $C_1,\ldots,C_k$ are vertex-disjoint odd circuits and $M$ is a perfect
+	matching in $G-\left(V(C_1)\cup\ldots\cup V(C_k)\right)$.
 \end{theorem}
 \begin{proof}
-Exercise 6.3
+	Exercise 6.3
 \end{proof}
 
 \section{\texorpdfstring{$T$}{T}-Joins and \texorpdfstring{$b$}{b}-Matchings}
 \begin{definition}
-Let $G$ be a graph, $T\subseteq V(G)$. A subset $J\subseteq E(G)$ is called
-\emph{T-join} if $T$ is the set of odd-degree vertices in $(V(G),J)$.
+	Let $G$ be a graph, $T\subseteq V(G)$. A subset $J\subseteq E(G)$ is called
+	\emph{T-join} if $T$ is the set of odd-degree vertices in $(V(G),J)$.
 \end{definition}
 
 \begin{prop}\label{prop:t-join-symm-diff}
-Let $G$ be a graph, $T,T'\subseteq V(G)$, $J$ a $T$-join ad $J'$ a $T'$-join.
-Then $J\Delta J'$ is a $T\Delta T'$-join.
+	Let $G$ be a graph, $T,T'\subseteq V(G)$, $J$ a $T$-join ad $J'$ a $T'$-join.
+	Then $J\Delta J'$ is a $T\Delta T'$-join.
 \end{prop}
 \begin{proof}
-For $v\in V(G)$:
-\begin{align*}
-	\abs{\delta_{J\cap J'}(v)}&\equiv \abs{\delta_J(v)}+\abs{\delta_{J'}(v)} \\
-	&\equiv \abs{\set{v}\cap T}+\abs{\set{v}\cap T'} \\
-	&\equiv \abs{\set{v}\cap (T\Delta T')} \mod 2
-\end{align*}
+	For $v\in V(G)$:
+	\begin{align*}
+		\abs{\delta_{J\cap J'}(v)} & \equiv \abs{\delta_J(v)}+\abs{\delta_{J'}(v)}   \\
+		                           & \equiv \abs{\set{v}\cap T}+\abs{\set{v}\cap T'} \\
+		                           & \equiv \abs{\set{v}\cap (T\Delta T')} \mod 2
+	\end{align*}
 \end{proof}
 
 \begin{prop}
-Let $G$ be a graph, $T\subseteq V(G)$.
-\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{for each
-connected component }C\]
+	Let $G$ be a graph, $T\subseteq V(G)$.
+	\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{for each
+			connected component }C\]
 \end{prop}
-\begin{proof}\ 
-\begin{enumerate}
-\item[''$\Rightarrow$'':]
-Let $J$ be a $T$-join. For each connected component $C$:
-\begin{align*}
-	\sum_{v\in V(C)}\abs{J\cap \delta(v)}&=2\abs{J\cap E(C)}
-\end{align*}
-Therefore $\abs{J\cap\delta(v)}$ is odd for an even number of vertices and
-$\abs{V(C)\cap T}$ is even.
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':]
+		Let $J$ be a $T$-join. For each connected component $C$:
+		\begin{align*}
+			\sum_{v\in V(C)}\abs{J\cap \delta(v)} & =2\abs{J\cap E(C)}
+		\end{align*}
+		Therefore $\abs{J\cap\delta(v)}$ is odd for an even number of vertices and
+		$\abs{V(C)\cap T}$ is even.
 
-\item[''$\Leftarrow$'':]
-Partition $T$ into pairs $\set{v_1,w_1},\ldots,\set{v_k,w_k}$ such that
-$v_i$ and $w_i$ are in the same component for all $i$. Let $P_i$ be a
-$v_i$-$w_i$-path in $G$. Define $J\coloneqq E(P_1)\Delta E(P_2)\Delta\ldots
-\Delta E(P_k)$. By proposition \ref{prop:t-join-symm-diff}, this is a
-$T$-join.
-\end{enumerate}
+		\item[''$\Leftarrow$'':]
+		Partition $T$ into pairs $\set{v_1,w_1},\ldots,\set{v_k,w_k}$ such that
+		$v_i$ and $w_i$ are in the same component for all $i$. Let $P_i$ be a
+		$v_i$-$w_i$-path in $G$. Define $J\coloneqq E(P_1)\Delta E(P_2)\Delta\ldots
+			\Delta E(P_k)$. By proposition \ref{prop:t-join-symm-diff}, this is a
+		$T$-join.
+	\end{enumerate}
 \end{proof}
 
 \begin{theorem}\label{thm:t-join-alg}
-Let $G$ be a graph, $c: E(G)\to\bR$ and $T\subseteq V(G)$. In strongly
-polynomial time (e.g. $O(n^2m)$) we can determine if a $T$-join exists and
-if so, compute a minimum-weight $T$-join.
+	Let $G$ be a graph, $c: E(G)\to\bR$ and $T\subseteq V(G)$. In strongly
+	polynomial time (e.g. $O(n^2m)$) we can determine if a $T$-join exists and
+	if so, compute a minimum-weight $T$-join.
 \end{theorem}
 \begin{proof}
-In $O(m)$ ($m\coloneqq\abs{E(G)}$), we can check if a $T$-join exists. If
-so:
-\begin{enumerate}
-	\item Eliminate negative weights.
-	\begin{align*}
-		N&\coloneqq\set{e\in E(G)\ |\ c(e)<0} \\
-		U&\coloneqq\set{v\in V(G)\ |\ \abs{\delta_N(v)}\text{ odd}} \\
-		T'&\coloneqq T\Delta U \\
-		c'(e)&\coloneqq \abs{c(e)} &e\in E(G)
-	\end{align*}
-	\begin{claim}
-	If $J'$ is a minimum $T'$-join with respect to $c'$, then $J'\Delta N$
-	is a minimum $T$-join with respect to $c$.
-	\end{claim}
-	Let $\tilde J$ be a $T$-join. Then $\tilde J\Delta N$ is a $T'$-join, so
-	$c'(\tilde J)\leq c'(\tilde J\Delta N)$ and
-	\[c(J)=c'(J')+c(N)\leq c'(\tilde J\Delta N)+c(N)=c(\tilde J)\]
-	which proves the claim.
-	
-	\item We can now assume that $c\geq0$. A minimum-weight $T$-join does
-	not have cycles of positive weight. We can eliminate cycles of weight
-	0 without changing the cost. We can then restrict ourselves to searching
-	for collections of $T$-$T$-paths.
-	
-	Let $K_T$ be the metric closure of $T$ with respect to $G$. It can
-	be computed in $O(n\cdot(m+n\log n))$ by using Dijkstra for all vertices.
-	Find a minimum-weight perfect matching $M$ in $K_T$. Each $e=\set{s,t}
-	\in M$ induces a path $P_{s,t}$. Then the symmetric difference
-	$\Delta_{\set{s,t}\in M}E(P_{s,t})$ is a minimum-weight $T$-join in $G$.
-\end{enumerate}
+	In $O(m)$ ($m\coloneqq\abs{E(G)}$), we can check if a $T$-join exists. If
+	so:
+	\begin{enumerate}
+		\item Eliminate negative weights.
+		\begin{align*}
+			N     & \coloneqq\set{e\in E(G)\ |\ c(e)<0}                                   \\
+			U     & \coloneqq\set{v\in V(G)\ |\ \abs{\delta_N(v)}\text{ odd}}             \\
+			T'    & \coloneqq T\Delta U                                                   \\
+			c'(e) & \coloneqq \abs{c(e)}                                      & e\in E(G)
+		\end{align*}
+		\begin{claim}
+			If $J'$ is a minimum $T'$-join with respect to $c'$, then $J'\Delta N$
+			is a minimum $T$-join with respect to $c$.
+		\end{claim}
+		Let $\tilde J$ be a $T$-join. Then $\tilde J\Delta N$ is a $T'$-join, so
+		$c'(\tilde J)\leq c'(\tilde J\Delta N)$ and
+		\[c(J)=c'(J')+c(N)\leq c'(\tilde J\Delta N)+c(N)=c(\tilde J)\]
+		which proves the claim.
+
+		\item We can now assume that $c\geq0$. A minimum-weight $T$-join does not
+		have cycles of positive weight. We can eliminate cycles of weight 0
+		without changing the cost. We can then restrict ourselves to
+		searching for collections of $T$-$T$-paths.
+
+		Let $K_T$ be the metric closure of $T$ with respect to $G$. It can be
+		computed in $O(n\cdot(m+n\log n))$ by using Dijkstra for all
+		vertices. Find a minimum-weight perfect matching $M$ in $K_T$. Each
+		$e=\set{s,t} \in M$ induces a path $P_{s,t}$. Then the symmetric
+		difference $\Delta_{\set{s,t}\in M}E(P_{s,t})$ is a minimum-weight
+		$T$-join in $G$.
+	\end{enumerate}
 \end{proof}
 
 \stepcounter{theorem}
 \begin{cor}
-A maximum-weight $T$-join can be computed as fast as a minimum-weight
-$T$-join.
+	A maximum-weight $T$-join can be computed as fast as a minimum-weight
+	$T$-join.
 \end{cor}
 \begin{proof}
-Set $c'\coloneqq -c$.
+	Set $c'\coloneqq -c$.
 \end{proof}
 
 \begin{cor}
-Let $G$ be a graph, $c: E(G)\to\bR$. We can find a cycle of negative length
-in $G$ in $O(n^2m)$ time.
+	Let $G$ be a graph, $c: E(G)\to\bR$. We can find a cycle of negative length
+	in $G$ in $O(n^2m)$ time.
 \end{cor}
 \begin{proof}
-Apply theorem \ref{thm:t-join-alg} to $T=\emptyset$. If $c(J)<0$,
-$(V(G),J)$ contains a cycle $C$. If $c(C)=0$, we can eliminate it and
-recurse, otherwise return $C$. 
+	Apply theorem \ref{thm:t-join-alg} to $T=\emptyset$. If $c(J)<0$,
+	$(V(G),J)$ contains a cycle $C$. If $c(C)=0$, we can eliminate it and
+	recurse, otherwise return $C$.
 \end{proof}
 
 \end{document}
