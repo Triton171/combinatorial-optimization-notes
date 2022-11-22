@@ -631,7 +631,7 @@ be the number of odd components in $G-X$.
 		$P\coloneqq P+\set{x,\varphi(x)}+\set{y,\varphi(y)}$\;
 		$P$ is the ear containing $y$ as an inner vertex. Put $P$ on $S$.\;
 		\While{Both endpoints of the topmost element $P$ of the stack $S$ are in
-		$X$}{
+			$X$}{
 			Delete $P$ from $S$\;
 			$k\coloneqq k+1,\ P_k\coloneqq P,\ X\coloneqq X\cup V(P)$\;
 		}
@@ -1026,9 +1026,9 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 	\caption{Edmond's Cardinality Matching Algorithm}
 	\KwInput{A graph $G$}
 	\KwOutput{A maximum matching $M$ (defined by $\set{x,\mu(x)}$)}
-	
-	$\mu(v)\coloneqq v,\ \varphi(v)\coloneqq v,\ \rho(v)\coloneqq v,\ 
-	scanned(v)\coloneqq$ false for all $v\in V(G)$\;
+
+	$\mu(v)\coloneqq v,\ \varphi(v)\coloneqq v,\ \rho(v)\coloneqq v,\
+		scanned(v)\coloneqq$ false for all $v\in V(G)$\;
 	\tcp{Outer Vertex Scan:}
 	\While{$\exists$ outer vertex $x$ with $scanned(x)=\mathrm{false}$}{
 		Let $y$ be a neighbor of $x$ such that $y$ is either out-of-forest
@@ -1043,10 +1043,10 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 		\tcp{Augment:}
 		\ElseIf{$P(x)$ and $P(y)$ are vertex-disjoint}{
 			$\mu(\varphi(v))=v,\ \mu(v)=\varphi(v)$ for all $v\in V(P(x)\cap P(y))$
-				with odd distance from $x$ or $y$ on $P(x)$ or $P(y)$, respectively\;
+			with odd distance from $x$ or $y$ on $P(x)$ or $P(y)$, respectively\;
 			$\mu(x)\coloneqq y,\ \mu(y)\coloneqq x$\;
 			$\varphi(v)\coloneqq v, \rho(v)\coloneqq v, scanned(v)\coloneqq$ false
-				for all $v\in V(G)$\;
+			for all $v\in V(G)$\;
 		}
 		\tcp{Shrink:}
 		\Else{
@@ -1669,6 +1669,168 @@ complementary slackness:
 	Apply theorem \ref{thm:t-join-alg} to $T=\emptyset$. If $c(J)<0$,
 	$(V(G),J)$ contains a cycle $C$. If $c(C)=0$, we can eliminate it and
 	recurse, otherwise return $C$.
+\end{proof}
+
+% Lecture 22.11.22
+% TODO Should this be 2.2?
+\stepcounter{subsection}
+\subsection{\texorpdfstring{$T$}{T}-Join Applications}
+\subsubsection{TSP Approximation}
+Let $(K_n,c)$ with $c$ metric be an instance of the TSP. Consider the
+\emph{Double tree algorithm}:
+\begin{enumerate}
+	\item Compute a minimum spanning tree $T$.
+	\item $T'\coloneqq T+T$ (doubling all edges). Then $T'$ is Eulerian.
+	\item Walk along $T'$ and add vertices to the TSP tour in the order of
+	their first appearance, yielding a tour $T^*$. Since $c$ is metric,
+	we have $c(^*)\leq c(T')\leq 2c(T)$. Since the cost of $T$ is a lower
+	bound for the cost of a tour, we have $c(T^*)\leq 2\mathrm{OPT}$
+	(where OPT is the cost of a shortest TSP tour).
+\end{enumerate}
+
+\begin{algorithm}[htbp]
+	\caption{Christofides Algorithm (1976)}\label{alg:christofides-tsp}
+	\KwInput{Complete metric graph $(K_n,c)$}
+	\KwOutput{A TSP-tour $T$}
+	Find MST $T_{\mathrm{MST}}$ in $(K_n,c)$\;
+	$W\coloneqq \set{v\in V(K_n)\ |\ \abs{\delta_{T_{\mathrm{MST}}}(v)}\text{ odd}}$\;
+	$J\coloneqq$ minimum-weight $W$-Join  in $(K_n,c)$\;
+	Add cities to $T$ in the order of first appearance in a Eulerian walk of
+	$T_{\mathrm{MST}}+J$.\;
+	\KwRet{$T$}
+\end{algorithm}
+
+\begin{theorem}
+	Algorithm \ref{alg:christofides-tsp} is a $\frac{3}{2}$-approximation
+	algorithm for the metric TSP, i.e. for the computed tour $T$ we have:
+	\[c(T)\leq \frac{3}{2}\mathrm{OPT}\]
+\end{theorem}
+\begin{proof}
+	We have $c(T_{\mathrm{MST}})\leq \mathrm{OPT}$ and $\mathrm{OPT}(W)\leq
+		\mathrm{OPT}(V(K_n))$ (since $c$ is metric). Any tour through the vertices
+	in $W$ can be decomposed into 2 matchings. Therefore,
+	$c(J)\leq\frac{1}{2}\mathrm{OPT}(W)\leq\frac{1}{2}\mathrm{OPT}$. It
+	follows that $c(T)\leq (1+\frac{1}{2})\mathrm{OPT}$.
+\end{proof}
+
+\subsubsection{Shortest Paths in Undirected Graphs}
+The naive reduction to digraphs requires non-negative weights.
+
+\begin{cor}
+	Given an undirected graph $G$, $c: E(G)\to \bR$ such that each ciruit
+	has length at least 0. Then for $s,t\in V(G)$, a shortest $s$-$t$-path
+	can be found in $O(n^2m)$ time, where $n\coloneqq\abs{V(G)},\ m\coloneqq\abs{E(G)}$.
+\end{cor}
+\begin{proof}
+	Choose $T\coloneqq\set{s,t}$. Apply theorem \ref{thm:t-join-alg} to get
+	a minimum-weight $T$-join $J$. $J$ can be partitioned into circuits of
+	length 0 and an $s$-$t$-path of length $c(J)$.
+\end{proof}
+
+\subsubsection{Chinese Postman Problem}
+\begin{definition}
+	A walk $C=\set{v_0,e_1,v_1,\ldots,e_t,v_t}$ is called a Chinese postman
+	tour if $v_0=v_t$ and each edge in $E(G)$ is visited at least once.
+	The Chinese Postman Problem is the problem of finding a shortest
+	Chinese postman tour in $G$ with respect ot $c: E(G)\to\bR_{\geq0}$.
+\end{definition}
+
+\begin{cor}
+	The Chinese postman problem can be solved in $O(n^2m)$ time, where
+	$n\coloneqq \abs{V(G)},\ m\coloneqq\abs{E(G)}$.
+\end{cor}
+\begin{proof}
+	Set $T\coloneqq \set{v\in V(G)\ \abs{\delta(v)}\text{ odd}}$ and
+	let $J$ be a minimum-weight $T$-join. Compute a Eulerian tour $C$ in $G+J$.
+	Let $C'$ be a shortest Chinese postman tour. Let
+	$J'\coloneqq$ set of edges occuring in $C'$ an even number of times
+	(at least twice). Then $J'$ is a $T$-join, so $c(J')\geq c(J)$ and:
+	\[c(C')\geq c(E(G))+c(J')\geq c(E(G))+c(J)=c(C)\]
+\end{proof}
+
+\subsection{$T$-Joins and $T$-Cuts}
+\begin{definition}
+	Let $G$ be a graph and $T\subseteq V(G)$. A $T$-cut is a cut
+	$C=\delta(X)$ with $X\subseteq V(G)$ and $\abs{X\cap T}$ odd.
+\end{definition}
+
+\begin{prop}
+	Let $G$ be a graph, $T\subseteq V(G)$, $\abs{T}$ even. Then:
+	\begin{enumerate}
+		\item
+		For any $T$-join $J$ and any $T$-cut $C$: $J\cap C\neq\emptyset$.
+		
+		\item
+		The inclusion-wise minimal $T$-cuts ($T$-joins) are exactly the
+		inclusion-wise minimal edge sets intersecting all $T$-joins (all
+		$T$-cuts).
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	For 1., let $C=\delta(X)$ with $\abs{X\cap T}$ odd be a $T$-cut. Then
+	the edges in $J\cap C$ either belong to a path passing through $X$ or
+	have an endpoint in $T$. Therefore $\abs{J\cap C}$ is odd, in particular
+	the set is non-empty.
+	
+	For 2., we prove in an exercise that each edge set intersecting all
+	$T$-joins ($T$-cuts) contains a $T$-cut ($T$-join). Therefore minimal
+	such sets are $T$-cuts ($T$-joins).
+	% TODO
+	Remark: The minimum cardinality of a $T$-join is at least as large as the
+	maximum number of edge-disjoint $T$-cuts\footnote{
+		In general, the two numbers are not equal: Consider $K_4$ and
+		$T=V(K_4)$. A minimum $T$-join consists of 2 edges but there are
+		no 2 edge-disjoint $T$-cuts.
+	}.
+\end{proof}
+
+\begin{theorem}[Seymour (1981)]
+	Let $G$ be bipartite, $T\subseteq V(G)$ such that there exists a
+	$T$-join. Then:
+	\[\text{min. cardinality of a $T$-join}=\text{max. number of
+	edge-disjoint $T$-cuts}\]
+	The maximum is attained by a crossfree family $\cC$ of cuts, i.e.
+	\[\forall X,Y\in\cC: X\subseteq Y\lor Y\subseteq X \lor X\cap Y=\emptyset
+	\lor X\cup Y=V(G)\]
+\end{theorem}
+\begin{proof}
+	If $T=\emptyset$, the statement is clear.
+	Let $T\neq\emptyset$. We proceed by induction on $\abs{V(G)}+\abs{T}$.
+	Let $J$ be a minimum-cardinality $T$-join. Set:
+	\[c(e)\coloneqq \begin{cases}
+		-1 \qquad&e\in J \\
+		1 \qquad&e\in E(G)\setminus J
+	\end{cases}\]
+	\begin{claim}
+		Every circuit $C$ has $c(C)\geq0$.
+	\end{claim}
+	\begin{align*}
+		c(C)&=c(C\setminus J)+c(C\cap J)+\abs{J\setminus C}-\abs{J\setminus C} \\
+		&=\abs{\underbrace{C\Delta J}_{T\text{-join}}}-\abs{J}\geq0
+	\end{align*}
+	Let $P$ be a minimum length walk in $(G,c)$ traversing no edge more than
+	once such that $\abs{E(P)}$ is minimum. Then $P$ is a path. Let $t$ be
+	the last vertex in $P$ and $f$ the edge entering $t$. Then $f\in J$,
+	otherwise $c(f)=1$ and deleting $f$ would yield a shorter path.
+	Furthermore, $\abs{\delta_J(t)}=1$, otherwise we could add the other edge
+	from $J\cap\delta(t)$ to shorten $c(P)$.
+
+	\begin{claim}
+		Each circuit $C$ that contains $t$ but not $f$ has $c(C)>0$.
+	\end{claim}
+	\begin{enumerate}
+		\item[Case 1:]
+		$t$ is the only vertex in $V(C)\cap V(P)$. Let $e\ni t$ be an edge
+		on $C$ incident to $t$. Then $c(e)=1$ (since $\delta_J(t)=\set{f}$)
+		and $P'\coloneqq P+C-e$ yields a shorter walk if $c(C)\leq0$.
+		
+		\item[Case 2:]
+		$V(C)\cap V(P)$ contains another vertex $x$. Let $u$ be the last vertex
+		on $P$ before $t$ that is also on $C$. Define $P'\coloneqq P_{[u,t]}$.
+		$C$ can be split into 2 $u$-$t$-paths $C',C''$. By minimality of $P$,
+		$c(P')<0$. $P'+C',P'+C''$ are circuits (by choice of $u$). By the first
+		claim, $c(C'),c(C'')>0$, so also $c(C)>0$.
+	\end{enumerate}
 \end{proof}
 
 \end{document}

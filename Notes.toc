@@ -10,3 +10,8 @@
 \contentsline {subsection}{\numberline {1.7}Gallai-Edmonds Decomposition}{16}{subsection.1.7}%
 \contentsline {subsection}{\numberline {1.8}Minimum Weight Perfect Matching}{19}{subsection.1.8}%
 \contentsline {section}{\numberline {2}$T$-Joins and $b$-Matchings}{26}{section.2}%
+\contentsline {subsection}{\numberline {2.2}$T$-Join Applications}{28}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}TSP Approximation}{28}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Shortest Paths in Undirected Graphs}{28}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Chinese Postman Problem}{29}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}$T$-Joins and $T$-Cuts}{29}{subsection.2.3}%

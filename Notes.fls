@@ -1088,6 +1088,8 @@ INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/te
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm12.tfm
+INPUT /nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm9.tfm
 INPUT Notes.aux
 INPUT ./Notes.out
 INPUT ./Notes.out

@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1669042913 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1669042915
+["pdflatex"] 1669128525 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1669128526
   "/home/daniel/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1668523018 7808 0dd70ac5dc0e4dc3f47a74faf1bdf882 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1 4410432 f4ff4c7c68d62ca1bfc1be22cccb3348 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1 2828627 5330813a1c7bee830440d02aab1dc9c7 ""
@@ -37,6 +37,7 @@
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm6.tfm" 1 560 4c5ff0e6c23877f3f630ae9d8ef92c6e ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm7.tfm" 1 560 ab71d518408103034050efd8ebc8a16a ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm8.tfm" 1 560 2e80f8a1cb59527f57d99bb5fccd0f3c ""
+  "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/bbm/bbm9.tfm" 1 564 538e51111886634ef38425dfff2e2694 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/cm/cmex10.tfm" 1 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/cm/cmmi10.tfm" 1 1528 abec98dbc43e172678c11b3b9031252a ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/fonts/tfm/public/cm/cmmi12.tfm" 1 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -231,11 +232,11 @@
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/url/url.sty" 1 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/tex/latex/xcolor/xcolor.sty" 1 56029 3f7889dab51d620aa43177c391b7b190 ""
   "/nix/store/6dlpv8zinqdg595lybb6s1nh1irxwkgc-texlive-combined-2021/share/texmf/web2c/texmf.cnf" 1 41601 d228fb61056362a6460768b87b962e30 ""
-  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1669042913 63613 6e20d634336ac224b148068cfa0b426b ""
-  "Notes.aux" 1669042914 4572 de1e64e59481b883bd7be2c12b1c8b6c "pdflatex"
-  "Notes.out" 1669042914 2121 5a14de90ccd6b79418ef76b7a4548303 "pdflatex"
-  "Notes.tex" 1669042913 63613 6e20d634336ac224b148068cfa0b426b ""
-  "Notes.toc" 1669042914 1073 1cce8d76ad26ee985643c36fc611e876 "pdflatex"
+  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1669128524 70184 10023a326018b3f02921034c92df6ef2 ""
+  "Notes.aux" 1669128526 5544 57a5ed84e17fa3e5ea5399e3694e6003 "pdflatex"
+  "Notes.out" 1669128526 3031 3d8699862e7ef875e71958d6332dd5da "pdflatex"
+  "Notes.tex" 1669128524 70184 10023a326018b3f02921034c92df6ef2 ""
+  "Notes.toc" 1669128526 1556 fe80bc35dedce60ff2248795f7a8f8d5 "pdflatex"
   (generated)
   "Notes.aux"
   "Notes.log"
