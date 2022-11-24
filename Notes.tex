@@ -1589,7 +1589,7 @@ complementary slackness:
 	\end{align*}
 \end{proof}
 
-\begin{prop}
+\begin{prop}\label{prop:t-join-parity}
 	Let $G$ be a graph, $T\subseteq V(G)$.
 	\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{for each
 			connected component }C\]
@@ -1759,7 +1759,7 @@ The naive reduction to digraphs requires non-negative weights.
 	\begin{enumerate}
 		\item
 		For any $T$-join $J$ and any $T$-cut $C$: $J\cap C\neq\emptyset$.
-		
+
 		\item
 		The inclusion-wise minimal $T$-cuts ($T$-joins) are exactly the
 		inclusion-wise minimal edge sets intersecting all $T$-joins (all
@@ -1771,42 +1771,41 @@ The naive reduction to digraphs requires non-negative weights.
 	the edges in $J\cap C$ either belong to a path passing through $X$ or
 	have an endpoint in $T$. Therefore $\abs{J\cap C}$ is odd, in particular
 	the set is non-empty.
-	
+
 	For 2., we prove in an exercise that each edge set intersecting all
 	$T$-joins ($T$-cuts) contains a $T$-cut ($T$-join). Therefore minimal
 	such sets are $T$-cuts ($T$-joins).
 	% TODO
-	Remark: The minimum cardinality of a $T$-join is at least as large as the
-	maximum number of edge-disjoint $T$-cuts\footnote{
-		In general, the two numbers are not equal: Consider $K_4$ and
-		$T=V(K_4)$. A minimum $T$-join consists of 2 edges but there are
-		no 2 edge-disjoint $T$-cuts.
-	}.
+	Remark: The minimum cardinality of a $T$-join is at least as large as
+	the maximum number of edge-disjoint $T$-cuts\footnote{ In general,
+		the two numbers are not equal: Consider $K_4$ and $T=V(K_4)$. A
+		minimum $T$-join consists of 2 edges but there are no 2 edge-disjoint
+		$T$-cuts. }.
 \end{proof}
 
-\begin{theorem}[Seymour (1981)]
+\begin{theorem}[Seymour (1981)]\label{thm:seymour-join-cut}
 	Let $G$ be bipartite, $T\subseteq V(G)$ such that there exists a
 	$T$-join. Then:
 	\[\text{min. cardinality of a $T$-join}=\text{max. number of
-	edge-disjoint $T$-cuts}\]
+			edge-disjoint $T$-cuts}\]
 	The maximum is attained by a crossfree family $\cC$ of cuts, i.e.
 	\[\forall X,Y\in\cC: X\subseteq Y\lor Y\subseteq X \lor X\cap Y=\emptyset
-	\lor X\cup Y=V(G)\]
+		\lor X\cup Y=V(G)\]
 \end{theorem}
 \begin{proof}
 	If $T=\emptyset$, the statement is clear.
 	Let $T\neq\emptyset$. We proceed by induction on $\abs{V(G)}+\abs{T}$.
 	Let $J$ be a minimum-cardinality $T$-join. Set:
 	\[c(e)\coloneqq \begin{cases}
-		-1 \qquad&e\in J \\
-		1 \qquad&e\in E(G)\setminus J
-	\end{cases}\]
+			-1 \qquad & e\in J               \\
+			1 \qquad  & e\in E(G)\setminus J
+		\end{cases}\]
 	\begin{claim}
 		Every circuit $C$ has $c(C)\geq0$.
 	\end{claim}
 	\begin{align*}
-		c(C)&=c(C\setminus J)+c(C\cap J)+\abs{J\setminus C}-\abs{J\setminus C} \\
-		&=\abs{\underbrace{C\Delta J}_{T\text{-join}}}-\abs{J}\geq0
+		c(C) & =c(C\setminus J)+c(C\cap J)+\abs{J\setminus C}-\abs{J\setminus C} \\
+		     & =\abs{\underbrace{C\Delta J}_{T\text{-join}}}-\abs{J}\geq0
 	\end{align*}
 	Let $P$ be a minimum length walk in $(G,c)$ traversing no edge more than
 	once such that $\abs{E(P)}$ is minimum. Then $P$ is a path. Let $t$ be
@@ -1819,18 +1818,143 @@ The naive reduction to digraphs requires non-negative weights.
 		Each circuit $C$ that contains $t$ but not $f$ has $c(C)>0$.
 	\end{claim}
 	\begin{enumerate}
-		\item[Case 1:]
-		$t$ is the only vertex in $V(C)\cap V(P)$. Let $e\ni t$ be an edge
-		on $C$ incident to $t$. Then $c(e)=1$ (since $\delta_J(t)=\set{f}$)
-		and $P'\coloneqq P+C-e$ yields a shorter walk if $c(C)\leq0$.
-		
-		\item[Case 2:]
-		$V(C)\cap V(P)$ contains another vertex $x$. Let $u$ be the last vertex
-		on $P$ before $t$ that is also on $C$. Define $P'\coloneqq P_{[u,t]}$.
-		$C$ can be split into 2 $u$-$t$-paths $C',C''$. By minimality of $P$,
-		$c(P')<0$. $P'+C',P'+C''$ are circuits (by choice of $u$). By the first
-		claim, $c(C'),c(C'')>0$, so also $c(C)>0$.
+		\item[Case 1:] $t$ is the only vertex in $V(C)\cap V(P)$. Let $e\ni t$ be
+		an edge on $C$ incident to $t$. Then $c(e)=1$ (since
+		$\delta_J(t)=\set{f}$) and $P'\coloneqq P+C-e$ yields a shorter walk
+		if $c(C)\leq0$.
+
+		\item[Case 2:] $V(C)\cap V(P)$ contains another vertex $x$. Let $u$ be the
+		last vertex on $P$ before $t$ that is also on $C$. Define
+		$P'\coloneqq P_{[u,t]}$. $C$ can be split into 2 $u$-$t$-paths
+		$C',C''$. By minimality of $P$, $c(P')<0$. $P'+C',P'+C''$ are
+		circuits (by choice of $u$). By the first claim, $c(C'),c(C'')>0$, so
+		also $c(C)>0$.
 	\end{enumerate}
+	\emph{Shrink}: $\set{t}\cup\Gamma(t)$ to a new vertex $v_0$. This yields
+	a bipartite graph $G'$. If $\abs{T\cap (\set{t}\cup \Gamma(t))}$ is odd,
+	set $T'\coloneqq T\setminus(\set{t}\cup\Gamma(t))\cup\set{v_0}$. Otherwise,
+	$T'\coloneqq T\setminus(\set{t}\cup\Gamma(t))$. Define $J\coloneqq J\setminus
+		\set{f}$.
+
+	\begin{claim}
+		$J'$ is a minimum cardinality $T'$-join in $G'$.
+	\end{claim}
+	If not, there exists a $T'$-join $J''$ with $\abs{J''}<\abs{J'}$.
+	$J''\Delta J'$ is an $\emptyset$-Join. Therefore, there exists a circuit
+	$C'$ where $\abs{C'\setminus J'}<\abs{C'\setminus J''}=\abs{C'\cap J'}$ (since
+	$G$ is bipartite). If $C'$ results from a circuit $C$ in $G$ not containing
+	$T$, then $\abs{C\setminus J}<\abs{C\cap J}$. This is a contradiction
+	to the minimality of $J$.
+
+	Therefore $C'$ results from a circuit containing $T$.
+	\begin{enumerate}
+		\item[Case 1:] $C$ traverses $f$. Then
+		\begin{align*}
+			\abs{C'\setminus J'}-\abs{C'\cap J'} & =\abs{C\setminus J}-\abs{C\cap J} \\
+			                                     & >0
+		\end{align*}
+		which is a contradiction.
+
+		\item[Case 2:] By the second claim, $c(C)>0$, so since $G$ is bipartite
+		$c(C)\geq2$ and $\abs{C\setminus J}\geq \abs{C\cap J}+2$. Therefore
+		\begin{align*}
+			\abs{C'\setminus J'} & =\abs{C\setminus J}-2 \\
+			                     & \geq \abs{C\cap J}    \\
+			                     & =\abs{C'\cap J'}
+		\end{align*}
+		which is a contradiction to the assumption.
+	\end{enumerate}
+
+	By the induction hypothesis on $G'$, $G'$ has cross-free $T'$-cuts
+	$D_1,\ldots,D_{\abs{J'}}$. Together with $\delta(t)$, we get
+	$\abs{J'}+1=\abs{J}$ $T$-cuts. Since $\Gamma(t)$ was contracted in
+	$G'$, they are cross-free.
 \end{proof}
+
+% Lecture 24.11.2022
+
+\begin{cor}\label{cor:seymour-join-cut}
+	Let $G$ be a graph, $c: E(G)\to\bZ_{\geq0}$, $T\subseteq V(G)$ such that
+	a $T$-join exists. The minimum cost of a $T$-join equals half the maximum
+	number of $T$-cuts covering each edge $e$ at most $2\cdot c(e)$ times.
+	This maximum is attained by a cross-free family of $T$-cuts.
+\end{cor}
+\begin{proof}
+	Let $E_0\coloneqq \set{e\in E(G)\ |\ c(e)=0}$. Contract the connected
+	components in $(V(G),E_0)$ and replace each $e\in E(G)$ by a path of
+	length $2\cdot c(e)>0$. The resulting graph $G'$ is bipartite. Let
+	% TODO
+	\[T'\coloneqq \set{v\in V(G')\ |\ v\text{ corresponds to a connected
+				component $X$ in $G$ with $\abs{X\cap T}$ odd}}\]
+	Let $k$ be the minimum cost of a $T$-join in $G$.
+	\begin{claim}
+		The minimum cardinality of a $T'$-join in $G'$ is $2k$.
+	\end{claim}
+	\begin{enumerate}
+		\item[''$\leq$'':]
+		Every $T$-join $J$ in $J$ corresponds to a $T'$-join
+		$J'$ in $G'$ with $\abs{J'}\leq 2c(J)$.
+
+		\item[''$\geq$'':]
+		Let $J'$ be a $T'$-join in $G'$. $J'$ corresponds to an edge set
+		$J\subseteq E(G)$. Let $\bar T\coloneqq T\Delta\set{v\in V(G)\ |\
+				\abs{\delta(v)\cap J}\text{ odd}}$. For each connected component
+		$X$ in $(V(G),E_0)$:
+		\[\abs{\delta(X)\cap J}\equiv\abs{X\cap T}\mod 2\]
+		Therefore $\abs{X\cap \bar T}$ is even, so by proposition
+		\ref{prop:t-join-parity}, there exists a $\bar T$-join $\bar J$ in
+		$(V(G),E_0)$. Then $J\cup \bar J$ is a $T$-join of weight
+		$c(J)=\frac{\abs{J'}}{2}$.
+	\end{enumerate}
+	By theorem \ref{thm:seymour-join-cut}, there exist $2k$ pairwise
+	disjoint $T'$-cuts in $G'$. In $G$ this yields $2k$ $T$-cuts such that
+	every edge $e$ is covered by at most $2\cdot c(e)$ cuts and they can
+	be created cross-free.
+\end{proof}
+
+\subsubsection{$T$-join Polytope}
+We define the $T$-join polytope:
+\begin{align*}
+	P_{T\text{-join}}   & \coloneqq \mathrm{conv}\set{x\in \bR^{E(G)}
+	\ |\ x\text{ incidence vector of a $T$-join}}                        \\
+	P^\uparrow_{T\text{-join}} & \coloneqq P_{T\text{-join}}+\bR^{E(G)}_{\geq0}
+\end{align*}
+
+\begin{cor}
+	$P^\uparrow_{T\text{-join}}$ is determined by
+	\begin{align*}
+		x_e          & \geq0  & e\in E(G)                        \\
+		x(\delta(X)) & \geq 1 & \forall T\text{-cuts } \delta(X)
+	\end{align*}
+\end{cor}
+\begin{proof}
+	''$\subseteq$'' is clear. Assume that the other inclusion does not hold.
+	Then there exists $w: E(G)\to\bQ$ such that the minimum weight of a $T$-join
+	$\alpha>\min w^tx$ where $x$ satisfies the stated inequalities. Without
+	loss of generality, $w\in \bZ^{E(G)}_{\geq0}$, both cones are identical
+	($\bR^{E(G)}_{\geq0}$). By corollary \ref{cor:seymour-join-cut}, there
+	exist $T$-cuts $C_1,\ldots,C_{2\alpha}$ such that each edge $e$ is covered
+	at most $2w(e)$ times.
+	\[y_C\coloneqq \frac{1}{2}\text{number of times $C$ occurs in } C_1,\ldots,C_{2\alpha}\]
+	Then $y$ is a feasible solution to the dual:
+	\begin{align*}
+		\max_{C\text{ $T$-cut}}y_C \\
+		\text{s.t.} \sum_{C\text{ $T$-cut},\ e\in C}y_e&\leq w(e) &e\in E(G) \\
+		y&\geq0
+	\end{align*}
+	$\sum_{C}y_C=\alpha$ is a lower bound for the minimization problem which
+	is a contradiction to the assumed inequality.
+\end{proof}
+
+\subsection{Excursus: Gomory-Hu Trees}
+Let $G$ be a graph, $u: E(G)\to\bR_{\geq0}$. Find $\emptyset\subsetneq X
+\subsetneq V(G)$ minimizing $u(\delta(X))$. One approach: ${\abs{V(G)}\choose 2}$
+$s$-$t$-cut computations (this can clearly be reduced to $\abs{V(G)}-1$
+by fixing $s$).
+
+\begin{definition}
+	For $s,t\in V(G)$, denote by $\lambda_{s,t}$ the minimum capacity of an
+	$s$-$t$-cut (or \emph{local edge connectivity} of $s,t$).
+\end{definition}
 
 \end{document}
