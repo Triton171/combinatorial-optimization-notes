@@ -1748,7 +1748,7 @@ The naive reduction to digraphs requires non-negative weights.
 	\[c(C')\geq c(E(G))+c(J')\geq c(E(G))+c(J)=c(C)\]
 \end{proof}
 
-\subsection{$T$-Joins and $T$-Cuts}
+\subsection{\texorpdfstring{$T$}{T}-Joins and \texorpdfstring{$T$}{T}-Cuts}
 \begin{definition}
 	Let $G$ be a graph and $T\subseteq V(G)$. A $T$-cut is a cut
 	$C=\delta(X)$ with $X\subseteq V(G)$ and $\abs{X\cap T}$ odd.
@@ -1912,11 +1912,11 @@ The naive reduction to digraphs requires non-negative weights.
 	be created cross-free.
 \end{proof}
 
-\subsubsection{$T$-join Polytope}
+\subsubsection{\texorpdfstring{$T$}{T}-join Polytope}
 We define the $T$-join polytope:
 \begin{align*}
-	P_{T\text{-join}}   & \coloneqq \mathrm{conv}\set{x\in \bR^{E(G)}
-	\ |\ x\text{ incidence vector of a $T$-join}}                        \\
+	P_{T\text{-join}}          & \coloneqq \mathrm{conv}\set{x\in \bR^{E(G)}
+	\ |\ x\text{ incidence vector of a $T$-join}}                               \\
 	P^\uparrow_{T\text{-join}} & \coloneqq P_{T\text{-join}}+\bR^{E(G)}_{\geq0}
 \end{align*}
 
@@ -1938,23 +1938,135 @@ We define the $T$-join polytope:
 	\[y_C\coloneqq \frac{1}{2}\text{number of times $C$ occurs in } C_1,\ldots,C_{2\alpha}\]
 	Then $y$ is a feasible solution to the dual:
 	\begin{align*}
-		\max_{C\text{ $T$-cut}}y_C \\
-		\text{s.t.} \sum_{C\text{ $T$-cut},\ e\in C}y_e&\leq w(e) &e\in E(G) \\
-		y&\geq0
+		\max_{C\text{ $T$-cut}}y_C                                              \\
+		\text{s.t.} \sum_{C\text{ $T$-cut},\ e\in C}y_e & \leq w(e) & e\in E(G) \\
+		y                                               & \geq0
 	\end{align*}
 	$\sum_{C}y_C=\alpha$ is a lower bound for the minimization problem which
 	is a contradiction to the assumed inequality.
 \end{proof}
 
 \subsection{Excursus: Gomory-Hu Trees}
-Let $G$ be a graph, $u: E(G)\to\bR_{\geq0}$. Find $\emptyset\subsetneq X
-\subsetneq V(G)$ minimizing $u(\delta(X))$. One approach: ${\abs{V(G)}\choose 2}$
-$s$-$t$-cut computations (this can clearly be reduced to $\abs{V(G)}-1$
-by fixing $s$).
+Let $G$ be a graph, $u: E(G)\to\bR_{\geq0}$. Find
+$\emptyset\subsetneq X \subsetneq V(G)$ minimizing $u(\delta(X))$.
+One approach: ${\abs{V(G)}\choose 2}$ $s$-$t$-cut computations (this
+can clearly be reduced to $\abs{V(G)}-1$ by fixing $s$).
 
 \begin{definition}
-	For $s,t\in V(G)$, denote by $\lambda_{s,t}$ the minimum capacity of an
+	For $s,t\in V(G)$, denote by $\lambda_{st}$ the minimum capacity of an
 	$s$-$t$-cut (or \emph{local edge connectivity} of $s,t$).
 \end{definition}
+
+% Lecture 29.11.22
+\begin{lemma}
+	For all $u,v,w\in V(G)$:
+	\[\lambda_{uw}\geq \min\set{\lambda_{uv},\lambda_{vw}}\]
+\end{lemma}
+\begin{proof}
+	Let $\delta(A)$ be a $u$-$w$-cut. If $v\in A$, then $\delta(A)$ is
+	a $v$-$w$-cut, so $u(\delta(A))\geq \lambda_{vw}$. Otherwise,
+	$\delta(A)$ is a $u$-$v$-cut, so $u(\delta(A))\geq \lambda_{uv}$.
+\end{proof}
+
+\begin{definition}
+	Let $G$ be a graph, $u: E(G)\to\bR_{\geq0}$. A tree $T$ is a
+	Gomory-Hu tree for $(G,u)$ if $V(T)=V(G)$ and
+	\[\lambda_{st}=\min_{e\in E(T_{[s,t]})}u(\delta_G(C_e)) \qquad \forall s,t\in V(G)\]
+	where $C_e$ and $V(G)\setminus C_e$ are the connected components of
+	$T-e$\footnote{$\delta(C_e)$ is called \emph{fundamental cut} induced
+		by $e$}.
+\end{definition}
+
+\begin{lemma}\label{lemma:min-cut-triangle}
+	Given $(G,u)$ and a tree $T$ with $V(T)=V(G)$:
+	\[T\text{ Gomory-Hu tree}\Leftrightarrow \forall e=\set{s,t}\in E(T)
+		\text{ is a minimum capacity $s$-$t$-cut}\]
+\end{lemma}
+\begin{proof}
+	''$\Rightarrow$'' follows directly from the definition. For the other
+	direction, let $s,t\in V(G)$ and $e=\set{u,v}\in \arg\min_{e\in E(T_{s,t})}
+	\lambda_{uv}$. Without loss of generality, $s\in C_e,\ t\in V(G)\setminus C_e$,
+	so $\delta(C_e)$ is an $s$-$t$-cut. Therefore: $\lambda_{st}\leq u(\delta(C_e))
+	=\lambda_e$ (with $\lambda_e\coloneqq \lambda_{uv}$). By lemma
+	\ref{lemma:min-cut-triangle} and induction, $\lambda_{st}\geq\min\set{\lambda_{v'w'}\ 
+	|\ \set{v',w'}\in E(T_{[s,t]})}=\lambda_{uv}$. Therefore $\lambda_{st}=
+	\lambda_{uv}$.
+\end{proof}
+
+Idea: Choose $r,s\in V(G)$ and compute a minimum capacity $r$-$s$-cut
+$\delta(R)$. Without loss of generality $r\in R$. Construct a graph
+$G_R$ by shrinking $S\coloneqq V(G)\setminus R$ into a single vertex. Find
+a minimum capacity $p$-$q$-cut (where $p,q\in R$ are chosen arbitrarily)
+in $G_R$. This partitions $R$ into 2 parts. Continue this process until
+$V(G)$ is partitioned into singletons.
+
+\begin{lemma}\label{lemma:min-cut-contraction}
+	Let $(G,u)$ as above, $s,t\in V(G)$, $\delta(A)$ a minimum capacity
+	$s$-$t$-cut in $G$ and $s',t'\in V(G)\setminus A$. Let $(G',u')$ arise
+	from $(G,u)$ by contracting $A$ into a single vertex. Then for any
+	minimum capacity $s'$-$t'$-cut $\delta_{G'}(K\cup\set{A})$ in $(G',u')$,
+	$\delta_G(K\cup A)$ is a minimum capacity $s'$-$t'$-cut in $(G,u)$.
+\end{lemma}
+\begin{proof}
+	Without loss of generality, $s\in A$. We show: $\exists$ min. capacity
+	$s'$-$t'$-cut $\delta(A')$ in $(G,u)$ such that $A\subseteq A'$. Let
+	$\delta(C)$ be any $s'$-$t'$-cut in $(G,u)$. Without loss of generality,
+	$s\in C$. $u(\delta(\cdot))$ is a submodular function, i.e.
+	$u(\delta(A))+u(\delta(B))\geq u(\delta(A\cap B))+u(\delta(A\cup B))$
+	\footnote{This holds with equality, if we add $2u(E(A,B))$ to the right side}.
+	
+	$\delta(A\cap C)$ is an $s$-$t$-cut, so $u(\delta(A\cap C))\geq \lambda_{st}
+	=u(\delta(A))$. Therefore, $u(\delta(A\cup C))\leq u(\delta(C))=\lambda_{s't'}$.
+	Since $s'\in A\cup C$, $A\cup C$ is a minimum capacity $s'$-$t'$-cut.
+\end{proof}
+
+In general, we now choose a component $X$ wih $\abs{X}\geq2$. Contract
+connected components in $T-\set{X}$, yielding a graph $(G',u')$. Choose
+$s,t\in X$, minimum $s$-$t$-cut $\delta(A')$ in $(G',u')$.
+$X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
+
+\begin{lemma}\label{lemma:min-cut-algorithm}
+	At the end of MinCut:
+	\begin{enumerate}
+		\item $A\dot\cup B=V(G)$
+		\item $E(A,B)$ is a minimum $s$-$t$-cut in $(G,u)$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Elements of $V(T)$ are non-empty subsets of $V(G)$ and $V(T)$ form a
+	partition of $V(G)$. Therefore $A\dot\cup B$ is a partition of $V(G)$.
+	2. follows from successive application of lemma \ref{lemma:min-cut-contraction}
+	to each connected component of $T-X$.
+\end{proof}
+
+\begin{lemma}
+	At any time before FinishTree: $w(e)=u(\delta_G(\bigcup_{Z\in C_e}Z))$
+	for all $e\in E(T)$. Moreover, $\forall e=\set{P,Q}\in E(T)$ there exist
+	$p\in P, q\in Q$: $w(e)=\lambda_{pq}$.
+\end{lemma}
+\begin{proof}
+	At the start, $E(T)=\emptyset$. We show that both properties are always
+	satisfied. Let $X,s,t,A',B',A,B$ as determined by ChooseComponents,
+	Contract and MinCut. Edges in $E(T)\setminus\delta(X)$ are not affected.
+	For new edges both conditions are true after ModifyTree.
+	
+	Consider an edge $e\in \set{Y,X}$ that is replaced by $e'$ in ModifyTree.
+	Without loss of generality $Y\subseteq A$, so $e'=\set{X\cap A,Y}$.
+	We show that both statements hold for $e'$. $w(e)=w(e')=
+	u(\delta_G(\bigcup_{Z\in C_e}Z))=u(\delta_G(\bigcup_{Z\in C_{e'}}Z'))$
+	so 1. holds. Assume $p\in X,q\in Y$: $\lambda_{pq}=w(e)$. If $p\in X\cap A$,
+	we are done.
+
+	If $p\in X\cap B$, we claim: $\lambda_{sq}=\lambda_{pq}$. This then implies
+	$w(e')=w(e)=\lambda_{pq}=\lambda_{sq}$. By lemma \ref{lemma:min-cut-triangle},
+	$\lambda_{sq}\geq\min\set{\lambda_{st},\lambda_{tp},\lambda_{pq}}$.
+	By lemma \ref{lemma:min-cut-algorithm}, $E(A,B)$ is a minimum $s$-$t$-cut.
+	By lemma \ref{lemma:min-cut-contraction} and since $s,q\in A$, $\lambda_{sq}$
+	does not change when contracting $B$. Adding $\set{t,p}$ with sufficiently
+	high capacity does not change $\lambda_{sq}$. Therefore $\lambda_{sq}\geq
+	\min\set{\lambda_{st},\lambda_{pq}}=\lambda_{pq}$ because $E(A,B)$ is
+	also a $p$-$q$-cut. $w(e)$ is the capacity of a cut separating $s,q$,
+	so $\lambda_{sq}\leq w(e)=\lambda_{pq}$.
+\end{proof}
 
 \end{document}
