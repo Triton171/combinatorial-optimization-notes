@@ -17,3 +17,5 @@
 \contentsline {subsection}{\numberline {2.3}$T$-Joins and $T$-Cuts}{29}{subsection.2.3}%
 \contentsline {subsubsection}{\numberline {2.3.1}$T$-join Polytope}{32}{subsubsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.4}Excursus: Gomory-Hu Trees}{32}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Finding Minimum-Capacity $T$-Cuts}{34}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}$b$-Matchings}{35}{subsection.2.6}%

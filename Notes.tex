@@ -66,6 +66,7 @@
 \newtheorem*{observation}{Observation}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem*{example}{Example}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem*{problem}{Problem}
@@ -1985,20 +1986,20 @@ can clearly be reduced to $\abs{V(G)}-1$ by fixing $s$).
 \begin{proof}
 	''$\Rightarrow$'' follows directly from the definition. For the other
 	direction, let $s,t\in V(G)$ and $e=\set{u,v}\in \arg\min_{e\in E(T_{s,t})}
-	\lambda_{uv}$. Without loss of generality, $s\in C_e,\ t\in V(G)\setminus C_e$,
+		\lambda_{uv}$. Without loss of generality, $s\in C_e,\ t\in V(G)\setminus C_e$,
 	so $\delta(C_e)$ is an $s$-$t$-cut. Therefore: $\lambda_{st}\leq u(\delta(C_e))
-	=\lambda_e$ (with $\lambda_e\coloneqq \lambda_{uv}$). By lemma
-	\ref{lemma:min-cut-triangle} and induction, $\lambda_{st}\geq\min\set{\lambda_{v'w'}\ 
-	|\ \set{v',w'}\in E(T_{[s,t]})}=\lambda_{uv}$. Therefore $\lambda_{st}=
-	\lambda_{uv}$.
+		=\lambda_e$ (with $\lambda_e\coloneqq \lambda_{uv}$). By lemma
+	\ref{lemma:min-cut-triangle} and induction, $\lambda_{st}\geq\min\set{\lambda_{v'w'}\
+			|\ \set{v',w'}\in E(T_{[s,t]})}=\lambda_{uv}$. Therefore $\lambda_{st}=
+		\lambda_{uv}$.
 \end{proof}
 
 Idea: Choose $r,s\in V(G)$ and compute a minimum capacity $r$-$s$-cut
 $\delta(R)$. Without loss of generality $r\in R$. Construct a graph
-$G_R$ by shrinking $S\coloneqq V(G)\setminus R$ into a single vertex. Find
-a minimum capacity $p$-$q$-cut (where $p,q\in R$ are chosen arbitrarily)
-in $G_R$. This partitions $R$ into 2 parts. Continue this process until
-$V(G)$ is partitioned into singletons.
+$G_R$ by shrinking $S\coloneqq V(G)\setminus R$ into a single vertex.
+Find a minimum capacity $p$-$q$-cut (where $p,q\in R$ are chosen
+arbitrarily) in $G_R$. This partitions $R$ into 2 parts. Continue
+this process until $V(G)$ is partitioned into singletons.
 
 \begin{lemma}\label{lemma:min-cut-contraction}
 	Let $(G,u)$ as above, $s,t\in V(G)$, $\delta(A)$ a minimum capacity
@@ -2014,16 +2015,16 @@ $V(G)$ is partitioned into singletons.
 	$s\in C$. $u(\delta(\cdot))$ is a submodular function, i.e.
 	$u(\delta(A))+u(\delta(B))\geq u(\delta(A\cap B))+u(\delta(A\cup B))$
 	\footnote{This holds with equality, if we add $2u(E(A,B))$ to the right side}.
-	
+
 	$\delta(A\cap C)$ is an $s$-$t$-cut, so $u(\delta(A\cap C))\geq \lambda_{st}
-	=u(\delta(A))$. Therefore, $u(\delta(A\cup C))\leq u(\delta(C))=\lambda_{s't'}$.
+		=u(\delta(A))$. Therefore, $u(\delta(A\cup C))\leq u(\delta(C))=\lambda_{s't'}$.
 	Since $s'\in A\cup C$, $A\cup C$ is a minimum capacity $s'$-$t'$-cut.
 \end{proof}
 
-In general, we now choose a component $X$ wih $\abs{X}\geq2$. Contract
-connected components in $T-\set{X}$, yielding a graph $(G',u')$. Choose
-$s,t\in X$, minimum $s$-$t$-cut $\delta(A')$ in $(G',u')$.
-$X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
+In general, we now choose a component $X$ wih $\abs{X}\geq2$.
+Contract connected components in $T-\set{X}$, yielding a graph
+$(G',u')$. Choose $s,t\in X$, minimum $s$-$t$-cut $\delta(A')$ in
+$(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 
 \begin{lemma}\label{lemma:min-cut-algorithm}
 	At the end of MinCut:
@@ -2039,7 +2040,7 @@ $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	to each connected component of $T-X$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:gomory-hu-alg-correct}
 	At any time before FinishTree: $w(e)=u(\delta_G(\bigcup_{Z\in C_e}Z))$
 	for all $e\in E(T)$. Moreover, $\forall e=\set{P,Q}\in E(T)$ there exist
 	$p\in P, q\in Q$: $w(e)=\lambda_{pq}$.
@@ -2049,24 +2050,161 @@ $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	satisfied. Let $X,s,t,A',B',A,B$ as determined by ChooseComponents,
 	Contract and MinCut. Edges in $E(T)\setminus\delta(X)$ are not affected.
 	For new edges both conditions are true after ModifyTree.
-	
-	Consider an edge $e\in \set{Y,X}$ that is replaced by $e'$ in ModifyTree.
-	Without loss of generality $Y\subseteq A$, so $e'=\set{X\cap A,Y}$.
-	We show that both statements hold for $e'$. $w(e)=w(e')=
-	u(\delta_G(\bigcup_{Z\in C_e}Z))=u(\delta_G(\bigcup_{Z\in C_{e'}}Z'))$
-	so 1. holds. Assume $p\in X,q\in Y$: $\lambda_{pq}=w(e)$. If $p\in X\cap A$,
-	we are done.
 
-	If $p\in X\cap B$, we claim: $\lambda_{sq}=\lambda_{pq}$. This then implies
-	$w(e')=w(e)=\lambda_{pq}=\lambda_{sq}$. By lemma \ref{lemma:min-cut-triangle},
+	Consider an edge $e\in \set{Y,X}$ that is replaced by $e'$ in
+	ModifyTree. Without loss of generality $Y\subseteq A$, so
+	$e'=\set{X\cap A,Y}$. We show that both statements hold for $e'$.
+	$w(e)=w(e')= u(\delta_G(\bigcup_{Z\in
+			C_e}Z))=u(\delta_G(\bigcup_{Z\in C_{e'}}Z'))$ so 1. holds. Assume
+	$p\in X,q\in Y$: $\lambda_{pq}=w(e)$. If $p\in X\cap A$, we are done.
+
+	If $p\in X\cap B$, we claim: $\lambda_{sq}=\lambda_{pq}$. This then
+	implies $w(e')=w(e)=\lambda_{pq}=\lambda_{sq}$. By lemma
+	\ref{lemma:min-cut-triangle},
 	$\lambda_{sq}\geq\min\set{\lambda_{st},\lambda_{tp},\lambda_{pq}}$.
-	By lemma \ref{lemma:min-cut-algorithm}, $E(A,B)$ is a minimum $s$-$t$-cut.
-	By lemma \ref{lemma:min-cut-contraction} and since $s,q\in A$, $\lambda_{sq}$
-	does not change when contracting $B$. Adding $\set{t,p}$ with sufficiently
-	high capacity does not change $\lambda_{sq}$. Therefore $\lambda_{sq}\geq
-	\min\set{\lambda_{st},\lambda_{pq}}=\lambda_{pq}$ because $E(A,B)$ is
+	By lemma \ref{lemma:min-cut-algorithm}, $E(A,B)$ is a minimum
+	$s$-$t$-cut. By lemma \ref{lemma:min-cut-contraction} and since
+	$s,q\in A$, $\lambda_{sq}$ does not change when contracting $B$.
+	Adding $\set{t,p}$ with sufficiently high capacity does not change
+	$\lambda_{sq}$. Therefore $\lambda_{sq}\geq
+		\min\set{\lambda_{st},\lambda_{pq}}=\lambda_{pq}$ because $E(A,B)$ is
 	also a $p$-$q$-cut. $w(e)$ is the capacity of a cut separating $s,q$,
 	so $\lambda_{sq}\leq w(e)=\lambda_{pq}$.
+\end{proof}
+
+% Lecture 01.12.22
+\begin{theorem}[Min Cut, Gomory \& Hu (1961)]
+	Every undirected graph $G$ with edge capacities $e: E(G)\to\bR_{\geq0}$
+	has a Gomory-Hu-tree. It can be computed using $n-1$ Min-$s$-$t$-cut
+	computations, e.g. in $O(n^3\sqrt{m})$ time (using the Push-Relabel
+	algorithm for computing the minimum cuts) where $n\coloneqq \abs{V(G)}$
+	and $m\coloneqq \abs{E(G)}$.
+\end{theorem}
+\begin{proof}
+	Algorithm-Hu-Algorithm computes a Gomory-Hu-tree  (lemma \ref{lemma:gomory-hu-alg-correct}).
+	It uses $n-1$ iterations in each of which we need $O(n^2\sqrt{m})$ for
+	Push-Relabel. Everything else can be handled in $O(\min\set{n^3,n^2m})$ time.
+\end{proof}
+
+\subsection{Finding Minimum-Capacity \texorpdfstring{$T$}{T}-Cuts}
+
+\begin{theorem}[Padberg \& Rao (1987)]
+	Given a graph $G, u: E(G)\to\bR_{\geq0}$, a Gomory-Hu-tree $H$ for $(G,u)$,
+	$T\subseteq V(G)$ ($\abs{T}\geq2$ even), a minimum capacity $T$-cut can
+	be found among the fundamental cuts of $H$. A minimum capacity $T$-cut
+	can be computed in $O(n^3\sqrt{m}$) time.
+\end{theorem}
+\begin{proof}
+	Let $\delta_G(X)$ be a minimum capacity $T$-cut in $G$. Let $J$ be the set
+	of edges in $E(H)$ for where $\abs{C_e\cap T}$ is odd (where $C_e$ is a
+	connected component of $H-e$). For all $x\in V(G)$:
+	\begin{align*}
+		\abs{\delta_J(x)} & \equiv \sum_{e\in \delta_H(x)}\abs{C_e\cap T}                         \\
+		                  & \stackalign{T\text{ even}}{\equiv}\qquad \abs{\set{x}\cap T} & \mod 2
+	\end{align*}
+	Therefore $J$ is a $T$-join in $H$. Since $T$-cuts and $T$-joins intersect,
+	there is $f\in J\cap \delta_H(X)$.
+	\begin{align*}
+		u(\delta_G(X)) & \geq \min\set{u(\delta_G(Y))\ |\ \abs{Y\cap f}=1} \\
+		               & =u(\delta_G(C_f))
+	\end{align*}
+	We conclude that $\delta_G(C_f)$ is a minimum-capacity $T$-cut.
+\end{proof}
+
+\subsection{\texorpdfstring{$b$}{b}-Matchings}
+\begin{definition}
+	Let $G$ be a graph, $u: E(G)\to \bN_0\cup\set{\infty}$ and
+	$b: V(G)\to\bN_0$. A \emph{$b$-matching} is a function $f: E(G)\to\bN_0$
+	such that $f(e)\leq u(e)$ and $f(\delta(v))\leq b(v)$ for all $e\in E(G)$
+	and $v\in V(G)$.
+	\begin{itemize}
+		\item If $u\equiv 1$, the instance is called \emph{simple}.
+		\item If $b\equiv 1$, this is equivalent to a matching.
+		\item If $f(\delta(v))=b(v)$ for all $v\in V(G)$, it is called
+		\emph{perfect}.
+		\item Simple perfect $b$-matchings are called \emph{$b$-factors}.
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	A TSP-tour is a 2-factor. Therefore valid inequalities for 2-factors are
+	valid for TSP.
+\end{example}
+
+\begin{theorem}[Edmonds (1965)]
+	Let $G$ be a graph, $b: V(G)\to\bN$. The $b$-matching polytope of $(G,\infty)$
+	is the set of vectors $x\in \bR^{E(G)}_{\geq0}$ satisfying:
+	\begin{align*}
+		x_e                    & \geq0                                     & e\in E(G)       \\
+		x(\delta(v))           & \leq b(c)                                 & v\in V(G)       \\
+		\sum_{e\in E(G[X])}x_e & \leq \floor{\frac{1}{2}\sum_{v\in X}b(v)} & X\subseteq V(G)
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	Clearly, any $b$-matching satisfies these inequalities. Let $x$ satisfy
+	the inequalities. Without loss of generality $b\geq1$. Define $H$ by
+	splitting each $v\in V(G)$ into $b(v)$ copies. Define:
+	\begin{align*}
+		X_v    & \coloneqq \set{(v,i)\ |\ i\in [b(v)]} \qquad v\in V(G)                                             \\
+		V(H)   & \coloneqq \bigcup_{v\in V(G)}X_v                                                                   \\
+		E(H)   & \coloneqq \set{\set{v',w'}\ |\ \set{v,w}\in E(G),v'\in X_v,w'\in X_w}                              \\
+		y_{e'} & \coloneqq \frac{1}{b(v)\cdot b(w)} x_{\set{v,w}} \qquad e'=\set{v',w'}\in E(H),v'\in X_v,w'\in X_w
+	\end{align*}
+	\begin{claim}
+		$y$ is a convex combination of matchings in $H$. Contracting all $X_v$
+		($v\in V(G)$) yields a convex combination of $b$-matchings for $x$.
+	\end{claim}
+	We show that $Y$ is contained in the matching polytope, i.e.:
+	\begin{align*}
+		y_e                    & \geq0                    & e\in E(H)                            \\
+		\sum_{e\in E(H[A])}y_2 & \leq \frac{\abs{A}-1}{2} & A\subseteq V(H),\ \abs{A}\text{ odd}
+	\end{align*}
+	If $\forall v\in V(H)$: $X_v\subseteq A$ or $X_v\cap A=\emptyset$, this
+	follows directly from the given inequalities. Otherwise, let $a,b\in X_v$
+	such that $a\in A,b\notin A$.
+	\begin{align*}
+		2\sum_{e\in E(H[A])}y_e & =\sum_{c\in A\setminus\set{a}}\sum_{e\in E(\set{c},A\setminus\set{c})}y_e + \sum_{e\in E(\set{a},A\setminus\set{a})}y_e                                              \\
+		                        & \leq \sum_{c\in A\setminus\set{a}}\sum_{e\in\delta_H(c)\setminus\set{\set{c,b}}} + \sum_{e\in E(\set{a},A\setminus\set{a})}y_e                                       \\
+		                        & =\sum_{c\in A\setminus\set{a}}\sum_{e\in \delta_H(c)}y_e \underbrace{- \sum_{e\in E(\set{b},A\setminus\set{a})}y_e+\sum_{e\in E(\set{a},A\setminus\set{a})}y_e}_{=0} \\
+														& \leq\abs{A}-1
+	\end{align*}
+\end{proof}
+
+\begin{theorem}[Edmonds \& Johnson (1970)]
+	Let $G$ be a graph, $u: E(G)\to\bN\cup\set{\infty}$, $b: V(G)\to\bN$. The
+	$b$-matching polytope is given by:
+	\begin{align*}
+		x&\geq0 \\
+		x&\leq u \\
+		x(\delta(v))&\leq b(v) &v\in V(G) \\
+		\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e&\leq \underbrace{\floor{\frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)}}_{\text{Gomory-Chvátal-Cut}} &X\subseteq V(G),F\subseteq \delta(X)
+	\end{align*}
+\end{theorem}
+\begin{proof}\ 
+	\begin{enumerate}
+		\item[''$\subseteq$'':]
+		Let $x$ be an incidence vector of $b$-matchings. Then $x\leq u$ and
+		$x(\delta(v))\leq b(v)$ for all $v\in V(G)$.
+		\begin{align*}
+			\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e&=\frac{1}{2}\left(\sum_{v\in X}\sum_{e\in \delta(x)}x_e+\sum_{e\in F}x_e-\sum_{e\in\delta(X)\setminus F}x_e\right) \\
+			&\leq \frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)
+		\end{align*}
+		Since the left hand side is integral, the right hand side can be rounded down.
+
+		\item[''$\supseteq$'':]
+		Let $x$ satisfy all the inequalities. We have to show that $x$ is a convex
+		combinations of $b$-matchings. Let $H$ arise from $G$ by subdividing
+		each edge $e=\set{v,w}$ with $u(e)\neq\infty$ by 2 new vertices
+		$(e,v), (e,w)$ and a path $v$-$(e,v)$-$(e,w)$-$w$, where
+		$b((e,v))=u(e)=b((e,w))$. Set $y_{\set{v,(e,v)}}\coloneqq x_e\eqqcolon
+		y_{\set{(e,w),w}}$ and $y_{\set{(e,v),(e,w)}}\coloneqq u(e)-x_e$. If
+		$u(e)=\infty$, $y_e\coloneqq x_e$.
+		\begin{claim}
+			$y$ is in the $b$-matching polytope of $(H,\infty)$. This then implies
+			that $x$ is contained in the capacitated $b$-matching polytope of $(G,u)$.
+		\end{claim}
+		$y(\delta_H(v))\leq b(v)$ clearly holds for all $v\in V(H)$.
+	\end{enumerate}
 \end{proof}
 
 \end{document}
