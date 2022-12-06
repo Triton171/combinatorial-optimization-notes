@@ -2166,7 +2166,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 		2\sum_{e\in E(H[A])}y_e & =\sum_{c\in A\setminus\set{a}}\sum_{e\in E(\set{c},A\setminus\set{c})}y_e + \sum_{e\in E(\set{a},A\setminus\set{a})}y_e                                              \\
 		                        & \leq \sum_{c\in A\setminus\set{a}}\sum_{e\in\delta_H(c)\setminus\set{\set{c,b}}} + \sum_{e\in E(\set{a},A\setminus\set{a})}y_e                                       \\
 		                        & =\sum_{c\in A\setminus\set{a}}\sum_{e\in \delta_H(c)}y_e \underbrace{- \sum_{e\in E(\set{b},A\setminus\set{a})}y_e+\sum_{e\in E(\set{a},A\setminus\set{a})}y_e}_{=0} \\
-														& \leq\abs{A}-1
+		                        & \leq\abs{A}-1
 	\end{align*}
 \end{proof}
 
@@ -2174,20 +2174,20 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	Let $G$ be a graph, $u: E(G)\to\bN\cup\set{\infty}$, $b: V(G)\to\bN$. The
 	$b$-matching polytope is given by:
 	\begin{align*}
-		x&\geq0 \\
-		x&\leq u \\
-		x(\delta(v))&\leq b(v) &v\in V(G) \\
-		\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e&\leq \underbrace{\floor{\frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)}}_{\text{Gomory-Chvátal-Cut}} &X\subseteq V(G),F\subseteq \delta(X)
+		x                                       & \geq0                                                                                                                                                    \\
+		x                                       & \leq u                                                                                                                                                   \\
+		x(\delta(v))                            & \leq b(v)                                                                                                         & v\in V(G)                            \\
+		\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e & \leq \underbrace{\floor{\frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)}}_{\text{Gomory-Chvátal-Cut}} & X\subseteq V(G),F\subseteq \delta(X)
 	\end{align*}
 \end{theorem}
-\begin{proof}\ 
+\begin{proof}\
 	\begin{enumerate}
 		\item[''$\subseteq$'':]
 		Let $x$ be an incidence vector of $b$-matchings. Then $x\leq u$ and
 		$x(\delta(v))\leq b(v)$ for all $v\in V(G)$.
 		\begin{align*}
-			\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e&=\frac{1}{2}\left(\sum_{v\in X}\sum_{e\in \delta(x)}x_e+\sum_{e\in F}x_e-\sum_{e\in\delta(X)\setminus F}x_e\right) \\
-			&\leq \frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)
+			\sum_{e\in E(G[X])}x_e+\sum_{e\in F}x_e & =\frac{1}{2}\left(\sum_{v\in X}\sum_{e\in \delta(x)}x_e+\sum_{e\in F}x_e-\sum_{e\in\delta(X)\setminus F}x_e\right) \\
+			                                        & \leq \frac{1}{2}\left(\sum_{v\in X}b(v)+\sum_{e\in F}u(e)\right)
 		\end{align*}
 		Since the left hand side is integral, the right hand side can be rounded down.
 
@@ -2197,14 +2197,117 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 		each edge $e=\set{v,w}$ with $u(e)\neq\infty$ by 2 new vertices
 		$(e,v), (e,w)$ and a path $v$-$(e,v)$-$(e,w)$-$w$, where
 		$b((e,v))=u(e)=b((e,w))$. Set $y_{\set{v,(e,v)}}\coloneqq x_e\eqqcolon
-		y_{\set{(e,w),w}}$ and $y_{\set{(e,v),(e,w)}}\coloneqq u(e)-x_e$. If
+			y_{\set{(e,w),w}}$ and $y_{\set{(e,v),(e,w)}}\coloneqq u(e)-x_e$. If
 		$u(e)=\infty$, $y_e\coloneqq x_e$.
 		\begin{claim}
 			$y$ is in the $b$-matching polytope of $(H,\infty)$. This then implies
 			that $x$ is contained in the capacitated $b$-matching polytope of $(G,u)$.
 		\end{claim}
-		$y(\delta_H(v))\leq b(v)$ clearly holds for all $v\in V(H)$.
+		$y(\delta_H(v))\leq b(v)$ clearly holds for all $v\in V(H)$. Assume
+		that there exists $A\subseteq V(H)$ with:
+		\[y(E(H[A]))>\floor{\frac{1}{2}b(A)}\]
+		Let $B\coloneqq A\cap V(G)$. For $\set{v,w}\in E(G[B])$, we may
+		assume that $(e,v),(e,w)\in A$. If $(e,v)\in A$, we may assume $v\in
+			A$:
+		\begin{enumerate}
+			\item[Case 1:] If $(e,w)\in A$, we can remove $(e,v)$ and $(e,w)$.
+			\item[Case 2:] If $(e,w)\notin A$, we can remove $(e,v)$.
+		\end{enumerate}
+		There are 3 remaining cases. Define:
+		\[F\coloneqq \set{e=\set{v,w}\in E(G) \ |\ \abs{A\cap \set{(e,v),(e,w)}}=1}\]
+		Then
+		\begin{align*}
+			x(E(G[B]))+x(F) & =y(E(H[A]))-\sum_{\substack{e\in E(G[B])               \\ u(e)<\infty}}u(e) \\
+			                & > \floor{\frac{1}{2}b(A)}-\sum_{\substack{e\in E(G[B]) \\ u(e)<\infty}}u(e) \\
+			                & =\floor{\frac{1}{2}(b(B)+\sum_{e\in F}u(e))}
+		\end{align*}
+		which is a contradiction to the feasibility of $x$. Therefore, $y$
+		satisfies the inequalities w.r.t. $(H,\infty)$. Let
+		$e\in P\coloneqq $ $b$-matching polytope for $(H,\infty)$, then
+		$y\in \set{z\in P\ |\ \sum_{e\in\delta(v)}z_e=b(v) \forall v\in V(H)\setminus V(G)}$.
+		Therefore, $y$ is the convex combination of $b$-matchings $f_1,\ldots,f_m$
+		in $(H,\infty)$ with $f_i(\delta(v))=b(v)$ for all $v\in V(H)\setminus V(G)$.
+		We get:
+		\[f_i(\set{v,(e,v)})=f_i(\set{w,(e,w)})\leq u(e) \qquad \forall e=\set{v,w}\in E(G)\]
+		Set:
+		\[f_i'(e)\coloneqq\begin{cases}
+				f_i(v,(e,v)) \qquad & e=\set{v,w}\in E(G),\ u(e)<\infty \\
+				f_i(e) \qquad       & e=\set{v,w}\in E(G),\ u(e)=\infty
+			\end{cases}\]
+		Then $x$ is a convex combination of $f_1',\ldots,f_m'$ (of
+		$b$-matchings).
 	\end{enumerate}
+\end{proof}
+
+% Lecture 06.12.22
+
+\subsection{Padberg-Rao Theorem}
+
+\stepcounter{theorem}
+\begin{lemma}
+	Let $G$ be a graph, $\abs{E(G)}\geq1$, $T\subseteq V(G)$ with $\abs{T}$
+	even, $c,c': E(G) \to \bR_{\geq0}\cup\set{\infty}$. There exists a
+	$O(n^2m)$ time algorithm that finds a vertex set $X\subseteq V(G)$ and
+	$F\subseteq \delta(X)$ such that $\abs{X\cap T}+\abs{F}$ is odd and
+	\[c(\delta(X)\setminus F)+c'(F)\]
+	is minimum.
+\end{lemma}
+\begin{proof}
+	Without loss of generality, $G$ is connected: Otherwise, add edges $e$
+	with $c(e)=0$ and $c'(e)=\infty$. Let
+	\begin{align*}
+		d(e) & \coloneqq\min\set{c(e),c'(e)}                                 & e\in E(G) \\
+		E'   & \coloneqq \set{e\in E(G)\ |\ c'(e)<c(e)}                                  \\
+		V'   & \coloneqq \set{v\in V(G)\ |\ \abs{\delta_{E'}(v)}\text{ odd}}             \\
+		T'   & \coloneqq T\Delta V'
+	\end{align*}
+	Since $E'$ is a $V'$-join, for $X\subseteq V(G)$:
+	\[\abs{X\cap T}+\abs{\delta(X)\cap E'}\equiv \abs{X\cap T}+\abs{X\cap T'}
+		\equiv \abs{X\cap T'} \mod 2\]
+	Compute a Gomory-Hu-Tree $H$ for $(G,d)$. For $f\in E(H)$, let
+	$\delta(C_f)$ be the fundamental cut of $f$ (i.e. $C_f$ is a
+	connected component in $H-f$). Let
+	$g_f\in\arg\min_{e\in\delta_G(C_f)}\abs{c(e)-c'(e)}$. Let:
+	\[F_f\coloneqq\begin{cases}
+			\delta_G(C_f)\cap E'                & \text{if $\abs{C_f\cap T'}$ is odd} \\
+			\delta_G(C_f)\cap E'\Delta\set{g_f} & \text{else}
+		\end{cases}\]
+	Finally, choose $f\in E(H)$ minimizing $c(\delta(C_f)\setminus
+		F_f)+c'(F_f)$ and output $C_f,F_f$. The running time is dominated by
+	the computation of $H$.
+
+	It remains to show correctness: Let $X^*,F^*$ be an optimum solution.
+	\begin{enumerate}
+		\item[Case 1:] $\abs{X^*\cap T'}$ is odd. $J'\coloneqq\set{f\in E(H)\ |\
+				\abs{C_f \cap T'}\text{ odd}}$ is a $T'$-join in $H$. Therefore, $J'$
+		intersects the $T'$-cut $\delta_H(X^*)$. Let $f\in\delta_H(X^*)$ with
+		$\abs{X_f \cap T'}$ odd. Then $d(\delta_G(C_f))\leq
+			d(\delta_G(X^*))\leq\mathrm{obj}(X^*)$, since $H$ is a
+		Gomory-Hu-tree. By construction, $F_f=\delta_G(C_f)\cap E'$ and:
+		\[c(\delta_G(C_f)\setminus F_f)+c'(F_f)\leq d(\delta_G(X_f))\]
+
+		\item[Case 2:] $\abs{X^*\cap T'}$ is even. Let
+		$g^*\in\arg\min_{e\in\delta(X^*)} \abs{c(e)-c'(e)}$. $H+g^*$ has a
+		unique circuit that contains some $f\in \delta_H(X^*)$. Then
+		\begin{align*}
+			c(\delta_G(X^*)\setminus F^*)+c'(F^*) & = d(\delta(X^*))+\abs{c(g^*)-c'(g^*)}                                           \\
+			                                      & \geq d(\delta_G(C_f))+\abs{c(g^*)-c'(g^*)}                                      \\
+			                                      & \stackalign{g^*\in\delta_G(C_f)}{\geq}\quad c(\delta(C_f)\setminus F_f)+c'(F_f)
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Padberg \& Rao (1987)]
+	Let $G$ be a graph, $u: E(G)\to\bN\cup\set{\infty}$ and
+	$b: V(G)\to\bN$. Then the separation problem for the $b$-matching
+	polytope can be solved in $O(n^2m)$ time.
+\end{theorem}
+\begin{proof}
+	$0\leq X\leq u$ and $x(\delta(v))\leq b(v)$ for all $v\in V(G)$ can be
+	checked in linear time. It remains to check
+	\[x(E(G[X]))+x(F)\leq \floor{\frac{1}{2}b(X)+u(F)} \qquad X\subseteq V(G),F\subseteq \delta(X)\]
+	If $b(X)+u(F)$ is even (i.e. no rounding is done), this is implies by
+	the other inequalities.
 \end{proof}
 
 \end{document}
