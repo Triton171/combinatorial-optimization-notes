@@ -1733,7 +1733,7 @@ The naive reduction to digraphs requires non-negative weights.
 	A walk $C=\set{v_0,e_1,v_1,\ldots,e_t,v_t}$ is called a Chinese postman
 	tour if $v_0=v_t$ and each edge in $E(G)$ is visited at least once.
 	The Chinese Postman Problem is the problem of finding a shortest
-	Chinese postman tour in $G$ with respect ot $c: E(G)\to\bR_{\geq0}$.
+	Chinese postman tour in $G$ with respect to $c: E(G)\to\bR_{\geq0}$.
 \end{definition}
 
 \begin{cor}
@@ -2244,7 +2244,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 \subsection{Padberg-Rao Theorem}
 
 \stepcounter{theorem}
-\begin{lemma}
+\begin{lemma}\label{lemma:padberg-rao}
 	Let $G$ be a graph, $\abs{E(G)}\geq1$, $T\subseteq V(G)$ with $\abs{T}$
 	even, $c,c': E(G) \to \bR_{\geq0}\cup\set{\infty}$. There exists a
 	$O(n^2m)$ time algorithm that finds a vertex set $X\subseteq V(G)$ and
@@ -2297,17 +2297,151 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	\end{enumerate}
 \end{proof}
 
-\begin{theorem}[Padberg \& Rao (1987)]
+\begin{theorem}[Padberg \& Rao (1987)]\label{thm:padberg-rao}
 	Let $G$ be a graph, $u: E(G)\to\bN\cup\set{\infty}$ and
 	$b: V(G)\to\bN$. Then the separation problem for the $b$-matching
 	polytope can be solved in $O(n^2m)$ time.
 \end{theorem}
 \begin{proof}
 	$0\leq X\leq u$ and $x(\delta(v))\leq b(v)$ for all $v\in V(G)$ can be
-	checked in linear time. It remains to check
+	checked in linear time. It remains to check:
 	\[x(E(G[X]))+x(F)\leq \floor{\frac{1}{2}b(X)+u(F)} \qquad X\subseteq V(G),F\subseteq \delta(X)\]
-	If $b(X)+u(F)$ is even (i.e. no rounding is done), this is implies by
-	the other inequalities.
+	If $b(X)+u(F)$ is even (i.e. no rounding is done), this is implied by
+	the other inequarities. Otherwise, the inequality is violated iff:
+	\[b(X)-2x(E(G[X]))+u(F)-2x(F)<1\]
+	Extend $G$ to $H$ by adding a new vertex $z$ and edges $\set{z,v}$
+	for every $v\in V(G)$. Set:
+	\begin{align*}
+		b(z)  & \coloneqq b(V(G))                                                                   \\
+		T     & \coloneqq\set{v\in V(H) \ |\ b(v)\text{ odd}}                                       \\
+		E'    & \coloneqq \set{e\in E(G)\ |\ u(e)<\infty\text{ and odd}}                            \\
+		c(e)  & \coloneqq\begin{cases}
+			                 x_e \qquad                    & e\in E'               \\
+			                 \min\set{x_e,u(e)-x_e} \qquad & e\in E(G)\setminus E' \\
+			                 b(v) - x(\delta(v)) \qquad    & e=\set{z,v}\in E(H)
+		                 \end{cases} \\
+		c'(e) & \coloneqq \begin{cases}
+			                  u(e) - x_e \qquad & e\in E'               \\
+			                  \infty \qquad     & e\in E(H)\setminus E'
+		                  \end{cases}
+	\end{align*}
+	For $X\subseteq V(G)$, let $D_X\coloneqq \set{e\in \delta_G(X)\setminus E'
+			\ |\ u(e)\leq 2x_e}$. Then $\forall X\subseteq V(G),\ F\subseteq \delta_G(X)
+		\cap E'$
+	\[\abs{X\cap T}+\abs{F}\equiv b(X)+u(F\cup D_X) \mod 2\]
+	and
+	\begin{align*}
+		c(\delta_H(X)\setminus F)+c'(F) & =b(X)-\sum_{v\in X}x(\delta_G(v))+\sum_{e\in(\delta_G(X)\cap E')\setminus F}x_e    \\
+		                                & + \sum_{e\in\delta_G(X)\setminus E'}\min\set{x_e,u(e)-x_e} + \sum_{e\in F}u(e)-x_e \\
+		                                & =b(X)-2x(E(G[X]))+\sum_{e\in F\cup D_X}u(e)-2x_e
+	\end{align*}
+	Apply lemma \ref{lemma:padberg-rao} to $H,T,c,c'$: If there exists
+	$X\subseteq V(H),\ F\subseteq \delta_H(X)$ with $c(\delta(X)\setminus F)
+		+c'(F)<1$, then $F\subseteq E'$ and without loss of generality $z\notin X$
+	(otherwise use the complement). We get
+	\[b(X)-2x(E(G[X]))+\sum_{e\in F\cup D_X}u(e)-2x_e<1\]
+	Setting $F'\coloneqq F\cup D_X$ yields a violating of the
+	corresponding inequality.
+
+	For the other direction, note that if the inequality holds for
+	$X\subseteq V(G)$ and $F\subseteq \delta(X)$. Then without loss of
+	generality, $D_X\subseteq F\subseteq E'\cup D_X$ (since adding edges
+	in $D_X\setminus F$ increases the violation). Then:
+	\[c(\delta_H(X)\setminus (F\setminus D_X))+c'(F\setminus D_X)<1\]
+	Therefore, the $b$-matching polytope can be separated in polynomial
+	time.
+\end{proof}
+
+% Lecture 08.12.22
+
+\begin{cor}
+	The Maximum-Weight $b$-Matching Problem can be solved in polynomial time.
+\end{cor}
+\begin{proof}
+	Use the Ellipsoid method together with theorem \ref{thm:padberg-rao}.
+\end{proof}
+
+\section{The TSP Polytope}
+\subsection{The Spanning Tree Polytope}
+
+\begin{theorem}[Edmonds (1967)]
+	Let $G$ be a connected graph, $n\coloneqq \abs{V(G)}$. Then
+	\[P_{ST}\coloneqq \set{x\in [0,1]^{E(G)}\ |\ x(E(G))=n-1,\forall \emptyset\subsetneq X\subseteq V(G): \sum_{e\in E(G[X])}x_e\leq \abs{X}-1}\]
+	is the convex hull of incidence vectors of spanning trees. It is
+	called the spanning tree polytope.
+\end{theorem}
+\begin{proof}
+	Let $T$ be a spanning tree with incidence vector $x$. Then $x\in P_{ST}$
+	and as $x\in \set{0,1}^{E(G)}$, $x$ is a vertex.
+
+	For the other direction, let $x\in P_{ST}\cap\bZ^{E(G)}$. Then $x$
+	cannot contain cycles, so it is a forest. Since $x(E(G))=n-1$, it is
+	a spanning tree.
+	\begin{claim}
+		$P_{ST}$ is integral.
+	\end{claim}
+	Let $c: E(G)\to\bR$ and $T$ be a minimum spanning tree produced by Kruskals
+	algorithm. Let $E(T)\coloneqq \set{f_1,\ldots,f_{n-1}}$ in order of addition,
+	i.e. $c(f_1)\leq c(f_2)\leq\ldots\leq c(f_{n-1})$. Let $X_k\subseteq V(G)$
+	be the connected component in $(V(G),\set{f_1,\ldots,f_k}$ containing $f_k$.
+	Let $x^*$ be the incidence vector of $T$.
+	\begin{claim}
+		$x^*$ is an optimum solution to
+		\begin{align*}
+			\min       & c^tx                                                         \\
+			s.t. 1^tx  & =n-1                                                         \\
+			x(E(G[X])) & \leq \abs{X}-1 & \forall \emptyset\subsetneq X\subseteq V(G)
+		\end{align*}
+	\end{claim}
+	The dual problem is:
+	\begin{align*}
+		\max                                       & -\sum_{\emptyset\subsetneq X\subseteq V(G)}(\abs{X}-1)z_A                                        \\
+		s.t. -\sum_{e\subseteq X\subseteq V(G)}z_X & \leq c(e)                                                 & e\in E(G)                            \\
+		z_X                                        & \geq 0                                                    & \emptyset\subsetneq X\subsetneq V(G)
+	\end{align*}
+	Construct a dual solution $z^*$: For $k\in\set{1,\ldots,n-2}$, set
+	$z^*_{X_k}\coloneqq c(f_l)-c(f_k)\geq0$ where $l$ is the minimum index larger
+	than $k$ with $X_k\cap f_l\neq\emptyset$. Define $z^*_{V(G)}=-c(f_{n-1})$
+	and $z^*_A\coloneqq 0$ for all other $A\subseteq V(G)$.
+
+	For $e=\set{v,w}\in E(G)$:
+	\begin{align*}
+		-\sum_{e\subseteq X\subseteq V(G)}z_X=-c(f_i)\leq c(e)
+	\end{align*}
+	where $i$ is the smallest index such that $e\in X_i$. Therefore, $z^*$
+	is dual feasible. For tree edges, we have equality, so for $x_e>0$ the
+	dual constraint is tight. Let $\emptyset\subsetneq X\subseteq V(G)$
+	with $z^*_X>0$. Then $T[X]$ is connected, so the primal constraint is
+	tight. Complementary slackness implies that $x^*,z^*$ are optimum
+	primal/dual solutions.
+
+	Remark: If $c\in\bZ^{E(G)}$, then $z^*$ is an integral optimum dual
+	solution, so the system is TDI.
+\end{proof}
+
+
+\begin{theorem}[Fulkerson (1974)]
+	Let $G$ be a digraph, $c: E(G)\to\bZ_{\geq0}$, $r\in V(G)$ such that
+	$G$ contains an $r$-arborescence. Then the minimum weight of an $r$-arborescence
+	spanning $V(G)$ equals the maximum number of $r$-cuts $C_1,\ldots,C_t$
+	(where repetitions are allowed) such that no edge $e$ is contained in more
+	than $c(e)$ of the cuts.
+\end{theorem}
+\begin{proof}
+	Consider the ($r$-cuts)$\times$(edges) matrix $A$, where
+	\[A_{Ce}=\begin{cases}
+		1 &e\in C \\
+		0 &\text{otherwise}
+	\end{cases}\]
+
+	Consider the LP and its dual:
+	\begin{align*}
+		&\min\set{c^tx\ |\ x\in \bR^{E(G)},\ Ax\geq 1, x\geq0} \\
+		&\max\set{1^ty\ |\ y\in\bR^{r\text{-cuts}}yA\leq c,\ y\geq0}
+	\end{align*}
+	\begin{claim}
+		The system is TDI.
+	\end{claim}
 \end{proof}
 
 \end{document}
