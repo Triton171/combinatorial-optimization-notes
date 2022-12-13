@@ -62,6 +62,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{cor}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem*{claim}{Claim}
 \newtheorem*{observation}{Observation}
 \theoremstyle{remark}
@@ -2419,7 +2420,6 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	solution, so the system is TDI.
 \end{proof}
 
-
 \begin{theorem}[Fulkerson (1974)]
 	Let $G$ be a digraph, $c: E(G)\to\bZ_{\geq0}$, $r\in V(G)$ such that
 	$G$ contains an $r$-arborescence. Then the minimum weight of an $r$-arborescence
@@ -2430,18 +2430,152 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 \begin{proof}
 	Consider the ($r$-cuts)$\times$(edges) matrix $A$, where
 	\[A_{Ce}=\begin{cases}
-		1 &e\in C \\
-		0 &\text{otherwise}
-	\end{cases}\]
+			1 & e\in C           \\
+			0 & \text{otherwise}
+		\end{cases}\]
 
 	Consider the LP and its dual:
 	\begin{align*}
-		&\min\set{c^tx\ |\ x\in \bR^{E(G)},\ Ax\geq 1, x\geq0} \\
-		&\max\set{1^ty\ |\ y\in\bR^{r\text{-cuts}}yA\leq c,\ y\geq0}
+		 & \min\set{c^tx\ |\ x\in \bR^{E(G)},\ Ax\geq 1, x\geq0}            \\
+		 & \max\set{1^ty\ |\ y\in\bR^{r\text{-cuts}},\ A^ty\leq c,\ y\geq0}
 	\end{align*}
 	\begin{claim}
 		The system is TDI.
 	\end{claim}
+	% Lecture 13.12.22
+	\begin{proof}
+		Let $y$ be an optimum dual solution maximizing
+		\[\sum_{\emptyset\subsetneq X\subseteq V(G)\setminus\set{r}}y_{\delta^-(X)}\abs{X}^2\]
+		\begin{claim}
+			$\cF\coloneqq \set{X\subseteq V(G)\  |\ y_{\delta^-(X)}>0}$ is laminar.
+		\end{claim}
+		Suppose that there are $X,Y\in\cF$ with $X\cap Y,\ X\setminus Y,\ Y\setminus X
+			\neq\emptyset$. Let:
+		\begin{align*}
+			\epsilon               & \coloneqq \min\set{y_{\delta^-(X)},y_{\delta^-(Y)}}                          \\
+			y'_{\delta^-(X)}       & \coloneqq y_{\delta^-(X)}-\epsilon                                           \\
+			y'_{\delta^-(Y)}       & \coloneqq y_{\delta^-(Y)}-\epsilon                                           \\
+			y'_{\delta^-(X\cap Y)} & \coloneqq y_{\delta^-(X\cap Y)}+\epsilon                                     \\
+			y'_{\delta^-(X\cup Y)} & \coloneqq y_{\delta^-(X\cup Y)}+\epsilon                                     \\
+			y'                     & \coloneqq y                                         & \text{everywhere else}
+		\end{align*}
+		Then $y'$ is a dual optimum solution which contradicts the maximality of $y$.
+
+		By Ghoulia-Houri, if the set of rows can be partitioned
+		$\cR=\cR_1\dot\cup \cR_2$ such that for all columns $j$:
+		\[\sum_{r\in\cR_1}a_{rj}-\sum_{r\in\cR_r}a_{rj}\in\set{-1,0,1}\]
+		then $A$ is totally unimodular. Let $\cR_1,\cR_2$ be a partition of
+		the laminar family $\cF$ alternating between each level. Let
+		$A'\subseteq A$ consist of rows with positive support (i.e. rows in
+		$\cF$). Then by this argument, $A'$ is totally unimodular. In
+		particular, for $c\in \bZ_{\geq0}$, we find an integral optimum dual
+		solution.
+	\end{proof}
+	Since the system is TDI, there exists an integral optimum primal solution
+	$x$.
 \end{proof}
+
+\begin{cor}
+	Let $G$ be a digraph, $c: E(G)\to\bR_{\geq0}$ and $r\in V(G)$ such that
+	a spanning $r$-arborescence exists. Then
+	\[\min\set{c^tx\ |\ x\geq0,\ x(\delta^+(X))\geq1\ \forall r\in X\subsetneq V(G)}\]
+	has an integral solution which is the incidence vector of a
+	minimum-weight spanning $r$-arborescence plus (possibly) edges of
+	weight 0.
+\end{cor}
+
+\subsection{The Held-Karp Polytope}
+
+\begin{prop}\label{prop:subtour-polytope}
+	Let $n\in\bZ_{\geq3}$. The incidence vectors $x$ of TSP tours in $K_n$ are
+	described by:
+	\begin{align*}
+		x(\delta(v)) & =2                     & v\in V(G)                      \\
+		x(\delta(X)) & \geq2                  & \emptyset\neq X\subsetneq V(G) \\
+		x            & \in \set{0,1}^{E(K_n)}
+	\end{align*}
+\end{prop}
+\begin{proof}
+	Integrality and the first inequality imply that $x$ is the incidence
+	vector of a collection of cycles. By the second inequality (which is
+	called the \emph{subtour elimination constraint}), there is
+	exactly one cycle.
+\end{proof}
+Relaxing the integrality (i.e. only requiring $x\in[0,1]$) yields the
+\emph{subtour polytope} (or Held-Karp-polytope).
+
+\begin{prop}
+	Let $n\in\bZ_{\geq2}$, $x\in[0,1]^{E(G)}$ with $x(\delta(v))=2$ for all
+	$v\in V(K_n)$. Then the following are equivalent:
+	\begin{enumerate}
+		\item $x(\delta(X))\geq2$ for all $\emptyset \neq X\subsetneq V(G)$
+		(i.e. \ref{prop:subtour-polytope}).
+		\item $x(E(K_n[X]))\leq \abs{X}-1$ for all $\emptyset\neq X\subsetneq V(G)$.
+		\item $x(E(K_n[X]))\leq \abs{X}-1$ for all  $\emptyset\neq X\subseteq V(K_n)\setminus\set{r}$.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		2 & \leq x(\delta(V(G)\setminus X))          \\
+		  & =x(\delta(X))                            \\
+		  & =\sum_{v\in X}x(\delta(v))-2x(E(K_n[X])) \\
+		  & =2\abs{X}-2x(E(K_n[X]))
+	\end{align*}
+\end{proof}
+
+\begin{theorem}[Wolsey (1980)]
+	Let $(K_n,c)$ with $c$ metric and
+	\[P_{HK}=\set{x\in\bR^{E(K_n)}_{\geq0}\ |\ x(\delta(v))=2\ \forall v\in V(K_n),
+			\ x(\delta(X))\geq 2\ \forall \emptyset\neq X\subsetneq V(K_n)}\]
+	be the Held-Karp polytope. Then:
+	\[\min\set{c^tx\ |\ x\in P_{HK}\cap\bZ^{E(K_n)}}\leq \frac{3}{2}
+		\min\set{c^tx\ |\ x\in P_{HK}}\]
+\end{theorem}
+\begin{proof}
+	Let $x^*\in \arg\min\set{c^x\ |\ x\in P_{HK}}$, $Y$ be a minimum
+	spanning tree in $(K_n,c)$ and $J$ a minimum-weight $\mathrm{odd}(Y)$-join.
+	$\frac{n-1}{n}x^*\in P_{ST}$ and $\frac{1}{2}x^*\in P_{\mathrm{odd}(Y)\text{-join}}$.
+	We get:
+	\begin{align*}
+		c(Y)+c(J) & \leq \frac{n-1}{n}c^tx^*+\frac{1}{2}c^tx^* \\
+		          & <\frac{3}{2}c^tx^*
+	\end{align*}
+\end{proof}
+
+\begin{conjecture}
+	If for $(K_n,c)$, $c$ is metric, then:
+	\[\min\set{c^tx\ |\ x\in P_{HK}\cap\bZ^{E(G)}}\leq \frac{4}{3}\min\set{c^x\ |\ x\in P_{HK}}\]
+\end{conjecture}
+
+% TODO Held-Karp polytope example
+
+\subsection{Further Inequalities for the TSP}
+Consider the \emph{2-matching inequalities}:
+\[x(E(G[H]))+x(F)\leq \abs{H}+\floor{\frac{\abs{F}}{2}} \qquad \forall H\subseteq V(G),\ F\subseteq\delta(H),\ \abs{F}\text{ odd}\]
+\begin{theorem}
+	Let $H,T_1,\ldots,T_k\subseteq V(G)$ such that:
+	\begin{enumerate}
+		\item $\abs{H\cap T_i}\geq1$ for $i\in[k]$
+		\item $\abs{T_i\setminus H}\geq1$ for $i\in [k]$
+		\item $T_i\cap T_j=\emptyset$ for $i\neq j$
+		\item $k$ is odd
+	\end{enumerate}
+	Then
+	\[x(E(G[H]))+\sum_{i=1}^kx(E(G[T_i]))\leq \abs{H}+\sum_{i=1}^k(\abs{T_i}-1)-\frac{k+1}{2}\]
+	is a valid inequality for the TSP polytope. They're called \emph{comb
+		inequalities}. $H$ is called \emph{handle}, $T_i$ are called
+	\emph{teeth} and $(H,T_1,\ldots,T_k)$ is a comb.
+\end{theorem}
+\begin{proof}
+	Let $(H,T_1,\ldots,T_k)$ be a comb. Generate the inequality as a
+	Gomory-Chvátal-cut: Multiply the following inequalities by $\frac{1}{2}$,
+	add them together and round:
+	\begin{itemize}
+		\item $x(\delta(v))=2$ for $v\in H$
+		\item $-x_e\leq0$ for $e\in \delta(H)\setminus\bigcup_{i=1}^k E(G[T_i])$
+		\item $x(\delta(X))\geq 2$ for $X=T_i,H\cap T_i,T_i\setminus H$ ($i\in[k]$)
+	\end{itemize}
+\end{proof}
+The complexity of comb separation is an open question.
 
 \end{document}

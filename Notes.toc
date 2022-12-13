@@ -22,3 +22,5 @@
 \contentsline {subsection}{\numberline {2.7}Padberg-Rao Theorem}{38}{subsection.2.7}%
 \contentsline {section}{\numberline {3}The TSP Polytope}{40}{section.3}%
 \contentsline {subsection}{\numberline {3.1}The Spanning Tree Polytope}{40}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}The Held-Karp Polytope}{43}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Further Inequalities for the TSP}{44}{subsection.3.3}%

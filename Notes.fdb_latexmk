@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1670510751 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1670510752
+["pdflatex"] 1670943044 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1670943045
   "/home/daniel/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1668523018 7808 0dd70ac5dc0e4dc3f47a74faf1bdf882 ""
   "/nix/store/svrwqcjwd5pdjsphyfa8ck12yzlfj4lp-texlive-combined-2021/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1 4410432 4a99fe0e427286d4a2a9725411524b61 ""
   "/nix/store/svrwqcjwd5pdjsphyfa8ck12yzlfj4lp-texlive-combined-2021/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1 2828619 c80449e81033289bfc7e76abe3bd3ec0 ""
@@ -234,11 +234,11 @@
   "/nix/store/svrwqcjwd5pdjsphyfa8ck12yzlfj4lp-texlive-combined-2021/share/texmf/tex/latex/url/url.sty" 1 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/nix/store/svrwqcjwd5pdjsphyfa8ck12yzlfj4lp-texlive-combined-2021/share/texmf/tex/latex/xcolor/xcolor.sty" 1 56029 3f7889dab51d620aa43177c391b7b190 ""
   "/nix/store/svrwqcjwd5pdjsphyfa8ck12yzlfj4lp-texlive-combined-2021/share/texmf/web2c/texmf.cnf" 1 41601 c8d310f5de010f3a8b8ab8257ae3f720 ""
-  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1670510750 99758 1a084681b5172311a9b991591f6c5815 ""
-  "Notes.aux" 1670510752 7047 d0e585f64e3a1e9ce0ff17fb28295927 "pdflatex"
-  "Notes.out" 1670510752 4181 8e5a84ed1cd8f73dda1a7882e0d8aac4 "pdflatex"
-  "Notes.tex" 1670510750 99758 1a084681b5172311a9b991591f6c5815 ""
-  "Notes.toc" 1670510752 2174 02553ef7bf29cecd220eaaee47f8964a "pdflatex"
+  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1670943044 105662 21debb404a1953315b592bcdfb73c780 ""
+  "Notes.aux" 1670943045 7378 64df6a47ced236155d4d1bd3fe85ce1f "pdflatex"
+  "Notes.out" 1670943045 4585 20ec89a6e69a417a6c4283aedfb9e955 "pdflatex"
+  "Notes.tex" 1670943044 105662 21debb404a1953315b592bcdfb73c780 ""
+  "Notes.toc" 1670943045 2362 0cec94d3e8e607f72c16aa71405f6183 "pdflatex"
   (generated)
   "Notes.aux"
   "Notes.log"
