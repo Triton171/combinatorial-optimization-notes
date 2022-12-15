@@ -67,6 +67,7 @@
 \newtheorem*{observation}{Observation}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{nexample}[theorem]{Example}
 \newtheorem*{example}{Example}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -2577,5 +2578,188 @@ Consider the \emph{2-matching inequalities}:
 	\end{itemize}
 \end{proof}
 The complexity of comb separation is an open question.
+
+% Lecture 15.12.22
+
+\begin{theorem}[Fiorini et al. (1985)]
+	There is no polyhedron with polynomially many facets, whose projection
+	is the TSP polytope.
+\end{theorem}
+\begin{proof}
+	Omitted.
+\end{proof}
+
+\begin{definition}
+	Let $P\subseteq \bR^n$ be a polyhedron. A polyhedron $Q\subseteq\bR^m$
+	is an \emph{extension} of $P$ if there exists a projective map
+	$\pi: \bR^m\to\bR^n$ with $\pi(Q)=P$.
+	The \emph{extension complexity} of a polyhedron $P$ is the minimum number
+	of facets of an extension $Q$ of $P$.
+\end{definition}
+
+Rothvoss (2013) proved that the matching polytope has an exponential
+extension complexity.
+
+\section{Matroids \& Generalizations}
+
+\begin{definition}
+	A set system $(E, \cF)$ (where $\cF\subseteq 2^E$) is an independent
+	system if:
+	\begin{enumerate}[label=\roman*)]
+		\item $\emptyset\in\cF$
+		\item $X\in\cF \Rightarrow \forall Y\subseteq X: Y\in\cF$
+		\begin{itemize}
+			\item Elements in $\cF$ are called \emph{independent}.
+			\item Inclusion-wise maximal sets $A\in\cF$ are called \emph{bases}. Its
+			cardinality is called $\mathrm{rank}(A)$.
+			\item Inclusion-wise minimal sets $A\in\cF$ are \emph{circuits}.
+		\end{itemize}
+		\item $\forall X,Y\in\cF$ with $\abs{X}<\abs{Y}$: $\exists y\in Y
+			\setminus X$ such that $X\cup\set{y}\in\cF$.
+
+		This is equivalent to:
+		\item[iii)'] $\forall X,Y\in\cF$ with $\abs{X}+1=\abs{Y}$: $\exists y\in Y$
+		such that $X\cup\set{y}\in\cF$.
+		\item[iii)''] $\forall X\subseteq E$ and $A,A'\subseteq X$ maximal with
+		$A,A'\in\cF$: $\mathrm{rank}(A)=\mathrm{rank}(A')$.
+	\end{enumerate}
+	If $\cM=(E,\cF)$ is a matroid, then $r(\cM)=r(E)$. The rank function is
+	defined by:
+	\begin{align*}
+		r: 2^E & \to\bN                                       \\
+		r(A)   & \coloneqq \max_{B\subseteq A,B\in\cF}\abs{B}
+	\end{align*}
+\end{definition}
+
+\begin{algorithm}
+	\caption{Greedy Algorithm for independent systems}
+	\label{alg:matroid-greedy}
+	\KwInput{Independent system $(E,\cF)$, $c: E\to\bR$}
+	\KwOutput{$X\in\cF$ with the objective of maximizing $c(X)$}
+	$X\leftarrow \emptyset$\;
+	\While{$\exists x\in X$ with $c(x)>0$ and $X\cup\set{x}\in\cF$}{
+		Choose $x\in \arg\max_{x\notin X,\ X\cup\set{x}\in\cF}c(x)$\;
+		$X\leftarrow X\cup\set{x}$\;
+	}
+	\KwRet{$X$}\;
+\end{algorithm}
+
+\begin{theorem}
+	$(E,\cF)$ is a matroid $\Leftrightarrow$ algorithm \ref{alg:matroid-greedy}
+	finds an optimum solution for every cost function $c$.
+\end{theorem}
+
+\begin{nexample}\
+	\begin{itemize}
+		\item \emph{Cycle matroid}: $E$ is the edge set of an undirected graph,
+		$\cF$ is the set of forests. Then $(E,\cF)$ is a matroid. Matroids
+		that can be represented this way are called \emph{graphic matroids}.
+
+		\item $A\in\bR^{m\times n}$, $E=[n]$ and $\cF$ is the set of linearly
+		independent subsets of $E$. This is called a \emph{vector matroid}.
+
+		\item \emph{Uniform matroid}: $E$ is a finite set, $k\in\bZ_{\geq0}$
+		and $\cF\coloneqq \set{X\subseteq E\ |\ \abs{X}\leq k}$.
+
+		\item \emph{Matching matroid}: $G$ is an undirected graph, $E\coloneqq
+			V(G)$ and $\cF\coloneqq \set{F\subseteq E\ |\ \exists\text{ matching
+					in $G$ covering $F$}}$.
+
+		\item \emph{Gammoids}: $G$ is a graph (directed or undirected), $E,U
+			\subseteq V(G)$. $X\in\cF$ if there exist $\abs{X}$ vertex-disjoint
+		$U$-$X$-paths.
+
+		\item \emph{Transversal matroid}: $G$ is a bipartite graph with
+		$V(G)=E\dot\cup U$ and $(E,U)$ is a gammoid. $\cF$ is the set of
+		subsets of $E$ that are covered by some matching.
+	\end{itemize}
+\end{nexample}
+
+\begin{nexample}
+	Independent systems that are not matroids:
+	\begin{itemize}
+		\item Matchings
+		\item Stable sets and cliques
+		\item Subsets of TSP tours or Steiner trees
+		\item Feasible solutions of knapsack problems
+	\end{itemize}
+\end{nexample}
+
+\begin{theorem}[Edmonds (1970)]
+	Let $(E,\cF)$ be a matroid and $r: 2^E\to\bN$ its rank function. Then
+	the \emph{matroid polytope} of $(E,\cF)$ (i.e. the convex hull of
+	incidence vectors of independent sets) can be described by:
+	\[\set{x\in \bR^E\ |\ x\geq0, \sum_{e\in A}x_e\leq r(A)\ \forall A\subseteq E}\]
+\end{theorem}
+\begin{proof}
+	The polytope contains all incidence vectors of independent sets. We have
+	to show that the vertices of the polytope are integral, or equivalently:
+	\[\max\set{c^tx\ |\ x\geq0, \sum_{e\in A}x_e\leq r(A)\ \forall A\subseteq E}\]
+	attains an integral optimum for all $c\in\bR^E$. Let $x^0$ be the
+	incidence vector of the set $J$ found by the greedy algorithm
+	(algorithm \ref{alg:matroid-greedy}).
+	\begin{claim}
+		$x^0$ is an optimum solution in the polytope.
+	\end{claim}
+	The dual problem is
+	\begin{align*}
+		                                & \min \sum_{A\subseteq E}r(A)y_A          \\
+		\sum_{A\subseteq E,\ e\in A}y_A & \geq c(e)                       & e\in E \\
+		y                               & \geq0
+	\end{align*}
+	Our goal is to find a dual solution in complementary slackness with $x^0$,
+	so $x_e>0 \Rightarrow \sum_{A\subseteq E,\ e\in A}y_A=c(e)$ and
+	$y_A>0 \Rightarrow x(A)=r(A)$.
+
+	Consider the Dual Greedy Algorithm:
+	\begin{enumerate}
+		\item Order $E$ as $\set{e_1,\ldots,e_n}$ with:
+		\[c(e_1)\geq \ldots \geq c(e_m)\geq 0\geq c(e_{m+1})\geq \ldots\geq c(e_n)\]
+		\item $T_i\coloneqq \set{e_1,\ldots,e_i}$ for $1\leq i\leq m$,
+		$T_0\coloneqq\emptyset$ and
+		\[y_A^0\coloneqq\begin{cases}
+				c(e_i)-c(e_{i+1}) \qquad & A=T_i \text{ for $i\in\set{1,\ldots,m-1}$} \\
+				c(e_m) \qquad            & A=T_m                                      \\
+				0 \qquad                 & \text{else}
+			\end{cases}\]
+	\end{enumerate}
+	$y\geq0$ and for $j>m$, $c(e_j)\leq 0$ so the inequality is satisfied.
+	If $j\leq m$, then:
+	\begin{align*}
+		\sum_{A\subseteq E,\ e_j\in A}y_A & =\sum_{i=j}^m y^0_{T_i}=c(e_j)
+	\end{align*}
+	Therefore, $y$ is dual feasible. If $x^0_e>0$, the corresponding dual
+	constraint is tight. Let $y^0_A>0$, so $A=T_i$ for some $i$. We
+	have to show that $x^0(A)=r(A)$, i.e. $J\cap T_i$ is a basis of $T_i$.
+	If not, there exists $e_k\in T_i\setminus J$ with $(J\cap T_i)\cup\set{e_k}
+		\in \cF$ and $c(e_k)>c(e_j)$. Since the algorithm didn't add $e_k$,
+	this is a contradiction.
+\end{proof}
+
+\begin{cor}
+	Let $\cM=(E,\cF)$ be a matroid, $c\in\bR^E$ and $J\in\cF$. Then $J$ is
+	a maximum-weight independent set if and only if:
+	\begin{enumerate}[label=\alph*)]
+		\item\label{4.6a} $\forall e\in J:\ c(e)\geq0$
+		\item\label{4.6b} $\forall e\notin J,\ J\cup\set{e}\in\cF:\ c(e)\leq0$
+		\item\label{4.6c} $\forall e\notin J, f\in J, (J\cup\set{e})\setminus\set{f}\in\cF:
+			\ c(e)\leq c(f)$
+	\end{enumerate}
+\end{cor}
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':] Clear
+		\item[''$\leftarrow$'':] Take a dual solution $y^0$
+		from the dual greedy algorithm.By \ref{4.6a}, $\sum_{e\in A}y_A=c(e)$
+		for all $e\in J$. If there exists $A\subseteq E$ with $y_A>0$ and
+		$x(A)<r(A)$, then $\exists i$ with $c(e_i)>c(e_{i+1})$ and
+		$J\cap T_i$ is not a basis of $T_i=A$. Therefore, there exists
+		$e\in T_i\setminus J$ with $(J\cap T_i)\cup\set{e}\in \cF$. If
+		$\set{e}\cup J\in\cF$, this would contradict \ref{4.6b}. Otherwise,
+		extend $(J\cap T_i)\cup\set{e}$ to a basis $J'$ of $J\cup\set{e}$. Then
+		$\abs{J'}=\abs{J}$, so $J'=(J\cup\set{e})\setminus\set{f}$ for some
+		$f\in T_i$, which is a contradiction to \ref{4.6c}.
+	\end{enumerate}
+\end{proof}
 
 \end{document}
