@@ -2368,7 +2368,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 
 \begin{theorem}[Edmonds (1967)]
 	Let $G$ be a connected graph, $n\coloneqq \abs{V(G)}$. Then
-	\[P_{ST}\coloneqq \set{x\in [0,1]^{E(G)}\ |\ x(E(G))=n-1,\forall \emptyset\subsetneq X\subseteq V(G): \sum_{e\in E(G[X])}x_e\leq \abs{X}-1}\]
+	\[P_{ST}\coloneqq \set{x\in [0,1]^{E(G)}\ |\ x(E(G))=n-1,\forall \emptyset\neq X\subsetneq V(G): \sum_{e\in E(G[X])}x_e\leq \abs{X}-1}\]
 	is the convex hull of incidence vectors of spanning trees. It is
 	called the spanning tree polytope.
 \end{theorem}
