@@ -2685,7 +2685,7 @@ extension complexity.
 	\end{itemize}
 \end{nexample}
 
-\begin{theorem}[Edmonds (1970)]
+\begin{theorem}[Edmonds (1970)]\label{thm:matroid-polytope}
 	Let $(E,\cF)$ be a matroid and $r: 2^E\to\bN$ its rank function. Then
 	the \emph{matroid polytope} of $(E,\cF)$ (i.e. the convex hull of
 	incidence vectors of independent sets) can be described by:
@@ -2749,7 +2749,7 @@ extension complexity.
 \begin{proof}\
 	\begin{enumerate}
 		\item[''$\Rightarrow$'':] Clear
-		\item[''$\leftarrow$'':] Take a dual solution $y^0$
+		\item[''$\Leftarrow$'':] Take a dual solution $y^0$
 		from the dual greedy algorithm.By \ref{4.6a}, $\sum_{e\in A}y_A=c(e)$
 		for all $e\in J$. If there exists $A\subseteq E$ with $y_A>0$ and
 		$x(A)<r(A)$, then $\exists i$ with $c(e_i)>c(e_{i+1})$ and
@@ -2760,6 +2760,205 @@ extension complexity.
 		$\abs{J'}=\abs{J}$, so $J'=(J\cup\set{e})\setminus\set{f}$ for some
 		$f\in T_i$, which is a contradiction to \ref{4.6c}.
 	\end{enumerate}
+\end{proof}
+
+% Lecture 20.12.22
+
+\begin{theorem}
+	Let $G$ be an undirected graph. The forest polytope of $G$ is given by:
+	\[\set{x\in\bR^{E(G)}\ |\ x(E(G[T]))\leq \abs{T}-1\ \forall \emptyset\neq T\subseteq V(G)}\]
+\end{theorem}
+\begin{proof}
+	Apply theorem \ref{thm:matroid-polytope} to the cycle matroid.
+\end{proof}
+
+\stepcounter{subsection}
+\subsubsection{Matroid Constructions}
+\begin{prop}[Disjoint Union]
+	Given matroids $\cM_1=(E_1,\cF_1)$ and $\cM_2=(E_2,\cF_2)$ with $E_1\cap
+	E_2=\emptyset$, $\cM\coloneqq \cM_1\oplus \cM_2\coloneqq (E,\cF)$ where
+	$E=E_1 \dot\cup E_2$ and $\cF=\set{J_1\cup J_2\ |\ J_1\in \cF_1,\ J_2\in\cF_2}$
+	is a matroid with rank function
+	\[r(A)=r(A\cap E_1)+r(A\cap E_2)\]
+	where $r_i$ is the rank function of $\cM_i$.
+\end{prop}
+
+\begin{prop}[Partition Matroid]
+	Let $E=E_1\dot\cup\ldots\dot\cup E_k$ and $\cF=\coloneqq \set{J\subseteq
+	E(G)\ |\ \abs{J\cap E_i}\leq 1 \forall i\in [k]}$. Then $(E,\cF)$ is
+	a matroid with rank function:
+	\[r(A)=\abs{\set{i\in [k]\ |\ E_i\cap A\neq\emptyset}}\]
+\end{prop}
+
+\begin{prop}[Restriction Matroid]
+	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Then $\cM'\coloneqq
+	\cM\setminus B\coloneqq 
+	(E\setminus B, \set{J\subseteq E\setminus B\ |\ J\in \cF})$ is a matroid.
+\end{prop}
+
+\begin{prop}[Contraction Matroid]
+	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Choose an arbitrary basis
+	$J$ of $B$ (i.e. $J\in\cF$ and $r(J)=r(B)$). Then $M'\coloneqq \cM/B\coloneqq
+	(E\setminus B, \set{J'\subseteq E\setminus B\ |\ J'\cup J\in \cF})$ is
+	a matroid. $\cM$ is independent of the chosen basis $J$. Its rank function
+	is
+	\[r'(A)=r(A\cup B)-r(B)\]
+\end{prop}
+
+\begin{cor}
+	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Then $\cM'\coloneqq
+	(\cM\setminus B)\oplus (\cM/ (E\setminus B))$ is a matroid on $E$. The
+	bases of $\cM'$ are those bases of $\cM$ that intersect $B$ in a basis
+	of $B$.
+\end{cor}
+
+\begin{prop}[Matroid Minors]
+	Let $\cM=(E,\cF)$ be a matroid and $\emptyset=T_0\subseteq T_1\subseteq
+	\ldots\subseteq T_{l+1}=\cF$. The bases of $T_l$ in $\cM$ that intersect
+	$T_i$ ($1\leq i\leq l$) are the bases of $T_l$ in the matroid $\cN\coloneqq
+	\cN_0\oplus \ldots\oplus \cN_l$ where for each $i$, $\cN_i\coloneqq
+	(\cM / T_i)\setminus (E\setminus T_{i+1})$.  $\cN$ is called a minor of $\cM$.
+\end{prop}
+
+\subsection{Matroid Intersection}
+Finding $\arg\max\set{\abs{J}\ |\ J\in\cF_1\cap \cF_2}$ for matroids
+$(E,\cF_1)$ and $(E,\cF_2)$ can be done similarly to bipartite matching
+in $O(\abs{E}^2)$. Weighted matroid intersection (of 2 matroids) can also
+be done in polynomial time.
+
+Computing $\max\set{\abs{J}\ |\ J\in \cF_1\cap \cF_2\cap \cF_3}$ is NP-hard.
+
+\stepcounter{subsection}
+\subsection{Polymatroids}
+For the rank function $r$ of a matroid, $r(X)+r(Y)\leq r(X\cap Y)+r(X\cup Y)$
+for all $X,Y\in E$, so the rank function is \emph{submodular}.
+
+\setcounter{theorem}{34}
+\begin{definition}
+	A \emph{polymatroid} is the polytope
+	\[P(f\set{x\in \bR^{E(G)}\ |\ x\geq0,\ x(A)\leq f(A)\ \forall A\subseteq E}\]
+	where $E$ is a finite set and $f: 2^e\to\bR_{\geq0}$ is submodular.
+\end{definition}
+
+\begin{prop}
+	For any polymatroid $P(f)$, $f$ can be chosen such that $f(\emptyset)=0$
+	and $f$ is monotone, i.e. $A\subseteq B$ implies $f(A)\leq f(B)$.
+\end{prop}
+
+\begin{prop}
+	Let $E=\set{e_1,\ldots,e_n}$, $f: 2^E\to\bR_{\geq0}$ submodular with
+	$f(\emptyset)\geq0$, $B: E\to\bR$ with $b(e_1)\leq f(e_1)$ and
+	$b(e_i)\leq f(\set{e_1,\ldots,e_i})-f(\set{e_1,\ldots,e_{i-1}})$ for
+	$i\in\set{2,\ldots,n}$. Then $\sum_{a\in A}b(a)\leq f(A)$ for all
+	$A\subseteq E$.
+\end{prop}
+\begin{proof}
+	Induction on $i=\max\set{j\ |\ e_j\in A}$. For $A=\emptyset$, the statement
+	is trivial. For $i\geq 1$:
+	\begin{align*}
+		b(A)&=b(A\setminus\set{e_i})+b(e_i) \\
+		&\leq f(A\setminus\set{e_i})+b(e_i) \\
+		&\leq f(A\setminus\set{e_i})+f(\set{e_1,\ldots,e_i})-f(\set{e_1,\ldots,e_{i-1}}) \\
+		&\leq f(A)
+	\end{align*}
+\end{proof}
+
+\begin{algorithm}[htb]
+	\caption{Polymatroid Greedy Algorithm}
+	\label{alg:polymatroid-greedy}
+	\KwInput{Finite set $E$ and $f: 2^E\to\bR_{\geq0}$ submodular and monotone
+	(given by an oracle) and $c: E\to\bR$}
+	\KwOutput{$x\in P(f)$ maximizing $c^tx$}
+	Sort $E=\set{e_1,\ldots,e_n}$ such that: $c(e_1)\geq\ldots\geq c(e_k)>0
+	\geq c(e_{k+1})\geq \ldots\geq c(e_n)$\;
+	\If{$k\geq1$}{
+		$x_{e_1}\leftarrow f(\set{e_1})$\;
+	\For{$i=2,\ldots,k$}{
+		$x_{e_i}\leftarrow f(\set{e_1,\ldots,e_i}) - f(\set{e_1,\ldots,e_{i-1}})$\;
+	}
+	\For{$i=k+1,\ldots,n$}{
+		$x_{e_i}\leftarrow 0$\;
+	}
+	}
+\end{algorithm}
+
+\begin{theorem}
+	The Polymatroid Greedy algorithm correctly finds $x\in P(f)$ maximizing $c^tx$.
+	If $f$ is integral, then $x$ is also integral.
+\end{theorem}
+\begin{proof}
+	Let $x$ be the output of algorithm \ref{alg:polymatroid-greedy}. If $f$
+	is integral, $x$ is integral by construction. Assume that there exists
+	$y\in \bR^{E}_{\geq0}$ with $c^ty>c^tx$. For $i\in
+	[k-1]$, define $d_j\coloneqq c(e_j)-c(e_{j+1})$ and $d_k\coloneqq c(e_k)$.
+	\begin{align*}
+		\sum_{j=1}^kd_j\sum_{i=1}^jx_i&=c^tx \\
+		&<c^ty \\
+		&=\sum_{j=1}^kd_j\sum_{i=1}^jy_i
+	\end{align*}
+	Therefore, there exists $j\in [k]$ such that
+	\[\sum_{i=1}^jy_i>\sum_{i=1}^j x_i=f(\set{e_1,\ldots,e_j})\]
+	so $y$ is not contained in the polymatroid.
+\end{proof}
+
+\begin{theorem}
+	Let $E$ be finite and $f,g: 2^E\to\bR_{\geq0}$ submodular. Then
+	\begin{align*}
+		x(A)&\leq f(A) &A\subseteq E \\
+		x(A)&\leq g(A) &A\subseteq E
+	\end{align*}
+	is TDI.
+\end{theorem}
+\begin{proof}
+	Consider the primal-dual pair:
+	\begin{align*}
+		\max &\ c^tx  & \min_{A\subseteq E}&f(A)y_A + g(A)z_A\\
+		x(A)&\leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A)&\geq c(e)\\
+		x(A) &\leq g(A) \qquad A\subseteq E & y,z&\geq0\\
+	\end{align*}
+	\begin{claim}
+		Let $Ax\leq b, x\geq0$ be a linear program. If for any $c\in\bZ^n$ where
+		the dual as a solution, it as an optimum solution $y_i^*$ such that the rows
+		of $A$ where $y_i^*>0$ (plus possibly basic 0-entries)
+		forms a TU matrix. Then $Ax\leq b, x\geq0$ is TDI.
+	\end{claim}
+	\begin{proof}
+		Let $c,y^*$ be as above. We have for the dual:
+		\begin{align*}
+			\min\set{y^tb\ |\ yA\geq c,\ y\geq0}&=\min\set{y^tb'\ |\ yA'\geq c,\ y\geq0}
+		\end{align*}
+		''$\leq$'' is clear. Since the restriction of $y^*$ is feasible for the
+		right hand side, the other inequality also holds. Since $A'$ is TU,
+		the right hand system is TDI, so $y^*$ can be chosen integrally if $c$
+		is integral.
+	\end{proof}
+	Let $c: E\to\bZ_{\geq0}$ and $y,z$ be an optimum dual solution such that
+	\[\sum_{A\subseteq E}(y_A+z_A)\cdot\abs{A}\cdot\abs{E\setminus A}\]
+	is minimum.
+	\begin{claim}
+		$\cF\coloneqq \set{A\subseteq E\ |\ y_A>0}$ is a chain.
+	\end{claim}
+	Otherwise, there are $A,B\in\cF$ with $A\cap B\neq A, B\cap A\neq B$. Let
+	\begin{align*}
+		\epsilon&\coloneqq \min\set{y_A,y_B} \\
+		y_A'&\coloneqq y_A-\epsilon \\
+		y_B'&\coloneqq y_B-\epsilon \\
+		y_{A\cup B}'&\coloneqq y_{A\cup B}+\epsilon \\
+		y_{A\cap B}'&\coloneqq y_{A\cap B}+\epsilon
+		y_S&\coloneqq y_S \qquad\text{elsewhere}
+	\end{align*}
+	$y',z$ is feasible and optimal by submodularity but the term above gets
+	smaller, which is a contradiction. Similarly, $\cF'\coloneqq \set{A\subseteq
+	E\ |\ z_A>0}$ is a chain.
+
+	Let $M,M'$ be the matrices with column set $E$ and row set $\cF,\cF'$.
+	Then $\begin{pmatrix} M \\ M'\end{pmatrix}$ is TU: $A_1\geq \ldots\geq A_p
+	\in\cF$ and $B_1\geq\ldots\geq B_q\in\cF'$. Define
+	\begin{align*}
+		\cR_i&\coloneqq \set{A_i\ |\ i\text{ odd}}\cup \set{B_i\ |\ i\text{ even}} \\
+		\cR_2&\coloneqq \set{A_i\ |\ i\text{ even}}\cup\set{B_i\ |\ i\text{ odd}}
+	\end{align*}
+	These sets satisfy Ghoulia-Houri, so the system is TDI.
 \end{proof}
 
 \end{document}
