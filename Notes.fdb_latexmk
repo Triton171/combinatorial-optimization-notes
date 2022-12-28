@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1672052785 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1672052786
+["pdflatex"] 1672228664 "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1672228666
   "/home/daniel/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1668523018 7808 0dd70ac5dc0e4dc3f47a74faf1bdf882 ""
   "/nix/store/blvkkqgcgra3v0lz0nqkhrmcc0majpc5-texlive-combined-2021/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1 4410432 6bee9012a4144941604ebdfb22c48dbe ""
   "/nix/store/blvkkqgcgra3v0lz0nqkhrmcc0majpc5-texlive-combined-2021/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1 2828630 726977b5fb7241d64f80b5bfcc5b7533 ""
@@ -234,11 +234,11 @@
   "/nix/store/blvkkqgcgra3v0lz0nqkhrmcc0majpc5-texlive-combined-2021/share/texmf/tex/latex/url/url.sty" 1 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/nix/store/blvkkqgcgra3v0lz0nqkhrmcc0majpc5-texlive-combined-2021/share/texmf/tex/latex/xcolor/xcolor.sty" 1 56029 3f7889dab51d620aa43177c391b7b190 ""
   "/nix/store/blvkkqgcgra3v0lz0nqkhrmcc0majpc5-texlive-combined-2021/share/texmf/web2c/texmf.cnf" 1 41601 e297443cc75b641ae953ac7c793574b7 ""
-  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1672052785 120664 1feddd382fd76547863b2ffa173c7597 ""
-  "Notes.aux" 1672052786 8551 d3d36570269179efbd21bf72786221fe "pdflatex"
-  "Notes.out" 1672052786 5218 7a8b679780bb6a98a631986531266029 "pdflatex"
-  "Notes.tex" 1672052785 120664 1feddd382fd76547863b2ffa173c7597 ""
-  "Notes.toc" 1672052786 2710 bbe37946e73ea6ef1a8664f10b104df5 "pdflatex"
+  "/volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex" 1672228664 127537 a9b878e17f30ae71b32f85487d9b6d24 ""
+  "Notes.aux" 1672228666 8834 2f27ef93ac468a3015bd5921f8f33e5b "pdflatex"
+  "Notes.out" 1672228666 5475 ff41eb8ee77d56ba067b2be494c4a92c "pdflatex"
+  "Notes.tex" 1672228664 127537 a9b878e17f30ae71b32f85487d9b6d24 ""
+  "Notes.toc" 1672228666 2823 7fc07f626acf27aa480b305447ce81da "pdflatex"
   (generated)
   "Notes.aux"
   "Notes.log"

@@ -65,6 +65,8 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem*{claim}{Claim}
 \newtheorem*{observation}{Observation}
+\newtheorem*{utheorem}{Theorem}
+\newtheorem*{uprop}{Proposition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{nexample}[theorem]{Example}
@@ -2776,7 +2778,7 @@ extension complexity.
 \subsubsection{Matroid Constructions}
 \begin{prop}[Disjoint Union]
 	Given matroids $\cM_1=(E_1,\cF_1)$ and $\cM_2=(E_2,\cF_2)$ with $E_1\cap
-	E_2=\emptyset$, $\cM\coloneqq \cM_1\oplus \cM_2\coloneqq (E,\cF)$ where
+		E_2=\emptyset$, $\cM\coloneqq \cM_1\oplus \cM_2\coloneqq (E,\cF)$ where
 	$E=E_1 \dot\cup E_2$ and $\cF=\set{J_1\cup J_2\ |\ J_1\in \cF_1,\ J_2\in\cF_2}$
 	is a matroid with rank function
 	\[r(A)=r(A\cap E_1)+r(A\cap E_2)\]
@@ -2784,22 +2786,22 @@ extension complexity.
 \end{prop}
 
 \begin{prop}[Partition Matroid]
-	Let $E=E_1\dot\cup\ldots\dot\cup E_k$ and $\cF=\coloneqq \set{J\subseteq
-	E(G)\ |\ \abs{J\cap E_i}\leq 1 \forall i\in [k]}$. Then $(E,\cF)$ is
+	Let $E=E_1\dot\cup\ldots\dot\cup E_k$ and $\cF\coloneqq \set{J\subseteq
+			E(G)\ |\ \abs{J\cap E_i}\leq 1 \forall i\in [k]}$. Then $(E,\cF)$ is
 	a matroid with rank function:
 	\[r(A)=\abs{\set{i\in [k]\ |\ E_i\cap A\neq\emptyset}}\]
 \end{prop}
 
 \begin{prop}[Restriction Matroid]
 	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Then $\cM'\coloneqq
-	\cM\setminus B\coloneqq 
-	(E\setminus B, \set{J\subseteq E\setminus B\ |\ J\in \cF})$ is a matroid.
+		\cM\setminus B\coloneqq
+		(E\setminus B, \set{J\subseteq E\setminus B\ |\ J\in \cF})$ is a matroid.
 \end{prop}
 
 \begin{prop}[Contraction Matroid]
 	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Choose an arbitrary basis
 	$J$ of $B$ (i.e. $J\in\cF$ and $r(J)=r(B)$). Then $M'\coloneqq \cM/B\coloneqq
-	(E\setminus B, \set{J'\subseteq E\setminus B\ |\ J'\cup J\in \cF})$ is
+		(E\setminus B, \set{J'\subseteq E\setminus B\ |\ J'\cup J\in \cF})$ is
 	a matroid. $\cM$ is independent of the chosen basis $J$. Its rank function
 	is
 	\[r'(A)=r(A\cup B)-r(B)\]
@@ -2807,33 +2809,35 @@ extension complexity.
 
 \begin{cor}
 	Let $\cM=(E,\cF)$ be a matroid and $B\subseteq E$. Then $\cM'\coloneqq
-	(\cM\setminus B)\oplus (\cM/ (E\setminus B))$ is a matroid on $E$. The
+		(\cM\setminus B)\oplus (\cM/ (E\setminus B))$ is a matroid on $E$. The
 	bases of $\cM'$ are those bases of $\cM$ that intersect $B$ in a basis
 	of $B$.
 \end{cor}
 
 \begin{prop}[Matroid Minors]
 	Let $\cM=(E,\cF)$ be a matroid and $\emptyset=T_0\subseteq T_1\subseteq
-	\ldots\subseteq T_{l+1}=\cF$. The bases of $T_l$ in $\cM$ that intersect
+		\ldots\subseteq T_{l+1}=\cF$. The bases of $T_l$ in $\cM$ that intersect
 	$T_i$ ($1\leq i\leq l$) are the bases of $T_l$ in the matroid $\cN\coloneqq
-	\cN_0\oplus \ldots\oplus \cN_l$ where for each $i$, $\cN_i\coloneqq
-	(\cM / T_i)\setminus (E\setminus T_{i+1})$.  $\cN$ is called a minor of $\cM$.
+		\cN_0\oplus \ldots\oplus \cN_l$ where for each $i$, $\cN_i\coloneqq
+		(\cM / T_i)\setminus (E\setminus T_{i+1})$.  $\cN$ is called a minor of $\cM$.
 \end{prop}
 
 \subsection{Matroid Intersection}
 Finding $\arg\max\set{\abs{J}\ |\ J\in\cF_1\cap \cF_2}$ for matroids
-$(E,\cF_1)$ and $(E,\cF_2)$ can be done similarly to bipartite matching
-in $O(\abs{E}^2)$. Weighted matroid intersection (of 2 matroids) can also
-be done in polynomial time.
+$(E,\cF_1)$ and $(E,\cF_2)$ can be done similarly to bipartite
+matching in $O(\abs{E}^2)$. Weighted matroid intersection (of 2
+matroids) can also be done in polynomial time.
 
-Computing $\max\set{\abs{J}\ |\ J\in \cF_1\cap \cF_2\cap \cF_3}$ is NP-hard.
+Computing $\max\set{\abs{J}\ |\ J\in \cF_1\cap \cF_2\cap \cF_3}$ is
+NP-hard.
 
 \stepcounter{subsection}
 \subsection{Polymatroids}
-For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap Y)+r(X\cup Y)$
-for all $X,Y\in E$, so the rank function is \emph{submodular}.
+For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
+	Y)+r(X\cup Y)$ for all $X,Y\in E$, so the rank function is
+\emph{submodular}.
 
-\setcounter{theorem}{34}
+\setcounter{theorem}{33}
 \begin{definition}
 	A \emph{polymatroid} is the polytope
 	\[P(f\set{x\in \bR^{E(G)}\ |\ x\geq0,\ x(A)\leq f(A)\ \forall A\subseteq E}\]
@@ -2856,10 +2860,10 @@ for all $X,Y\in E$, so the rank function is \emph{submodular}.
 	Induction on $i=\max\set{j\ |\ e_j\in A}$. For $A=\emptyset$, the statement
 	is trivial. For $i\geq 1$:
 	\begin{align*}
-		b(A)&=b(A\setminus\set{e_i})+b(e_i) \\
-		&\leq f(A\setminus\set{e_i})+b(e_i) \\
-		&\leq f(A\setminus\set{e_i})+f(\set{e_1,\ldots,e_i})-f(\set{e_1,\ldots,e_{i-1}}) \\
-		&\leq f(A)
+		b(A) & =b(A\setminus\set{e_i})+b(e_i)                                                  \\
+		     & \leq f(A\setminus\set{e_i})+b(e_i)                                              \\
+		     & \leq f(A\setminus\set{e_i})+f(\set{e_1,\ldots,e_i})-f(\set{e_1,\ldots,e_{i-1}}) \\
+		     & \leq f(A)
 	\end{align*}
 \end{proof}
 
@@ -2867,14 +2871,14 @@ for all $X,Y\in E$, so the rank function is \emph{submodular}.
 	\caption{Polymatroid Greedy Algorithm}
 	\label{alg:polymatroid-greedy}
 	\KwInput{Finite set $E$ and $f: 2^E\to\bR_{\geq0}$ submodular and monotone
-	(given by an oracle) and $c: E\to\bR$}
+		(given by an oracle) and $c: E\to\bR$}
 	\KwOutput{$x\in P(f)$ maximizing $c^tx$}
 	Sort $E=\set{e_1,\ldots,e_n}$ such that: $c(e_1)\geq\ldots\geq c(e_k)>0
-	\geq c(e_{k+1})\geq \ldots\geq c(e_n)$\;
+		\geq c(e_{k+1})\geq \ldots\geq c(e_n)$\;
 	\If{$k\geq1$}{
-		$x_{e_1}\leftarrow f(\set{e_1})$\;
+	$x_{e_1}\leftarrow f(\set{e_1})$\;
 	\For{$i=2,\ldots,k$}{
-		$x_{e_i}\leftarrow f(\set{e_1,\ldots,e_i}) - f(\set{e_1,\ldots,e_{i-1}})$\;
+	$x_{e_i}\leftarrow f(\set{e_1,\ldots,e_i}) - f(\set{e_1,\ldots,e_{i-1}})$\;
 	}
 	\For{$i=k+1,\ldots,n$}{
 		$x_{e_i}\leftarrow 0$\;
@@ -2890,31 +2894,31 @@ for all $X,Y\in E$, so the rank function is \emph{submodular}.
 	Let $x$ be the output of algorithm \ref{alg:polymatroid-greedy}. If $f$
 	is integral, $x$ is integral by construction. Assume that there exists
 	$y\in \bR^{E}_{\geq0}$ with $c^ty>c^tx$. For $i\in
-	[k-1]$, define $d_j\coloneqq c(e_j)-c(e_{j+1})$ and $d_k\coloneqq c(e_k)$.
+		[k-1]$, define $d_j\coloneqq c(e_j)-c(e_{j+1})$ and $d_k\coloneqq c(e_k)$.
 	\begin{align*}
-		\sum_{j=1}^kd_j\sum_{i=1}^jx_i&=c^tx \\
-		&<c^ty \\
-		&=\sum_{j=1}^kd_j\sum_{i=1}^jy_i
+		\sum_{j=1}^kd_j\sum_{i=1}^jx_i & =c^tx                           \\
+		                               & <c^ty                           \\
+		                               & =\sum_{j=1}^kd_j\sum_{i=1}^jy_i
 	\end{align*}
 	Therefore, there exists $j\in [k]$ such that
 	\[\sum_{i=1}^jy_i>\sum_{i=1}^j x_i=f(\set{e_1,\ldots,e_j})\]
 	so $y$ is not contained in the polymatroid.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:submodular-ineq-tdi}
 	Let $E$ be finite and $f,g: 2^E\to\bR_{\geq0}$ submodular. Then
 	\begin{align*}
-		x(A)&\leq f(A) &A\subseteq E \\
-		x(A)&\leq g(A) &A\subseteq E
+		x(A) & \leq f(A) & A\subseteq E \\
+		x(A) & \leq g(A) & A\subseteq E
 	\end{align*}
 	is TDI.
 \end{theorem}
 \begin{proof}
 	Consider the primal-dual pair:
 	\begin{align*}
-		\max &\ c^tx  & \min_{A\subseteq E}&f(A)y_A + g(A)z_A\\
-		x(A)&\leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A)&\geq c(e)\\
-		x(A) &\leq g(A) \qquad A\subseteq E & y,z&\geq0\\
+		\max & \ c^tx                        & \min_{A\subseteq E}               & f(A)y_A + g(A)z_A \\
+		x(A) & \leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A) & \geq c(e)         \\
+		x(A) & \leq g(A) \qquad A\subseteq E & y,z                               & \geq0             \\
 	\end{align*}
 	\begin{claim}
 		Let $Ax\leq b, x\geq0$ be a linear program. If for any $c\in\bZ^n$ where
@@ -2925,7 +2929,7 @@ for all $X,Y\in E$, so the rank function is \emph{submodular}.
 	\begin{proof}
 		Let $c,y^*$ be as above. We have for the dual:
 		\begin{align*}
-			\min\set{y^tb\ |\ yA\geq c,\ y\geq0}&=\min\set{y^tb'\ |\ yA'\geq c,\ y\geq0}
+			\min\set{y^tb\ |\ yA\geq c,\ y\geq0} & =\min\set{y^tb'\ |\ yA'\geq c,\ y\geq0}
 		\end{align*}
 		''$\leq$'' is clear. Since the restriction of $y^*$ is feasible for the
 		right hand side, the other inequality also holds. Since $A'$ is TU,
@@ -2940,25 +2944,195 @@ for all $X,Y\in E$, so the rank function is \emph{submodular}.
 	\end{claim}
 	Otherwise, there are $A,B\in\cF$ with $A\cap B\neq A, B\cap A\neq B$. Let
 	\begin{align*}
-		\epsilon&\coloneqq \min\set{y_A,y_B} \\
-		y_A'&\coloneqq y_A-\epsilon \\
-		y_B'&\coloneqq y_B-\epsilon \\
-		y_{A\cup B}'&\coloneqq y_{A\cup B}+\epsilon \\
-		y_{A\cap B}'&\coloneqq y_{A\cap B}+\epsilon
-		y_S&\coloneqq y_S \qquad\text{elsewhere}
+		\epsilon     & \coloneqq \min\set{y_A,y_B}          \\
+		y_A'         & \coloneqq y_A-\epsilon               \\
+		y_B'         & \coloneqq y_B-\epsilon               \\
+		y_{A\cup B}' & \coloneqq y_{A\cup B}+\epsilon       \\
+		y_{A\cap B}' & \coloneqq y_{A\cap B}+\epsilon
+		y_S          & \coloneqq y_S \qquad\text{elsewhere}
 	\end{align*}
 	$y',z$ is feasible and optimal by submodularity but the term above gets
 	smaller, which is a contradiction. Similarly, $\cF'\coloneqq \set{A\subseteq
-	E\ |\ z_A>0}$ is a chain.
+			E\ |\ z_A>0}$ is a chain.
 
-	Let $M,M'$ be the matrices with column set $E$ and row set $\cF,\cF'$.
-	Then $\begin{pmatrix} M \\ M'\end{pmatrix}$ is TU: $A_1\geq \ldots\geq A_p
-	\in\cF$ and $B_1\geq\ldots\geq B_q\in\cF'$. Define
+	Let $M,M'$ be the matrices with column set $E$ and row set
+	$\cF,\cF'$. Then $\begin{pmatrix} M \\ M'\end{pmatrix}$ is TU: $A_1\geq \ldots\geq A_p
+		\in\cF$ and $B_1\geq\ldots\geq B_q\in\cF'$. Define
 	\begin{align*}
-		\cR_i&\coloneqq \set{A_i\ |\ i\text{ odd}}\cup \set{B_i\ |\ i\text{ even}} \\
-		\cR_2&\coloneqq \set{A_i\ |\ i\text{ even}}\cup\set{B_i\ |\ i\text{ odd}}
+		\cR_i & \coloneqq \set{A_i\ |\ i\text{ odd}}\cup \set{B_i\ |\ i\text{ even}} \\
+		\cR_2 & \coloneqq \set{A_i\ |\ i\text{ even}}\cup\set{B_i\ |\ i\text{ odd}}
 	\end{align*}
 	These sets satisfy Ghoulia-Houri, so the system is TDI.
 \end{proof}
+
+% Lecture 22.12.22
+
+\begin{cor}
+	Let $(E,\cF_1)$, $(E,\cF_2)$ be two matroids. Then the convex hull of
+	incidence vectors $x\in \cF_1\cap\cF_2$ is the polytope
+	\[\set{x\in\bR^E_{\geq0}\ |\
+		x(A)\leq\min\set{r_1(A),r_2(a)}\ \forall A\subseteq E}\]
+	where $r_1,r_2$ are the rank functions of the matroids.
+\end{cor}
+\begin{proof}
+	By theorem \ref{thm:submodular-ineq-tdi}, the inequality system is TDI,
+	so since $r_1,r_2$ are integral, the polytope is integral. Integral
+	vectors in the polytope correspond exactly to incidence vectors of
+	sets in $\cF_1\cap\cF_2$.
+\end{proof}
+
+\begin{cor}\label{cor:submodular-min-max}
+	Let $f,g: 2^E\to\bR_{\geq0}$ be submodular, monotone with $f(\emptyset)
+		=g(\emptyset)=0$. Then:
+	\[\underbrace{\max\set{\mathbbm{1}^tx\ |\ x\in P(f)\cap P(g)}}_{(**)}
+		=\min_{A\subseteq E}f(A)+g(E\setminus A)\]
+\end{cor}
+\begin{proof}
+	The dual of $(**)$ is:
+	\[\min\set{\sum_{A\subseteq E}(f(A)y_A+g(A)z_A)\ |\
+		y,z\geq0,\ \sum_{E\supseteq A\ni e}y_A+z_A\geq1\ \forall e\in E}\]
+
+	\begin{enumerate}
+		\item[''$\geq$'':]
+		By theorem \ref{thm:submodular-ineq-tdi}, the dual has an integral
+		optimum solution $y,z$. Let:
+		\begin{align*}
+			B & \coloneqq \bigcup_{\substack{A\subseteq E \\ y_A\geq1}}A &
+			C & \coloneqq \bigcup_{\substack{A\subseteq E \\ z_A\geq1}}A
+		\end{align*}
+		Since $y,z$ are integral, the dual constraint implies $E=B\cup C$,
+		so $E\setminus B\subseteq C$. Therefore:
+		\begin{align*}
+			\sum_{A\subseteq E}(f(A)y_A+g(A)z_A) & \geq f(B)+g(C)            \\
+			                                     & \geq f(B)+g(E\setminus B)
+		\end{align*}
+
+		\item[''$\leq$'':]
+		For $A\subseteq E$, we construct the feasible dual solution $y_A\coloneqq 1$
+		and $z_{E\setminus A}\coloneqq 0$, everything else 0 which has cost
+		$f(A)+g(E\setminus A)$. By LP-duality, any primal solution attains at
+		most this value.
+	\end{enumerate}
+\end{proof}
+
+\begin{itemize}
+	\item
+	$f: 2^E\to\bR$ supermodular:
+	\[f(X)+f(Y)\leq f(X\cup Y)+f(X\cap Y) \qquad \forall X,Y\subseteq E\]
+
+	\item
+	$f: 2^E\to\bR$ modular:
+	\[f(X)+f(Y)=f(X\cup Y)+f(X\cap Y) \qquad \forall X,Y\subseteq E\]
+
+	\item
+	$f(A)$ submodular implies $f(E\setminus A)$ submodular.
+\end{itemize}
+
+\begin{cor}[Frank's Discrete Sandwich Theorem (1982)]
+	Let $E$ be a finite sit, $f: 2^E\to\bR$ supermodular, $g: 2^E\to\bR$
+	submodular with $f(A)\leq g(A)$ for all $A\subseteq E$. Then there
+	exists a modular function $h: 2^E\to\bR$ with $f(A)\leq h(A)\leq g(A)$
+	for all $A\subseteq E$. If $f,g$ are integral, $h$ can be chosen integral.
+\end{cor}
+\begin{proof}\
+	\begin{itemize}
+		\item Without loss of generality, $f(\emptyset)=g(\emptyset)$ and
+		$f(E)=g(E)$.
+
+		\item Let $M\coloneqq 2\cdot\max\set{\abs{f(A)}+\abs{g(A)}\ |\ A\subseteq
+				E}$ and:
+		\begin{align*}
+			f'(A) & \coloneqq g(E)-f(E\setminus A)+M\cdot\abs{A} \\
+			g'(A) & \coloneqq g(A)-f(\emptyset)+M\cdot\abs{A}    \\
+		\end{align*}
+		$f',g'$ are submodular, nonnegative, monotone and $f'(\emptyset)=0=
+			g'(\emptyset)$.
+
+		\item By corollary \ref{cor:submodular-min-max}:
+		\begin{align*}
+			     & \max\set{\mathbbm{1}^tx\ |\ x\in P(f')\cap P(g')}       \\
+			=    & \min_{A\subseteq E}(f'(A)+g'(E\setminus A))             \\
+			=    & \min_{A\subseteq E}(g(E)-f(E\setminus A)+M\cdot\abs{A})
+			+ (g(E\setminus A)-f(\emptyset)+M\cdot\abs{E\setminus A})      \\
+			\geq & g(E)+M\cdot\abs{E}-f(\emptyset)
+		\end{align*}
+
+		\item Let $x\in P(f')\cap P(g')$ such that $\mathbbm{1}^tx=g(E)
+			-f(\emptyset)+M\cdot\abs{E}$. If $f,g$ are integral, we can choose it
+		such that $x\in \bZ^E$.
+
+		\item Define:
+		\begin{align*}
+			h'(A) & \coloneqq \sum_{e\in A}x_e                 & A\subseteq E \\
+			h(A)  & \coloneqq h'(A)+f(\emptyset)-M\cdot\abs{A} & A\subseteq E
+		\end{align*}
+		Then $h$ is modular and for $A\subseteq E$:
+		\begin{align*}
+			h(A) & \leq g'(A)+f(\emptyset)-M\cdot\abs{A}               \\
+			     & =g(A)                                               \\
+			h(A) & =1^tx - h'(E\setminus A)+f(\emptyset)-M\cdot\abs{A} \\
+			     & \geq g(E)+M\cdot\abs{E\setminus A}-f'(E\setminus A) \\
+			     & =f(A)
+		\end{align*}
+	\end{itemize}
+\end{proof}
+
+\begin{definition}
+	Let $f: 2^E\to\bR$ be a function. For $x\in \bR^E_{\geq0}$, there exist
+	unique $k\in\bN,\ \lambda_1,\ldots,\lambda_k>0$ and sets
+	$\emptyset\subsetneq T_1\subsetneq \ldots\subsetneq T_k\subseteq E$ such
+	that $x=\sum_{i=1}^k\lambda_i \chi^{T_i}$ where $\chi^{T_i}$ is the
+	incidence vector of $T_i$. The Lovász extension of $f$ is defined as:
+	\begin{align*}
+		f': \bR^E_{\geq0}&\to \bR \\
+		x &\mapsto \sum_{i=1}^k\lambda_i f(T_i)
+	\end{align*}
+\end{definition}
+
+\begin{lemma}
+	Let $f: 2^E\to\bR$ be submodular and $f'$ its Lovász extension. Then:
+	\[f'(x)=\max\set{x^ty\ |\ y\in P(f)}\]
+\end{lemma}
+\begin{proof}
+	Exercise
+\end{proof}
+
+\begin{theorem}
+	\[f\text{ submodular} \Leftrightarrow f'\text{ convex}\]
+\end{theorem}
+
+\subsubsection{Applications of Matroid Intersection}
+\textbf{Orientations:} Let $G$ be an undirected graph and $k: V(G)\to
+\bZ_{\geq0}$. Does there exist an orientation $\vec{G}$ of $G$ such that
+$\abs{\delta^-_{\vec{G}}(v)}\leq k(v)$ for all $v\in V(G)$?
+
+Let $D\coloneqq (V(G), \set{(v,w),(w,v)\ |\ \set{v,w}\in E(G)})$. We define:
+\begin{itemize}
+	\item $(A,\cF_1)$ as the partition matroid on $\bigsqcup_{\set{v,w}\in
+	E(G)}\set{(v,w),(w,v)}$
+	\item $(A,\cF_2)$ as the (generalized) partition matroid on
+	$\bigsqcup_{v\in V(G)}\delta^-_D(v)$ allowing $\leq k$ elements from
+	$\delta^-_D(v)$ for all $v\in V(G)$.
+\end{itemize}
+Then such an orientation $\vec{G}$ exists $\Leftrightarrow$ there exists
+$F\in\cF_1\cap \cF_2$ with $\abs{F}=\abs{E}$.
+
+\begin{utheorem}
+	$G$ has an orientation $\vec{G}$ such that $\abs{\delta^1_{\vec{G}}(v)}
+	\leq k(v)$ for all $v\in V(G)$ if and only if:
+	\[\forall P\subseteq V(G):\ \abs{E(G[P])}\leq \sum_{v\in P}k(v)\]
+\end{utheorem}
+
+\noindent\textbf{Two disjoint spanning trees:}
+For a matroid $\cM=(E,\cF)$ we define $\cM^*\coloneqq (E,\cF^*)$ where:
+\[\cF^*\coloneqq \set{A\subseteq E\ |\ E\setminus A\text{ contains a basis of }\cF}\]
+$\cM^*$ is a matroid with rank function $r_{\cM^*}(X)=\abs{X}
++r_\cM(E\setminus X)-\abs{E}$.
+
+\begin{uprop}
+	Let $G$ be a graph and $\cM=(E,\cF)$ its graphic matroid. Then:
+	\[G\text{ has 2 disjoint spanning trees}\Leftrightarrow
+		\max_{I\in\cF\cap\cF^*}\abs{I}=\abs{V(G)}-1\]
+\end{uprop}
 
 \end{document}

@@ -28,3 +28,4 @@
 \contentsline {subsubsection}{\numberline {4.1.1}Matroid Constructions}{49}{subsubsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.2}Matroid Intersection}{49}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.4}Polymatroids}{50}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Applications of Matroid Intersection}{55}{subsubsection.4.4.1}%
