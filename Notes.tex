@@ -35,6 +35,7 @@
 \expandafter\xdef\csname f\x\endcsname{\noexpand\mathfrak{\x}}
 }
 % Math shortcuts
+\newcommand{\mr}[1]{\mathrm{#1}}
 \newcommand{\stackalign}[2]{\stackrel{\mathclap{#1}}{#2}}
 \renewcommand{\bar}[1]{\overline{#1}}
 \renewcommand{\hat}[1]{\widehat{#1}}
@@ -69,6 +70,7 @@
 \newtheorem*{uprop}{Proposition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem*{uremark}{Remark}
 \newtheorem{nexample}[theorem]{Example}
 \newtheorem*{example}{Example}
 \theoremstyle{definition}
@@ -3134,5 +3136,205 @@ $\cM^*$ is a matroid with rank function $r_{\cM^*}(X)=\abs{X}
 	\[G\text{ has 2 disjoint spanning trees}\Leftrightarrow
 		\max_{I\in\cF\cap\cF^*}\abs{I}=\abs{V(G)}-1\]
 \end{uprop}
+
+% Lecture 10.01.23
+
+\subsection{Submodular Function Maximization}
+Recall: $f:2^E\to\bR$ is called submodular if $f(A)+f(B)\geq f(A\cap B)+
+f(A\cup B)$ for all $A,B\subseteq E$. Equivalently, $f(X\cup\set{x})-f(X)
+\geq f(Y\cup\set{x})-f(Y)$ for all $X\subseteq Y\subseteq E$ and $x\in
+E\setminus Y$.
+
+\begin{problem}[USM: ''unconstrainted submodular function maximization'']
+	Given a submodular function $f: 2^E\to\bR$, find $S\subseteq E$ maximizing
+	$f(S)$.
+\end{problem}
+\begin{example}
+	For a given graph $G$, define $f(X)\coloneqq \abs{\delta(X)}$. Maximizing
+	$f(X)$ corresponds to the maximum cut problem (which is NP-hard).
+\end{example}
+
+% TODO Should be alg 12
+\begin{algorithm}[H]
+	\caption{Deterministic Double Greedy}
+	\label{alg:det-double-greedy}
+	\KwInput{Finite set $E$, submodular function $f: 2^E\to\bR^+$}
+	\KwOutput{$S\subseteq E$}
+	$X_0\leftarrow\emptyset,\ Y_0\leftarrow E$\;
+	\For{$i=1,\ldots,n$}{
+		$a_i\leftarrow f(X_{i-1}\cup\set{e_i})-f(X_{i-1})$\;
+		$b_i\leftarrow f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})$\;
+		\If{$a_i\geq b_i$}{
+			$X_i\leftarrow X_{i-1}\cup\set{e_i},\ Y_i\leftarrow Y_{i-1}$\;
+		}\Else{
+			$X_i\leftarrow X_{i-1},\ Y_i\leftarrow Y_{i-1}\setminus\set{e_i}$\;
+		}
+	}
+	\KwRet{$S\leftarrow X_n$}
+\end{algorithm}
+
+\begin{lemma}\label{lemma:double-greedy-sum}
+	For every $1\leq i\leq n$, $a_i+b_i\geq0$.
+\end{lemma}
+\begin{proof}
+	By the equivalent characterization of submodularity and since $X_i\subseteq
+	Y_i$ for all $i$:
+	\begin{align*}
+		a_i+b_i&=f(X_{i-1}\cup\set{e_i})-f(X_{i-1})+f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1}) \\
+		&=(f(X_{i-1}\cup\set{e_i})-f(X_{i-1}))-(f(Y_{i-1})-f(Y_{i-1}\setminus\set{e_i})) \\
+		&\geq0
+	\end{align*}
+\end{proof}
+
+Let OPT be the optimum solution and $\mr{OPT}_i\coloneqq (\mr{OPT}
+\cup X_i)\cap Y_i$, so $\mr{OPT}_i$ coincides with $X_i$ and $Y_i$ on
+the first $i$ elements and with $\mr{OPT}$ on the rest. In particular,
+$\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
+
+\begin{lemma}\label{lemma:double-greedy-2}
+	For every $1\leq i\leq n$, we have:
+	\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\leq (f(X_i)-f(X_{i-1}))+(f(Y_i)-f(Y_{i-1}))\]
+\end{lemma}
+\begin{proof}
+	Without loss of generality assume that $a_i\geq b_i$, so the second summand
+	is 0. Then $\mr{OPT}_i=\mr{OPT}_{i-1}\cup\set{e_i}$. We need to show:
+	\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\leq f(X_i)-f(X_{i-1})=a_i\]
+	\begin{enumerate}
+		\item[Case 1:]
+		$e_i\in\mr{OPT}_{i-1}$. Then the left side is 0 and so by lemma
+		\ref{lemma:double-greedy-sum}, $a_i\geq0$.
+
+		\item[Case 2:]
+		$e_i\notin\mr{OPT}_{i-1}$. Then
+		\begin{align*}
+			\mr{OPT}_{i-1}&=(\mr{OPT}\cup X_{i-1})\cap Y_{i-1}\subseteq Y_{i-1}\setminus\set{e_i}
+		\end{align*}
+		so by submodularity:
+		\begin{align*}
+			f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})&\leq f(Y_{i-1}\setminus \set{e_i})-f(Y_{i-1}) \\
+			&=b_i\leq a_i
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Buchbinder et al.]
+	Algorithm \ref{alg:det-double-greedy} returns a $\frac{1}{3}$-approximation
+	for USM.
+\end{theorem}
+\begin{proof}
+	By lemma \ref{lemma:double-greedy-2}:
+	\begin{align*}
+		\sum_{i=1}^n (f(\mr{OPT}_{i-1})-f(\mr{OPT}_i))&\leq \sum_{i=1}^n (f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1}))
+	\end{align*}
+	Since both sides are telescopic sums:
+	\begin{align*}
+		f(\mr{OPT}_0)-f(\mr{OPT}_n)&\leq f(X_n)-f(X_0)+f(Y_n)-f(Y_0) \\
+		&\leq f(\underbrace{X_n}_{=\mr{OPT}_n})+f(\underbrace{Y_n}_{=\mr{OPT}_n})
+	\end{align*}
+	In total, $f(\mr{OPT}_0)\leq 3f(\mr{OPT}_n)$.
+\end{proof}
+\begin{remark}
+	If $f$ is arbitrary, we can simply add a constant to it to make it non-negative.
+	The analysis is tight.
+\end{remark}
+
+\stepcounter{subsubsection}
+\subsubsection{Randomized USM}
+
+\begin{algorithm}
+	\caption{Randomized Double Greedy}
+	\label{alg:rand-double-greedy}
+	\KwInput{Finite set $E$, submodular function $f: 2^E\to\bR_+$}
+	\KwOutput{$S\subseteq E$}
+	$X_0\leftarrow\emptyset,\ Y_0\leftarrow E$\;
+	\For{$i=1,\ldots,n$}{
+		$a_i\leftarrow f(X_{i-1}\cup\set{e_i})-f(X_{i-1})$\;
+		$b_i\leftarrow f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})$\;
+		$p\leftarrow\begin{cases}
+			1 \qquad&b_i\leq0 \\
+			0 \qquad&a_i\leq0 \\
+			\frac{a_i}{a_i+b_i} \qquad&\text{else}
+		\end{cases}$\;
+		% TODO
+		\If{with probability $p$}{
+			$X_i\leftarrow X_{i-1}\cup\set{e_i},\ Y_i\leftarrow Y_{i-1}$\;
+		}\Else{
+			$X_i\leftarrow X_{i-1},\ Y_i\leftarrow Y_{i-1}\setminus\set{e_i}$\;
+		}
+	}
+	\KwRet{$X_n$}
+\end{algorithm}
+
+\begin{lemma}\label{lemma:rand-double-greedy}
+	For $i\in\set{1,\ldots,n}$:
+	\[\bE\left[\underbrace{f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)}_{\mr{I}}\right]\leq \frac{1}{2}\bE\left[f(X_i)-f(X_{i-1})+\underbrace{f(Y_i)-f(Y_{i-1})}_{\mr{II}}\right]\]
+\end{lemma}
+\begin{proof}
+	We can consider each $X_{i-1}$ separately, so we condition on some event
+	of the form $X_{i-1}=S_{i-1}$ where $S_{i-1}=\set{e_1,\ldots,e_{i-1}}$
+	and on the probability that $X_{i-1}$ is non-zero.
+	\begin{enumerate}
+		\item[Case 1:] $b_i\leq 0$. Then $p=1$ and $Y_i=Y_{i-1}=S_{i-1}\cup
+		\set{e_i,\ldots,e_n}$ and $X_i=S_{i-1}\cup\set{e_i}$.
+
+		\begin{claim}
+			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\leq \frac{1}{2}f(X_i)-f(X_{i-1})=\frac{a_i}{2}\]
+		\end{claim}
+		\begin{itemize}
+			\item If $e_i\in\mr{OPT}$, $0\leq \frac{a_i}{2}$.
+			\item If $e_i\notin\mr{OPT}$, then by submodularity:
+			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\leq f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})=b_i\leq0\leq\frac{a_i}{2}\]
+		\end{itemize}
+		The statement then follows directly from the claim.
+
+		\item[Case 2:] $a_i\leq 0$. This is analogous to case 1.
+		\item[Case 3:] $a_i,b_i>0$.
+		\begin{align*}
+			&\bE\left[f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1})\right] \\
+			=&p\cdot\left(f(X_{i-1}\cup\set{e_i})-f(X_{i-1})\right)
+			+(1-p)\cdot\left(f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})\right) \\
+			=&\frac{a_i^2+b_i^2}{a_i+b_i}
+		\end{align*}
+		We have found a value for the right side of the inequality. Now, we
+		upper-bound the left side.
+		\begin{align*}
+			&\bE\left[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\right] \\
+			=&p\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\right) \\
+			+&(1-p)\underbrace{\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\setminus\set{e_i})\right)}_{\mr{III}} \\
+			\stackalign{(*)}{\leq}& \frac{a_ib_i}{a_i+b_i}
+		\end{align*}
+		To see $(*)$:
+		\begin{enumerate}
+			\item[Case 3.1:] If $e_i\notin\mr{OPT}_{i-1}$, then III is 0 and as
+			$\mr{OPT}_{i-1}=(\mr{OPT}\cup X_{i-1})\cap Y_{i-1}$ by submodularity:
+			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\leq f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})=b_i\]
+
+			\item[Case 3.2:] If $e_i\in\mr{OPT}_{i-1}$, then the first term of
+			the LHS is 0. By submodularity:
+			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\setminus\set{e_i})\leq f(X_{i-1}\cup\set{e_i})-f(X_{i-1})=a_i\]
+		\end{enumerate}
+		Now $\frac{a_ib_i}{a_i+b_i}\leq\frac{1}{2}\frac{a_i^2+b_i^2}{a_i+b_i}$
+		by the binomial formula.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+	Algorithm \ref{alg:rand-double-greedy} returns a solution $S$ with
+	\[\bE[f(S)]\geq \frac{f(\mr{OPT})}{2}\]
+\end{theorem}
+\begin{proof}
+	Summing up lemma \ref{lemma:rand-double-greedy} for all $i\in\set{1,\ldots,n}$
+	and collapsing the telescopic sums yields:
+	\begin{align*}
+		\bE[f(\mr{OPT}_0)-f(\mr{OPT}_n)]&\leq \frac{1}{2}\bE[f(X_n)-f(X_0)+f(Y_n)-f(Y_0)] \\
+		&\leq \frac{\bE[f(X_n)+f(Y_n)]}{2}
+	\end{align*}
+	In total, $\bE[f(\mr{OPT}_n)]\geq \frac{f(\mr{OPT})}{2}$.
+\end{proof}
+
+\begin{uremark}
+	There is no $\frac{1}{2}+\epsilon$-approximation for $\epsilon>0$ that
+	only uses a polynomial number of oracle calls.
+\end{uremark}
 
 \end{document}
