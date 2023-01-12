@@ -3337,4 +3337,175 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	only uses a polynomial number of oracle calls.
 \end{uremark}
 
+% Lecture 12.01.23
+
+\subsection{Submodular Function Minimization}
+
+\begin{problem}[Submodular Function Minimization]
+	Given a finite set $U$ and a submodular function $f: 2^U\to\bR$ with
+	$f(\emptyset)=0$, find a set $S\subseteq U$ with $f(S)$ minimum.
+\end{problem}
+
+% TODO
+\setcounter{theorem}{52}
+\begin{definition}
+	Let $U$ be finite and $f: 2^U\to\bR$ submodular. Then the \emph{base
+	polyhedron} is defined as:
+	\[B(f)\coloneqq\set{x\in\bR^U\ |\ x(A)\leq f(A)\ \forall A\subseteq U},\ 
+		x(U)=f(U)\]
+\end{definition}
+
+\begin{example}
+	Let $U=\set{1,2}$ and $f(\set{1})=2,\ f(\set{2})=-2,\ f(\set{1,2})=-1$.
+\end{example}
+
+% TODO Curly <
+\begin{theorem}
+	The vertices of the base polyhedron are given by the vectors $b^<$
+	for all total orders $<$ of $U$ where:
+	\[b^<(u)\coloneqq f(\set{v\in U\ |\ v\leq u})-f(\set{v\in U\ |\ v<u})\]
+\end{theorem}
+\begin{proof}
+	Exercise,
+\end{proof}
+
+\begin{theorem}\label{thm:submodular-min}
+	Let $f: 2^U\to\bR$ be submodular, $f(\emptyset)=0$. Then
+	\[\min_{S\subseteq U}f(S)=\max\set{x^-(U)\ |\ x\in B(f)}\]
+	where $x^-(U)=\sum_{u\in U}x^-(u)=\sum_{u\in U}\min\set{0,x(u)}$.
+\end{theorem}
+\begin{proof}
+	Exercise.
+\end{proof}
+
+\emph{Idea:} Maintain $x\in B(f)$ and represent it by a convex combination
+of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
+
+\begin{algorithm}[H]
+	\caption{Schrijver's Algorithm}
+	\label{alg:schrijver}
+	\KwInput{Finite set $U=\set{1,\ldots,n}$, submodular function $f:2^U\to\bR$
+		with $f(\emptyset)=0$}
+	\KwOutput{$X\subseteq U$ with $f(X)$ minimum}
+	$k\leftarrow1,\ <_1\leftarrow$ any total order on $U$, $x\leftarrow b^{<_1}$\;
+	\tcc{BuildGraph:}
+	$D\leftarrow(U,A)$ where $A=\set{(u,v)\ |\ u<_i v \text{ for some }1\leq i\leq k}$\;
+	$P\leftarrow \set{u\in U\ |\ x(u)>0}$\;
+	$N\leftarrow\set{u\in U\ |\ x(u)<0}$\;
+	$X\leftarrow$ set of vertices not reachable from $P$ in $D$\;
+	\If{$N\subseteq X$}{
+		\KwRet{$X$}\;
+	}
+	\tcc{FindAugmentation:}
+	Let $d(v)$ denote the distance from $P$ to $v$ in $D$\;
+	Choose $t\in N\setminus X$ with $(d(t,t))$ lexicographically maximum\;
+	Choose $s$ maximal with $(s,t)\in A$ and $d(s)=d(t)-1$\;
+	Let $i\in \set{1,\ldots,k}$ such that $\alpha=\abs{\set{v\in U\ |\ s<_i v\leq_i t}}$
+		is maximum. [Let $\beta$ be the number of indices attaining $\alpha$]\;
+	\tcc{ChangeSolution:}
+	Compute $0\leq\epsilon\leq -x(t)$ and write $x'=x+\epsilon(\chi^t-\chi^s)$
+		as an explicit convex combination of $\leq n$ vectors from $b^{<_1},
+		\ldots,b^{<_k}$ and $b^{<_i^{s,u}}\ \forall s<_i u\leq_i t$ (where
+		$<^{s,u}_i$ arises from $<_i$ by placing $u$ directly before $s$) such that
+		$b^{<_i}$ does not occur if $x'(t)<0$\;
+	$x\leftarrow x'$, rename the vectors in the convex combination of $x$
+		as $b^{<_1},\ldots,b^{<_{k'}}$, $k\leftarrow k'$\;
+	% TODO goto
+	Go to Build Graph\;
+\end{algorithm}
+
+\begin{example}
+	In the example from above, let $<_1$ be $1<_12$, $k=1$ and
+	$x=\begin{pmatrix}2 \\ -3\end{pmatrix}$.
+	% TODO
+\end{example}
+
+\begin{theorem}
+	Algorithm \ref{alg:schrijver} returns an optimum solution if it terminates.
+\end{theorem}
+\begin{proof}
+	If the algorithm terminates, $D$ does not contain a $P$-$N$-path. Since
+	$N\subseteq X\subseteq U\setminus P$, $\sum_{u\in X}x(u)\leq \sum_{w\in W}
+	x(w)$ for all $W\subseteq U$.
+	No edge enters $X$, so $X=\emptyset$ or for all $j\in\set{1,\ldots,k}$
+	there exists $v\in X$ with $X=\set{u\in U\ |\ u\leq_j v}$. Therefore
+	$\sum_{u\in X}b^{<_j}(u)=f(X)$ for all $j$ (by definition of $b^<_u$).
+	% TODO 4.26 (?)
+	By theorem \ref{thm:submodular-min},
+	$\sum_{u\in W}b^{<_j}(u)\leq f(W)\ \forall W\subseteq U, j\in\set{1,\ldots,k}$.
+	We get (where $\lambda_j$ are the factors in the convex combination):
+	\begin{align*}
+		f(W)&\geq \sum_{j=1}^k\lambda_j \sum_{u\in W}b^{<_j}(u) \\
+		&=\sum_{u\in W}\sum_{i=1}^kb^{<_j}(u) \\
+		&=\sum_{u\in W}x(u) \\
+		&\geq \sum_{u\in X}x(u) \\
+		&=\sum_{u\in X}\sum_{j=1}^k\lambda_jb^{<_j}(u) \\
+		&=\sum_{j=1}^k\lambda_j\sum_{u\in X}b^{<_j}(u) \\
+		&=f(X)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+	Each iteration can be performed in $O(n^3+\gamma n^2)$ time where
+	$\gamma$ is the time required for an oracle call.
+\end{theorem}
+\begin{proof}
+	BuildGraph and FindAugmentation can both be implemented in $O(n^3)$.
+	We need to show that ChangeSolution can be done in $O(n^3+\gamma n^2)$.
+	Let $x=\lambda_1b^{<_1}+\ldots+\lambda_kb^{<_k}$ and $s<_i t$.
+	\begin{claim}
+		For some $\delta>0$, $\delta(\chi^t-\chi^s)$ can be written as a
+		convex combination of the vectors $b^{<_i^{s,u}}-b^{<_i}$ for
+		$s<_i u\leq_i t$ in $O(\gamma n^2)$ time.
+	\end{claim}
+	How do $b^{<_i^{s,u}}$ and $b^{<_i}$ compare?
+	\begin{itemize}
+		\item Let $s<_i v\leq_i t$. Then by definition
+		$b^{<_i^{s,v}}(u)=b^{<_i}(u)$ for $u<_i s$ or $u>_i v$.
+
+		\item
+		For $s\leq_i u<_i v$: $b^{<_i^{s,v}}(u)=f(\set{w\in U\ |\ w\leq_i^{s,v}
+			u})-f(\set{w\in U\ |\ w<_i^{s,v}u})\leq f(\set{w\in U\ |\ w\leq_i u})
+			- f(\set{w\in U\ |\ w<_iu})=b^{<_i}(u)$ by submodularity.
+
+		\item
+		For $u=v$ we have by submodularity:
+		\begin{align*}
+			b^{<_i^{s,v}}(u)&=f(\set{w\in U\ |\ w\leq_i^{s,v}u})-f(\set{w\in U\ |\ w<_i^{s,v}u}) \\
+			&\geq f(\set{w\in U\ |\ w\leq_i u})-f(\set{w\in U\ |\ w<_iu}) \\
+			&=b^{<_i}(u)
+		\end{align*}
+	\end{itemize}
+	\emph{Proof of claim:}
+	\begin{itemize}
+		\item
+		If $\exists s<_i v<_i t$ such that $b^{<_i^{s,v}}(v)=b^{<_i}(v)$ choose
+		$\delta=0$ and $\lambda_v=1$.
+
+		\item
+		Otherwise for all $s<_i v\leq_i t$ we have $b^{<_i^{s,v}}(v)> b^{<_i}(v)$.
+		Look at the matrix $M=(b^{<_i^{s,v}}-b^{<_i})_{vu}$ with rows
+		$s<_i v\leq_i t$ and columns for $u\in U$. Then
+		\begin{align*}
+			\chi^t-\chi^s&=\sum_{s<_i v\leq_i t}\kappa_v(b^{<_i^{s,v}}-b^{<_i})
+		\end{align*}
+		is a non-negative combination for
+		\[\kappa_v=\frac{\chi_v^t-\sum_{v<_i w\leq_i t}\kappa_w(b^{<_i^{s,w}}(v)-b^{<_i}(v))}
+			{b^{<_i^{s,v}}(v)-b^{<_i}(v)}\]
+
+			\item By scaling, we get a convex combination.
+	\end{itemize}
+	Set $\epsilon\coloneqq\min\set{\lambda_i\delta, -x(t)}$.
+	\begin{itemize}
+		\item
+		If $\epsilon=\lambda_i\delta$ then
+		\[x'=\sum_{j=1}^k \lambda_jb^{<_i}+\lambda_i\sum_{s<_i v\leq_i t}\kappa_v(b^{<_i^{s,v}}-b^{<_i})\]
+		$b^{<_i}$ cancels out.
+
+		\item
+		Otherwise, everything is fine. % TODO ?
+	\end{itemize}
+	Use Gaussian elimination to get $\leq n$ vectors in $O(n^3)$.
+\end{proof}
+
 \end{document}

@@ -31,3 +31,4 @@
 \contentsline {subsubsection}{\numberline {4.4.1}Applications of Matroid Intersection}{55}{subsubsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.5}Submodular Function Maximization}{55}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.2}Randomized USM}{57}{subsubsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.6}Submodular Function Minimization}{59}{subsection.4.6}%
