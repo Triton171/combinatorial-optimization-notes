@@ -27,6 +27,7 @@
 \SetKwInput{KwInput}{Input}
 \SetKwInput{KwOutput}{Output}
 \SetKw{KwContinue}{continue}
+\SetKw{KwGoto}{go to}
 \DontPrintSemicolon
 %Define short commands for different letters
 \foreach \x in {A,...,Z}{
@@ -2924,7 +2925,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	\end{align*}
 	\begin{claim}
 		Let $Ax\leq b, x\geq0$ be a linear program. If for any $c\in\bZ^n$ where
-		the dual as a solution, it as an optimum solution $y_i^*$ such that the rows
+		the dual has a solution, it has an optimum solution $y_i^*$ such that the rows
 		of $A$ where $y_i^*>0$ (plus possibly basic 0-entries)
 		forms a TU matrix. Then $Ax\leq b, x\geq0$ is TDI.
 	\end{claim}
@@ -2950,7 +2951,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 		y_A'         & \coloneqq y_A-\epsilon               \\
 		y_B'         & \coloneqq y_B-\epsilon               \\
 		y_{A\cup B}' & \coloneqq y_{A\cup B}+\epsilon       \\
-		y_{A\cap B}' & \coloneqq y_{A\cap B}+\epsilon
+		y_{A\cap B}' & \coloneqq y_{A\cap B}+\epsilon \\
 		y_S          & \coloneqq y_S \qquad\text{elsewhere}
 	\end{align*}
 	$y',z$ is feasible and optimal by submodularity but the term above gets
@@ -3255,8 +3256,8 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 			0 \qquad&a_i\leq0 \\
 			\frac{a_i}{a_i+b_i} \qquad&\text{else}
 		\end{cases}$\;
-		% TODO
-		\If{with probability $p$}{
+		\SetKwBlock{WithProbP}{with probability $p$ do}{}
+		\WithProbP{
 			$X_i\leftarrow X_{i-1}\cup\set{e_i},\ Y_i\leftarrow Y_{i-1}$\;
 		}\Else{
 			$X_i\leftarrow X_{i-1},\ Y_i\leftarrow Y_{i-1}\setminus\set{e_i}$\;
@@ -3271,8 +3272,8 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 \end{lemma}
 \begin{proof}
 	We can consider each $X_{i-1}$ separately, so we condition on some event
-	of the form $X_{i-1}=S_{i-1}$ where $S_{i-1}=\set{e_1,\ldots,e_{i-1}}$
-	and on the probability that $X_{i-1}$ is non-zero.
+	of the form $X_{i-1}=S_{i-1}$ where $S_{i-1}\subseteq\set{e_1,\ldots,e_{i-1}}$
+	is fixed and the probability that $X_{i-1}=S_{i-1}$ is non-zero.
 	\begin{enumerate}
 		\item[Case 1:] $b_i\leq 0$. Then $p=1$ and $Y_i=Y_{i-1}=S_{i-1}\cup
 		\set{e_i,\ldots,e_n}$ and $X_i=S_{i-1}\cup\set{e_i}$.
@@ -3366,7 +3367,7 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	\[b^<(u)\coloneqq f(\set{v\in U\ |\ v\leq u})-f(\set{v\in U\ |\ v<u})\]
 \end{theorem}
 \begin{proof}
-	Exercise,
+	Exercise
 \end{proof}
 
 \begin{theorem}\label{thm:submodular-min}
@@ -3375,7 +3376,7 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	where $x^-(U)=\sum_{u\in U}x^-(u)=\sum_{u\in U}\min\set{0,x(u)}$.
 \end{theorem}
 \begin{proof}
-	Exercise.
+	Exercise
 \end{proof}
 
 \emph{Idea:} Maintain $x\in B(f)$ and represent it by a convex combination
@@ -3388,21 +3389,26 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 		with $f(\emptyset)=0$}
 	\KwOutput{$X\subseteq U$ with $f(X)$ minimum}
 	$k\leftarrow1,\ <_1\leftarrow$ any total order on $U$, $x\leftarrow b^{<_1}$\;
-	\tcc{BuildGraph:}
-	$D\leftarrow(U,A)$ where $A=\set{(u,v)\ |\ u<_i v \text{ for some }1\leq i\leq k}$\;
-	$P\leftarrow \set{u\in U\ |\ x(u)>0}$\;
-	$N\leftarrow\set{u\in U\ |\ x(u)<0}$\;
-	$X\leftarrow$ set of vertices not reachable from $P$ in $D$\;
-	\If{$N\subseteq X$}{
-		\KwRet{$X$}\;
+	\SetKwBlock{BlockBuildGraph}{Build Graph:}{}
+	\BlockBuildGraph{
+		$D\leftarrow(U,A)$ where $A=\set{(u,v)\ |\ u<_i v \text{ for some }1\leq i\leq k}$\;
+		$P\leftarrow \set{u\in U\ |\ x(u)>0}$\;
+		$N\leftarrow\set{u\in U\ |\ x(u)<0}$\;
+		$X\leftarrow$ set of vertices not reachable from $P$ in $D$\;
+		\If{$N\subseteq X$}{
+			\KwRet{$X$}\;
+		}
 	}
-	\tcc{FindAugmentation:}
-	Let $d(v)$ denote the distance from $P$ to $v$ in $D$\;
-	Choose $t\in N\setminus X$ with $(d(t),t)$ lexicographically maximum\;
-	Choose $s$ maximal with $(s,t)\in A$ and $d(s)=d(t)-1$\;
-	Let $i\in \set{1,\ldots,k}$ such that $\alpha=\abs{\set{v\in U\ |\ s<_i v\leq_i t}}$
+	\SetKwBlock{BlockFindAugment}{Find Augmentation:}{}
+	\BlockFindAugment{
+		Let $d(v)$ denote the distance from $P$ to $v$ in $D$\;
+		Choose $t\in N\setminus X$ with $(d(t),t)$ lexicographically maximum\;
+		Choose $s$ maximal with $(s,t)\in A$ and $d(s)=d(t)-1$\;
+		Let $i\in \set{1,\ldots,k}$ such that $\alpha=\abs{\set{v\in U\ |\ s<_i v\leq_i t}}$
 		is maximum. [Let $\beta$ be the number of indices attaining $\alpha$]\;
-	\tcc{ChangeSolution:}
+	}
+	\SetKwBlock{BlockChangeSol}{Change Solution:}{}
+	\BlockChangeSol{
 	Compute $0\leq\epsilon\leq -x(t)$ and write $x'=x+\epsilon(\chi^t-\chi^s)$
 		as an explicit convex combination of $\leq n$ vectors from $b^{<_1},
 		\ldots,b^{<_k}$ and $b^{<_i^{s,u}}\ \forall s<_i u\leq_i t$ (where
@@ -3410,8 +3416,8 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 		$b^{<_i}$ does not occur if $x'(t)<0$\;
 	$x\leftarrow x'$, rename the vectors in the convex combination of $x$
 		as $b^{<_1},\ldots,b^{<_{k'}}$, $k\leftarrow k'$\;
-	% TODO goto
-	Go to Build Graph\;
+	}
+	\KwGoto Build Graph\;
 \end{algorithm}
 
 \begin{example}
