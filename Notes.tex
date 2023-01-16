@@ -2851,7 +2851,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	and $f$ is monotone, i.e. $A\subseteq B$ implies $f(A)\leq f(B)$.
 \end{prop}
 
-\begin{prop}
+\begin{prop}\label{prop:for-submodular-greedy-alg}
 	Let $E=\set{e_1,\ldots,e_n}$, $f: 2^E\to\bR_{\geq0}$ submodular with
 	$f(\emptyset)\geq0$, $B: E\to\bR$ with $b(e_1)\leq f(e_1)$ and
 	$b(e_i)\leq f(\set{e_1,\ldots,e_i})-f(\set{e_1,\ldots,e_{i-1}})$ for
@@ -3398,7 +3398,7 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	}
 	\tcc{FindAugmentation:}
 	Let $d(v)$ denote the distance from $P$ to $v$ in $D$\;
-	Choose $t\in N\setminus X$ with $(d(t,t))$ lexicographically maximum\;
+	Choose $t\in N\setminus X$ with $(d(t),t)$ lexicographically maximum\;
 	Choose $s$ maximal with $(s,t)\in A$ and $d(s)=d(t)-1$\;
 	Let $i\in \set{1,\ldots,k}$ such that $\alpha=\abs{\set{v\in U\ |\ s<_i v\leq_i t}}$
 		is maximum. [Let $\beta$ be the number of indices attaining $\alpha$]\;
@@ -3430,13 +3430,12 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	No edge enters $X$, so $X=\emptyset$ or for all $j\in\set{1,\ldots,k}$
 	there exists $v\in X$ with $X=\set{u\in U\ |\ u\leq_j v}$. Therefore
 	$\sum_{u\in X}b^{<_j}(u)=f(X)$ for all $j$ (by definition of $b^<_u$).
-	% TODO 4.26 (?)
-	By theorem \ref{thm:submodular-min},
+	By theorem \ref{prop:for-submodular-greedy-alg},
 	$\sum_{u\in W}b^{<_j}(u)\leq f(W)\ \forall W\subseteq U, j\in\set{1,\ldots,k}$.
 	We get (where $\lambda_j$ are the factors in the convex combination):
 	\begin{align*}
 		f(W)&\geq \sum_{j=1}^k\lambda_j \sum_{u\in W}b^{<_j}(u) \\
-		&=\sum_{u\in W}\sum_{i=1}^kb^{<_j}(u) \\
+		&=\sum_{u\in W}\sum_{i=1}^k\lambda_j b^{<_j}(u) \\
 		&=\sum_{u\in W}x(u) \\
 		&\geq \sum_{u\in X}x(u) \\
 		&=\sum_{u\in X}\sum_{j=1}^k\lambda_jb^{<_j}(u) \\
