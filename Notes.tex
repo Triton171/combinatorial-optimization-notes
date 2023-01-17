@@ -3503,14 +3503,145 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	Set $\epsilon\coloneqq\min\set{\lambda_i\delta, -x(t)}$.
 	\begin{itemize}
 		\item
-		If $\epsilon=\lambda_i\delta$ then
+		If $\epsilon=\lambda_i\delta$ then:
 		\[x'=\sum_{j=1}^k \lambda_jb^{<_i}+\lambda_i\sum_{s<_i v\leq_i t}\kappa_v(b^{<_i^{s,v}}-b^{<_i})\]
 		$b^{<_i}$ cancels out.
 
 		\item
-		Otherwise, everything is fine. % TODO ?
+		Otherwise, $x'(t)=0$.
 	\end{itemize}
-	Use Gaussian elimination to get $\leq n$ vectors in $O(n^3)$.
+	We can then use Gaussian elimination to get $\leq n$ vectors in $O(n^3)$.
 \end{proof}
+
+% Lecture 17.01.23
+
+\begin{theorem}
+	The number of iterations is bounded by $O(n^5)$.
+\end{theorem}
+\begin{proof}
+	\begin{claim}
+		$d(w)$ never decreases for $w\in U$.
+	\end{claim}
+	If $(v,w)$ was added after a new vertex $b^{<_i^{s,u}}$ was added to the
+	convex combination in ChangeSolution, then $s\leq_i w<_i v\leq t$ in that
+	iteration. In particular $d(w)\leq d(s)+1=d(t)\leq d(v)+1$, so adding
+	the edge $(v,w)$ does not decrease $d(w)$. Additionally, ChangeSolution
+	does not add any elements to $P$ which proves the claim.
+
+	We call a sequence of iterations with the same $s$ and $t$ a \emph{block}.
+	Each block has $O(n^2)$ iterations as the pair $(\alpha,\beta)$ decreases
+	lexicographically.
+	\begin{claim}
+		The number of blocks is bounded by $O(n^3)$.
+	\end{claim}
+	We consider different reasons for ending a block:
+	\begin{enumerate}[label=\alph*)]
+		\item\label{item:schrijver-block-end-a}
+		$d(v)$ increases for some $v\in U$, in which case $v$ may become the
+		new $t$ or $s$.
+		\item\label{item:schrijver-block-end-b}
+		$t$ is removed from $N$.
+		\item\label{item:schrijver-block-end-c}
+		$(s,t)$ is removed from $A$.
+	\end{enumerate}
+	We now bound the number of blocks of each type:
+	\begin{itemize}
+		\item
+		The number of blocks of type \ref{item:schrijver-block-end-a} is bounded
+		by $O(n^2)$ since $d(w)$ never decreases.
+
+		\item
+		We claim that for all $t^*\in U$ there are at most
+		$O(n^2)$ iterations with $t=t^*$ and $x'(t)=0$:
+		Between such iterations some $d(v)$ ($v\in U$) must change. We have just
+		shown that this only happens $O(n^2)$ times. Since there are $n$ choices
+		for $t^*$, there are $O(n^3)$ blocks of type \ref{item:schrijver-block-end-b}.
+
+		\item
+		We claim that there are $O(n^3)$ types of type \ref{item:schrijver-block-end-c}.
+		It suffices to show that $d(t)$ changes between 2 blocks with the
+		pair $(s,t)$. For $s,t\in U$, call $s$ \emph{$t$-boring} if one of
+		the following holds:
+		\begin{itemize}
+			\item $(s,t)\notin A$ \emph{or}
+			\item $d(t)\leq d(s)$
+		\end{itemize}
+		Let $s^*,t^*\in U$ and consider the time after a block $s=s^*,t=t^*$
+		is ending because $(s^*,t^*)$ is removed from $A$ until a subsequent
+		increase of $d(t^*)$.
+		
+		We prove that each $v\in \set{s^*,\ldots,n}$ is
+		$t^*$-boring during this period. At the beginning, each $v\in \set{s^*
+		+1,\ldots,n}$ is $t^*$-boring by the maximal choice of $s^*$. $s^*$
+		is $t^*$-boring because the arc $(s^*,t^*)$ was removed. As $d(t^*)$
+		remains constant and $d$ never decreases, we only need to check the
+		introduction of new arcs.
+
+		Suppose for $v\in\set{s^*,\ldots,n}$, $(v,t^*)$ is added in an iteration
+		with pair $(s,t)$. Then $s\leq_i t^*<_i v\leq_i t$, so
+		$d(t^*)\leq d(s)+1=d(t)\leq d(v)+1$.
+		\begin{enumerate}
+			\item[Case 1:]
+			$s>v$. Then $d(t^*)\leq d(s)$, either because $s=t^*$ or $s$ was
+			$t^*$-boring and $(s,t^*)\in A$.
+
+			\item[Case 2:]
+			$s<v$. Then $d(t)\leq d(v)$, either because $v=t$ or by choice of $s$
+			and since $(v,t)\in A$.
+		\end{enumerate}
+		In either case, we have one strict inequality, so $d(t^*)\leq d(v)$
+		and $v$ remains $t^*$-boring as claimed.
+
+		$d(t)$ can increase $O(n)$ times and there are $O(n^2)$ pairs $(s,t)$.
+	\end{itemize}
+	In total, the total number of iterations is:
+	\[O(n^5)=\underbrace{O(n^2)}_{\text{iterations per block}}
+		\cdot\underbrace{O(n^3)}_{number of blocks}\]
+\end{proof}
+
+\begin{theorem}
+	The submodular function minimization problem can be solved in time
+	$O(n^8+n^7\gamma)$, where $\gamma$ is the time required for a call to
+	the function oracle.
+\end{theorem}
+
+\begin{cor}
+	Linear functions over the intersection of 2 polymatroids can be optimized
+	in polynomial time.
+\end{cor}
+
+\begin{uremark}\ 
+	\begin{itemize}
+		\item
+		The fastest known algorithm has a running time of $O(n^6+n^5\gamma)$
+		(Orlin, 2009 and Sidford, Wong, Lee, 2015).
+
+		\item
+		There is also a weakly polynomial algorithm $O((n^5+n^4\gamma)(\log M))$
+		where $M=\max_{X}f(X)$.
+	\end{itemize}
+\end{uremark}
+
+\begin{uremark}
+	$[0,1]^n$ can be partitioned into $n!$ $n$-simplices (induced by the $n!$
+	orders on $\set{1,\ldots,n}$). For each simplex, there exists a unique
+	linear interpolation/extension of a function on the corners of the simplex to
+	its interior. This corresponds to the definition of the Lovász extension.
+
+	In particular, a function is submodular $\Leftrightarrow$ the combination
+	of the linear interpolations is convex.
+\end{uremark}
+
+
+\section{Splitting-Off Lemma}
+
+\begin{lemma}[Lovász]
+	Let $G$ be a (multi-)graph with $V(G)=V\dot\cup\set{s}$ with $\abs{\delta(s)}$
+	even and $k\geq2$ such that $\abs{\delta(U)}\geq k$ for all $\emptyset
+	\neq U\subsetneq V$.
+	Then $\forall\set{s,t}\in E:\ \exists u\in\Gamma(s)$ such that
+	\[G'\coloneqq G-\set{s,t}-\set{s,u}+\set{u,t}\]
+	satisfies $\abs{\delta_{G'}(U)}\geq k$ for all $\emptyset\subsetneq U\subsetneq V$.
+\end{lemma}
 
 \end{document}
