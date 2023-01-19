@@ -164,7 +164,7 @@
 	\end{enumerate}
 \end{lemma}
 
-\begin{problem}{Cardinalty Matching Problem}\\
+\begin{problem}{Cardinality Matching Problem}\\
 Input: Graph $G=(V,E)$ \\
 Task: Find a maximum cardinality matching
 \end{problem}
@@ -311,12 +311,12 @@ perfect matching exists in $G$
 \begin{definition}
 	Let $G$ be a simple, undirected graph. Let $G'$ be an orientation
 	of $G$ and $(X_e)_{e\in E(G)}$. The \emph{Tutte matrix} is defined as
-	\[T_G(X)\coloneqq (T^*_{vw})_{v,w\in V(G)}\]
+	\[T_G(X)\coloneqq (t^*_{vw})_{v,w\in V(G)}\]
 	where
 	\[
 		t^*_{vw}\coloneqq \begin{cases}
 			X_{\{v,w\}} \quad & \text{if $(v,w)\in E(G)$}  \\
-			-X_{\{v,w\}}      & \text{if $-(v,w)\in E(G)$} \\
+			-X_{\{v,w\}}      & \text{if $(w,v)\in E(G)$} \\
 			0                 & \text{else}
 		\end{cases}
 	\]
@@ -563,8 +563,8 @@ be the number of odd components in $G-X$.
 		If $G'\neq G$, there is an edge $\set{x,y}\in E(G)\setminus E(G')$
 		with $x\in V(G')$ (by Proposition \ref{prop:factor-critical-conn}).
 		If $y\in V(G')$, then $\set{x,y}$ can be chosen as the next ear.
-		Otherwise, construct an $M$-alternating odd ear, starting with
-		$\set{x,y}$. Let $N$ be a matching in $G-y$. $M\Delta N$ contains a
+		Otherwise, we construct an $M$-alternating odd ear, starting with
+		$\set{x,y}$: Let $N$ be a matching in $G-y$. $M\Delta N$ contains a
 		$y$-$r$-path $P$. Let $w$ be the first vertex in $P\cap V(G')$. $w$
 		is $M$-exposed in $P_{[y,w]}$, $y$ is $N$-exposed in $P_{[y,w]}$.
 		Therefore $P_{[y,w]}$ is even and together with $\set{x,y}$ it forms
@@ -594,7 +594,7 @@ be the number of odd components in $G-X$.
 	\begin{itemize}
 		\item $\set{x,y}\in M\Rightarrow \mu(x)=y$
 		\item $\set{x,y}\in E(P_i)\setminus M$ and $x\notin\set{r}
-			\cup\bigcup_{j\in [i]}V(P_j)$
+			\cup\bigcup_{j\in [i-1]}V(P_j)$
 
 		$\Rightarrow \varphi(x)=y$
 		\item $\mu(r)=\varphi(r)=r$
@@ -605,6 +605,7 @@ be the number of odd components in $G-X$.
 	Let $G$ be a factor-critical graph and $\mu,\varphi$ functions associated
 	with an $M$-alternating ear decomposition. Then this ear decomposition is
 	unique up to the order of the ears. The Ear-Decomposition-Algorithm
+	(algorithm \ref{alg:ear-decomp})
 	correctly determines an explicit list of the ears in linear time.
 \end{prop}
 \begin{proof}
@@ -614,6 +615,7 @@ be the number of odd components in $G-X$.
 
 \begin{algorithm}[htbp]
 	\caption{Ear Decomposition Algorithm}
+	\label{alg:ear-decomp}
 	\KwInput{Factor-critical graph $G$, functions $\mu,\varphi$ associated
 		with an $M$-alternating ear decomposition}
 	\KwOutput{An $M$-alternating ear decomposition $r,P_1,\ldots,P_k$}
@@ -712,14 +714,14 @@ be the number of odd components in $G-X$.
 	Let $G$ be a graph, $M$ a matching in $G$. A \emph{blossom} in $G$
 	with respect to $M$ is a factor-critical subgraph of $B$ of $G$ such that
 	$\abs{M\cap E(B)}=\frac{\abs{V(B)}-1}{2}$. The vertex $r\in V(B)$ that is
-	exposed by $M$ is called the \emph{base} of $B$.
+	exposed by $M\cap E(B)$ is called the \emph{base} of $B$.
 \end{definition}
 
 \begin{definition}
 	Let $G$ be a graph, $M$ a matching in $G$, $B$ a blossom and $Q$ a
 	$M$-alternating $v$-$r$-path of even length from $v\in V(G)$ that is
 	$M$-exposed to the base $r$ of $B$. Additionally, let
-	$E(Q)\cap E(B)=\emptyset$. $B+Q$ is called a $M$-flower.
+	$E(Q)\cap E(B)=\emptyset$. $B+Q$ is called an \emph{$M$-flower}.
 \end{definition}
 
 \begin{lemma}
@@ -737,7 +739,8 @@ be the number of odd components in $G-X$.
 		Assume that $M$ is not maximum in $G$. $N\coloneqq M\Delta E(Q)$
 		is a matching with $\abs{N}=\abs{M}$. \\
 		$\Rightarrow \exists N$-augmenting path $P$ in $G$. At least one endpoint
-		$x$ of $P$ is in $V(B)$. If $P$ and $B$ are disjoint, let $y$ be the other
+		$x$ of $P$ is not in $V(B)$ (since $B$ contains only one $N$-exposed
+		vertex). If $P$ and $B$ are disjoint, let $y$ be the other
 		endpoint of $P$. Otherwise, let $y$ be the first vertex on $P$ in $B$.
 		$P'\coloneqq P_{[x,y]}$ is an $N'$-augmenting path in $G'$, so
 		$\abs{N'}=\abs{M'}<\mu(G')$.
@@ -3436,9 +3439,10 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	No edge enters $X$, so $X=\emptyset$ or for all $j\in\set{1,\ldots,k}$
 	there exists $v\in X$ with $X=\set{u\in U\ |\ u\leq_j v}$. Therefore
 	$\sum_{u\in X}b^{<_j}(u)=f(X)$ for all $j$ (by definition of $b^<_u$).
-	By theorem \ref{prop:for-submodular-greedy-alg},
-	$\sum_{u\in W}b^{<_j}(u)\leq f(W)\ \forall W\subseteq U, j\in\set{1,\ldots,k}$.
-	We get (where $\lambda_j$ are the factors in the convex combination):
+	By theorem \ref{prop:for-submodular-greedy-alg} (and again the
+	definition of $b^<_u$), $\sum_{u\in W}b^{<_j}(u)\leq f(W)\ \forall
+	W\subseteq U, j\in\set{1,\ldots,k}$.  We get (where $\lambda_j$
+	are the factors in the convex combination):
 	\begin{align*}
 		f(W)&\geq \sum_{j=1}^k\lambda_j \sum_{u\in W}b^{<_j}(u) \\
 		&=\sum_{u\in W}\sum_{i=1}^k\lambda_j b^{<_j}(u) \\

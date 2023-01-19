@@ -1,7 +1,7 @@
-PWD /volume/Dokumente/Uni/Notes/combinatorial-optimization-notes
+PWD /home/daniel/Files/Dokumente/Uni/Notes/combinatorial-optimization-notes
 INPUT /nix/store/57pdmnpn4gvbqqwhp6n4xga727zydvc8-texlive-combined-2021/share/texmf/web2c/texmf.cnf
 INPUT /nix/store/57pdmnpn4gvbqqwhp6n4xga727zydvc8-texlive-combined-2021/share/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /volume/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex
+INPUT /home/daniel/Files/Dokumente/Uni/Notes/combinatorial-optimization-notes/Notes.tex
 OUTPUT Notes.log
 INPUT /nix/store/57pdmnpn4gvbqqwhp6n4xga727zydvc8-texlive-combined-2021/share/texmf/tex/latex/base/article.cls
 INPUT /nix/store/57pdmnpn4gvbqqwhp6n4xga727zydvc8-texlive-combined-2021/share/texmf/tex/latex/base/article.cls
