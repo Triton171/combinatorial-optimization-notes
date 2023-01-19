@@ -3637,15 +3637,130 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 \end{uremark}
 
 
-\section{Splitting-Off Lemma}
+\section{Splitting-Off Lemma and Connectivity}
+\subsection{Splitting-Off Lemma}
 
-\begin{lemma}[Lovász]
+\begin{lemma}[Lovász]\label{lemma:splitting-off}
 	Let $G$ be a (multi-)graph with $V(G)=V\dot\cup\set{s}$ with $\abs{\delta(s)}$
-	even and $k\geq2$ such that $\abs{\delta(U)}\geq k$ for all $\emptyset
-	\neq U\subsetneq V$.
+	even and $k\geq2$ such that:
+	\begin{equation}\label{eq:split-off-conn}
+		\abs{\delta(U)}\geq k \qquad\forall\emptyset \neq U\subsetneq V
+	\end{equation}
 	Then $\forall\set{s,t}\in E:\ \exists u\in\Gamma(s)$ such that
 	\[G'\coloneqq G-\set{s,t}-\set{s,u}+\set{u,t}\]
-	satisfies $\abs{\delta_{G'}(U)}\geq k$ for all $\emptyset\subsetneq U\subsetneq V$.
+	satisfies (\ref{eq:split-off-conn}).
 \end{lemma}
+% Lecture 19.01.23
+\begin{uremark}
+	If $t=u$, then $G'$ contains a loop which does not change the connectivity
+	when it gets deleted.
+\end{uremark}
+\begin{proof}
+	If $\abs{\Gamma(s)}=1$, then the statement is clear since for all $U\subsetneq
+	V$ with $t\in U$:
+	\[\abs{\delta_G(U)}=\underbrace{\abs{\delta_{G-s}(U)}}_{=\abs{\delta_G(V\setminus U)}\geq k}
+		\abs{E[U,\set{s}]}\]
+	Therefore removing edges incident to $s$ maintins the connectivity.
+	Assume now that $\abs{\Gamma(s)}>1$. Fix $t\in\Gamma(s)$.
+	\begin{claim}
+		We can find $u\in\Gamma(s)\setminus\set{t}$ such that $G'$ satisfies
+		(\ref{eq:split-off-conn}).
+	\end{claim}
+	If not, then for all $u\in\Gamma(s)$ there exists $U\subsetneq V$ such
+	that $\abs{\delta_{G'}(U)}<k$. Then $t,u\in U$, else $\abs{\delta_{G'}(U)}
+	=\abs{\delta_G(U)}$. Also, $\abs{\delta_G(U)}\leq k+1$. Let:
+	\[\cC\coloneqq\set{U\subsetneq V\ |\ t\in U,\ \abs{\delta_G(U)}\leq k+1}\]
+	This covers $\Gamma(s)$. Then $\forall U\in\cC$
+	\[1\geq \underbrace{\abs{\delta_G(U)}}_{\leq k+1}
+		-\underbrace{\abs{\delta_G(U\cup\set{s})}}_{\geq k}
+		=\abs{E(\set{s}, U)}-\abs{E(\set{s}, V\setminus U)}\]
+	so $\abs{E(\set{s}, U)}\leq \abs{E(\set{s}, V\setminus U)}+1$. Since
+	$\abs{\delta(s)}$ is even, there cannot be equality, so:
+	\[\abs{E(\set{s}, U)}\leq \abs{E(\set{s}, V\setminus U)}\]
+	Now $\set{s,t}\in E(\set{s}, U)$ for all $U\in\cC$. In particular,
+	we need $>2$ sets from $\cC$ to cover $\delta(s)$. Take $U_1,U_2,U_3\in\cC$
+	such that $U_1\setminus(U_2\cup U_3),\ U_2\setminus(U_1\cup U_3),\ U_3
+	\setminus(U_1\cup U_2)$ are nonempty. Then
+	\begin{align*}
+		&\quad\abs{\delta(U_1)}+\abs{\delta(U_2)}+\abs{\delta(U_3)} \\
+		&\geq \abs{\delta(U_1\cap U_2\cap U_3)}+\abs{\delta(U_1\setminus(U_2\cup U_3))} \\
+		&+\abs{\delta(U_2\setminus(U_1\cup U_3))}+\abs{\delta(U_3\setminus(U_1\cup U_2))}
+	\end{align*}
+	This ''3-way submodularity'' can be proved by considering how
+	often each edge is counted on both sides. Actually, the left
+	side is larger by 2 since the edge $\set{s,t}$ is counted three
+	times here but only once on the right side.
+
+	Each term on the left side is at most $k+1$. Each term on the right is
+	at least $k$. In total $3(k+1)\geq 4k+2$, so $k\leq 1$ in contradiction
+	to the assumption.
+\end{proof}
+
+\subsection{Construction of \texorpdfstring{$2k$}{2k}-edge-connected graphs}
+\begin{lemma}\label{lemma:min-edge-conn-degree}
+	Every minimal $k$-edge-connected (multi-)graph has a vertex of degree $k$.
+\end{lemma}
+\begin{proof}
+	Let $G$ be such a graph. Then every cut has at least $k$ edges and every
+	edge is part of a cut with (at most) $k$ edges. Let $X\subsetneq V(G)$
+	be minimum set such that $\abs{\delta(X)}=k$. If $\abs{X}=1$, we are done.
+	Otherwise, by minimality $G[X]$ is connected. Let $e\in E(G[X])$, then
+	$\exists T\subsetneq V(G)$ with $e\in\delta(T)$ and $\abs{\delta(T)}=k$.
+	\begin{enumerate}
+		\item[Case 1:]
+		$T\cup X=V(G)$. Then $\abs{\delta(X\setminus T)}=\abs{\delta(T)}=k$
+		in contradiction to the minimality of $X$.
+
+		\item[Case 2:]
+		$T\cup X\neq V(G)$. Then $\abs{\delta(X\cap T)}=k$ by submodularity of
+		$\abs{\delta(\cdot)}$:
+		\[\abs{\delta(X)}+\abs{\delta(T)}\geq\abs{\delta(X\cap T)}+\abs{\delta(X\cup T)}\]
+		This again contradicts the minimality of $X$.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}\label{thm:2k-edge-conn-structure}
+	Let $M_{2k}$ be a multigraph with 2 vertices joined by $2k$ edges. Any
+	$2k$-edge-connected graph with at least 2 vertices can be built from
+	$M_{2k}$ by iteratively applying:
+	\begin{enumerate}
+		\item Adding edges (possibly loops)
+		\item Pinching $k$ edges: Take $k$ edges $\left(\set{v_i,w_i}\right)_{i=1}^k$,
+		add a new vertex $s$ and replace each edge $\set{v_i,w_i}$ by
+		$\set{s,v_i}$ and $\set{s,w_i}$ for $1\leq i\leq k$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Start with any $2k$-edge-connected graph $G$. Then do 1. and 2. in
+	reverse, i.e.:
+	\begin{enumerate}
+		\item Delete a maximal set of edges (while maintaining $2k$-edge-connectivity)
+		\item By lemma \ref{lemma:min-edge-conn-degree}, there is a vertex $s$
+		with $\abs{\delta(s)}=2k$. Split off $s$, as in lemma \ref{lemma:splitting-off}.
+	\end{enumerate}
+	At the end, $M_{2k}$ remains since both operations maintain $2k$-edge-connectivity.
+\end{proof}
+
+\begin{theorem}[Nash-Williams]
+	An undirected graph $G$ is $2k$-edge-connected if and only if there is
+	an orientation $\vec{G}$ of $G$ that is $k$-edge-connected.
+\end{theorem}
+\begin{proof}
+	If $\vec{G}$ is $k$-edge-connected, then each cut contains $k$ outgoing
+	and $k$ incoming edges, so $G$ is $2k$-edge-connected.
+
+	For the other implication, let $G$ be $2k$-edge-connected. Take $M_{2k}$
+	and orient $k$ edges in each direction. Apply theorem
+	\ref{thm:2k-edge-conn-structure} and preserve the orientation. This
+	preserves $k$-edge-connectivity in the oriented graph.
+\end{proof}
+
+\begin{remark}
+	Nash-Williams actually proved that each graph $G$ has an
+	orientation $\vec{G}$ for which $\lambda(x,y,\vec{G})\geq
+	\floor{\frac{\lambda(x,y,G)}{2}}$ $\forall x,y\in V(G)$ where
+	$\lambda(x,y,H)$ denotes the local edge-connectivity, so the
+	number of edge-disjoint $x$-$y$-paths in $H$.
+\end{remark}
 
 \end{document}
