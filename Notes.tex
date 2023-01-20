@@ -730,7 +730,7 @@ be the number of odd components in $G-X$.
 	a single vertex. Then:
 	\[
 		M\text{ maximum matching in $G$} \Leftrightarrow
-		M\text{ maximum matching in $G'$}
+		M'\text{ maximum matching in $G'$}
 	\]
 \end{lemma}
 \begin{proof}\
@@ -883,8 +883,8 @@ be the number of odd components in $G-X$.
 \begin{proof}
 	We show that if none of these cases apply, $M$ is maximum. Let $X$ be
 	the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
-	of outer vertices. All outer vertices are isolated in $G-X$, so $G-X$
-	and $q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
+	of outer vertices. All outer vertices are isolated in $G-X$, so
+	$q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
 	vertices are exposed by any matching, so $M$ is maximum.
 \end{proof}
 
@@ -954,7 +954,7 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 \begin{proof}\
 	\begin{enumerate}
 		\item
-		By definition of $\mu,\varphi$ and lemma \ref{lemma:ear-decomp-repr}
+		By definition of $\mu,\varphi$ and lemma \ref{lemma:factor-critical-alt-path}
 		some initial subsequence of $P(x)$ ends at the base $r$ of the blossom
 		containing $x$. If $r=q$, we are done. Otherwise $\mu(r),\varphi(\mu(r))$
 		are next elements in a sequence leading to outer vertex $\varphi(\mu(r))$.
@@ -1170,11 +1170,8 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 \begin{proof}
 	Consider the matching $M$ and special blossom forest $F$ at the end
 	of the algorithm. Let $X'$ ($Y'$) be the set of inner (outer) vertices
-	and $W'$ the set of out-of-forest vertices.
-	\begin{claim}
-		$X',Y',W'$ satisfy 1., 2. and 3.
-	\end{claim}
-	(Proof of theorem \ref{thm:edmonds-matching-alg}).
+	and $W'$ the set of out-of-forest vertices. $X',Y',W'$ satisfy 1., 2.
+	and 3. by the proof of theorem \ref{thm:edmonds-matching-alg}.
 
 	Proposition \ref{prop:gallai-edmonds} implies that any maximum
 	matching covers all vertices in $V(G)\setminus Y'$, so $Y\subseteq
@@ -1381,6 +1378,8 @@ complementary slackness:
 	where $W\coloneqq \max_{e\in E(G)}\abs{c(e)}$.
 \end{remark}
 
+\subsubsection{The Matching Polytope}
+
 \begin{theorem}
 	Let $G$ be a graph. The set of vectors $x\in\bR^{E(G)}$ satisfying
 	\begin{align*}
@@ -1430,7 +1429,7 @@ complementary slackness:
 	of perfect matchings. $H[\set{(v,1)\ |\ v\in V(G)}]$ is isomorphic to $G$,
 	so $x$ is a convex combination of matchings in $G$.
 
-	We now prove the claim: Let $X\subseteq V(G)$ with $\abs{X}$ odd. We
+	We now prove the claim: Let $X\subseteq V(H)$ with $\abs{X}$ odd. We
 	have to show that $y(\delta_H(X))\geq1$. Define:
 	\begin{align*}
 		A\coloneqq & \set{v\in V(G)\ |\ (v,1)\in X,(v,2)\notin X} \\
