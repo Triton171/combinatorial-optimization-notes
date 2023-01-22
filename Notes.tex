@@ -1556,9 +1556,12 @@ complementary slackness:
 
 \begin{theorem}
 	Let $G$ be a graph.
-	\[P\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)}\]
-	is the functional matching polytope.
-	\[Q\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}\]
+	\begin{align*}
+		P&\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)} \\
+		Q&\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}
+	\end{align*}
+	are called the \emph{fractional matching polytope} and the \emph{fractional
+	perfect matching polytope}.
 	If $G$ is bipartite, then $P$ and $Q$ are integral.
 \end{theorem}
 \begin{proof}
@@ -1603,7 +1606,7 @@ complementary slackness:
 
 \begin{prop}\label{prop:t-join-parity}
 	Let $G$ be a graph, $T\subseteq V(G)$.
-	\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{for each
+	\[\exists\ T\text{-join in }G \Leftrightarrow \abs{V(C)\cap T}\text{ even for each
 			connected component }C\]
 \end{prop}
 \begin{proof}\
@@ -2147,14 +2150,14 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	is the set of vectors $x\in \bR^{E(G)}_{\geq0}$ satisfying:
 	\begin{align*}
 		x_e                    & \geq0                                     & e\in E(G)       \\
-		x(\delta(v))           & \leq b(c)                                 & v\in V(G)       \\
+		x(\delta(v))           & \leq b(v)                                 & v\in V(G)       \\
 		\sum_{e\in E(G[X])}x_e & \leq \floor{\frac{1}{2}\sum_{v\in X}b(v)} & X\subseteq V(G)
 	\end{align*}
 \end{theorem}
 \begin{proof}
 	Clearly, any $b$-matching satisfies these inequalities. Let $x$ satisfy
 	the inequalities. Without loss of generality $b\geq1$. Define $H$ by
-	splitting each $v\in V(G)$ into $b(v)$ copies. Define:
+	splitting each $v\in V(G)$ into $b(v)$ copies, i.e.:
 	\begin{align*}
 		X_v    & \coloneqq \set{(v,i)\ |\ i\in [b(v)]} \qquad v\in V(G)                                             \\
 		V(H)   & \coloneqq \bigcup_{v\in V(G)}X_v                                                                   \\
