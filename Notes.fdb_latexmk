@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1674384468 "/home/laura/Studium/CombOpt/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1674384474
+["pdflatex"] 1674385522 "/home/laura/Studium/CombOpt/combinatorial-optimization-notes/Notes.tex" "Notes.pdf" "Notes" 1674385523
   "/etc/texmf/web2c/texmf.cnf" 1651403377 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/laura/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0800.600pk" 1651404524 19852 912f596c28ee9bcc4ff46fae8e38396b ""
   "/home/laura/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk" 1651404528 28952 dc2369661e3d60c0d278a617e551eb0a ""
@@ -17,7 +17,7 @@
   "/home/laura/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk" 1651404523 21952 154c4ca38c4aac3c0fd77b7e67bd12a0 ""
   "/home/laura/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk" 1651404526 12644 3b97f54dc2620185ada3f11593a49bab ""
   "/home/laura/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1668509391 7808 28fbaea6ff1f4b6a17946b49be3b1111 ""
-  "/home/laura/Studium/CombOpt/combinatorial-optimization-notes/Notes.tex" 1674384468 151982 77445ebb2de1bdaa792c0ead550764fe ""
+  "/home/laura/Studium/CombOpt/combinatorial-optimization-notes/Notes.tex" 1674385522 152076 15e6ac872b656b3b30b383716b3a5201 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0800.tfm" 1136768653 3584 269b66e921ba58750c12f7f1c8ea3ebd ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1136768653 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
@@ -238,10 +238,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1651403433 4073795 a82a847ac97773bf4a607ab050efa3a1 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1651403441 1879617 1621c974b9baee89297dff77c6dcb321 ""
-  "Notes.aux" 1674384470 11439 745ff74849a5e26b2c216e05f6ee4049 "pdflatex"
-  "Notes.out" 1674384470 6899 fc2dc3a99dc9c723815ac14e973439d5 "pdflatex"
-  "Notes.tex" 1674384468 151982 77445ebb2de1bdaa792c0ead550764fe ""
-  "Notes.toc" 1674384470 3498 47bf1fe6a5ba4bb01c3ca1574cf63168 "pdflatex"
+  "Notes.aux" 1674385523 11439 745ff74849a5e26b2c216e05f6ee4049 "pdflatex"
+  "Notes.out" 1674385523 6899 fc2dc3a99dc9c723815ac14e973439d5 "pdflatex"
+  "Notes.tex" 1674385522 152076 15e6ac872b656b3b30b383716b3a5201 ""
+  "Notes.toc" 1674385523 3498 47bf1fe6a5ba4bb01c3ca1574cf63168 "pdflatex"
   (generated)
   "Notes.aux"
   "Notes.log"

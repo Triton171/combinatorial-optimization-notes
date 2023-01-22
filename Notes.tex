@@ -881,7 +881,9 @@ be the number of odd components in $G-X$.
 	\end{itemize}
 \end{lemma}
 \begin{proof}
-	We show that if none of these cases apply, $M$ is maximum. Let $X$ be
+	We show that if none of these cases apply, $M$ is maximum. 
+	If none of the cases apply, then every outer vertex only has inner vertices as neighbors. 
+	Let $X$ be
 	the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
 	of outer vertices. All outer vertices are isolated in $G-X$, so
 	$q_G(X)-\abs{X}=t-s$. By Berge's formula (\ref{tutte-berge}), $t-s$
