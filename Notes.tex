@@ -315,7 +315,7 @@ perfect matching exists in $G$
 	where
 	\[
 		t^*_{vw}\coloneqq \begin{cases}
-			X_{\{v,w\}} \quad & \text{if $(v,w)\in E(G)$}  \\
+			X_{\{v,w\}} \quad & \text{if $(v,w)\in E(G)$} \\
 			-X_{\{v,w\}}      & \text{if $(w,v)\in E(G)$} \\
 			0                 & \text{else}
 		\end{cases}
@@ -881,8 +881,8 @@ be the number of odd components in $G-X$.
 	\end{itemize}
 \end{lemma}
 \begin{proof}
-	We show that if none of these cases apply, $M$ is maximum. 
-	If none of the cases apply, then every outer vertex only has inner vertices as neighbors. 
+	We show that if none of these cases apply, $M$ is maximum.
+	If none of the cases apply, then every outer vertex only has inner vertices as neighbors.
 	Let $X$ be
 	the set of inner vertices, $s\coloneqq\abs{X}$ and $t$ be the number
 	of outer vertices. All outer vertices are isolated in $G-X$, so
@@ -910,7 +910,7 @@ Store a special blossom forest with 3 functions $\mu,\varphi,\rho:
 	\mu(x)     & \coloneqq \begin{cases}
 		                       x \qquad & \text{if $x$ is exposed in $M$} \\
 		                       y \qquad & \text{if $\set{x,y}\in M$}
-	                       \end{cases}                                                                       \\
+	                       \end{cases}                                                                           \\
 	\varphi(x) & \coloneqq\begin{cases}
 		                      x \qquad & \text{if $x$ is the base of an outer blossom or
 		                      $x$ is out-of-forest}                                                                     \\
@@ -1446,7 +1446,7 @@ complementary slackness:
 		\sum_{e\in\delta_H(X)}y_e
 		 & \geq \sum_{v\in A_1}\underbrace{\sum_{e\in\delta_H(v)}y_e}_{=1}
 		-2\cdot\sum_{e\in E(H[A_1])}y_e-\sum_{e\in \delta(A_1)\cap\delta(B_1)}y_e \\
-		 & +\sum_{e\in \delta(A_2)\cap\delta(B_2)}                                \\
+		 & +\sum_{e\in \delta(A_2)\cap\delta(B_2)}y_e                             \\
 		 & =\abs{A_1}-2\cdot\sum_{e\in E(G[A])}x_e                                \\
 		 & \geq \abs{A_1}-(\abs{A}-1)                                             \\
 		 & =1
@@ -1462,7 +1462,7 @@ complementary slackness:
 \begin{proof}
 	The dual is
 	\begin{align*}
-		\min \sum_{v\in V(G)}y_v+\sum_{e\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}z_A \\
+		\min \sum_{v\in V(G)}y_v+\sum_{A\in\cA,\ \abs{A}>1}\frac{\abs{A}-1}{2}z_A \\
 		s.t.\sum_{v\in e}y_v
 		+\sum_{A\in\cA,\ \abs{A}>1,e\in E(G[A])}z_A & \geq c(e) & e\in E(G)       \\
 		y,z                                         & \geq0
@@ -1514,7 +1514,7 @@ complementary slackness:
 			                  & \text{unless $\abs{X\setminus Y}=1$}                           \\
 			z_{Y\setminus X}' & \coloneqq z_{Y\setminus X}+\epsilon
 			                  & \text{unless $\abs{Y\setminus X}=1$}                           \\
-			z_{A}'            & \coloneqq z_A                        & \text{elsewhere}
+			z_{A}'            & \coloneqq z_A                        & \text{elsewhere}        \\
 			y_v'              & \coloneqq \epsilon                   & \forall v\in X\cap Y    \\
 			y_v'              & \coloneqq 0                          & \forall v\notin X\cap Y
 		\end{align*}
@@ -2323,9 +2323,9 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	Extend $G$ to $H$ by adding a new vertex $z$ and edges $\set{z,v}$
 	for every $v\in V(G)$. Set:
 	\begin{align*}
-		b(z)  & \coloneqq b(V(G))                                                                   \\
-		T     & \coloneqq\set{v\in V(H) \ |\ b(v)\text{ odd}}                                       \\
-		E'    & \coloneqq \set{e\in E(G)\ |\ u(e)<\infty\text{ and odd}}                            \\
+		b(z)  & \coloneqq b(V(G))                                                                       \\
+		T     & \coloneqq\set{v\in V(H) \ |\ b(v)\text{ odd}}                                           \\
+		E'    & \coloneqq \set{e\in E(G)\ |\ u(e)<\infty\text{ and odd}}                                \\
 		c(e)  & \coloneqq\begin{cases}
 			                 x_e \qquad                    & e\in E'               \\
 			                 \min\set{x_e,u(e)-x_e} \qquad & e\in E(G)\setminus E' \\
@@ -2955,7 +2955,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 		y_A'         & \coloneqq y_A-\epsilon               \\
 		y_B'         & \coloneqq y_B-\epsilon               \\
 		y_{A\cup B}' & \coloneqq y_{A\cup B}+\epsilon       \\
-		y_{A\cap B}' & \coloneqq y_{A\cap B}+\epsilon \\
+		y_{A\cap B}' & \coloneqq y_{A\cap B}+\epsilon       \\
 		y_S          & \coloneqq y_S \qquad\text{elsewhere}
 	\end{align*}
 	$y',z$ is feasible and optimal by submodularity but the term above gets
@@ -3091,8 +3091,8 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	that $x=\sum_{i=1}^k\lambda_i \chi^{T_i}$ where $\chi^{T_i}$ is the
 	incidence vector of $T_i$. The Lovász extension of $f$ is defined as:
 	\begin{align*}
-		f': \bR^E_{\geq0}&\to \bR \\
-		x &\mapsto \sum_{i=1}^k\lambda_i f(T_i)
+		f': \bR^E_{\geq0} & \to \bR                              \\
+		x                 & \mapsto \sum_{i=1}^k\lambda_i f(T_i)
 	\end{align*}
 \end{definition}
 
@@ -3110,13 +3110,14 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 
 \subsubsection{Applications of Matroid Intersection}
 \textbf{Orientations:} Let $G$ be an undirected graph and $k: V(G)\to
-\bZ_{\geq0}$. Does there exist an orientation $\vec{G}$ of $G$ such that
+	\bZ_{\geq0}$. Does there exist an orientation $\vec{G}$ of $G$ such that
 $\abs{\delta^-_{\vec{G}}(v)}\leq k(v)$ for all $v\in V(G)$?
 
-Let $D\coloneqq (V(G), \set{(v,w),(w,v)\ |\ \set{v,w}\in E(G)})$. We define:
+Let $D\coloneqq (V(G), \set{(v,w),(w,v)\ |\ \set{v,w}\in E(G)})$. We
+define:
 \begin{itemize}
 	\item $(A,\cF_1)$ as the partition matroid on $\bigsqcup_{\set{v,w}\in
-	E(G)}\set{(v,w),(w,v)}$
+			E(G)}\set{(v,w),(w,v)}$
 	\item $(A,\cF_2)$ as the (generalized) partition matroid on
 	$\bigsqcup_{v\in V(G)}\delta^-_D(v)$ allowing $\leq k$ elements from
 	$\delta^-_D(v)$ for all $v\in V(G)$.
@@ -3126,7 +3127,7 @@ $F\in\cF_1\cap \cF_2$ with $\abs{F}=\abs{E}$.
 
 \begin{utheorem}
 	$G$ has an orientation $\vec{G}$ such that $\abs{\delta^1_{\vec{G}}(v)}
-	\leq k(v)$ for all $v\in V(G)$ if and only if:
+		\leq k(v)$ for all $v\in V(G)$ if and only if:
 	\[\forall P\subseteq V(G):\ \abs{E(G[P])}\leq \sum_{v\in P}k(v)\]
 \end{utheorem}
 
@@ -3134,7 +3135,7 @@ $F\in\cF_1\cap \cF_2$ with $\abs{F}=\abs{E}$.
 For a matroid $\cM=(E,\cF)$ we define $\cM^*\coloneqq (E,\cF^*)$ where:
 \[\cF^*\coloneqq \set{A\subseteq E\ |\ E\setminus A\text{ contains a basis of }\cF}\]
 $\cM^*$ is a matroid with rank function $r_{\cM^*}(X)=\abs{X}
-+r_\cM(E\setminus X)-\abs{E}$.
+	+r_\cM(E\setminus X)-\abs{E}$.
 
 \begin{uprop}
 	Let $G$ be a graph and $\cM=(E,\cF)$ its graphic matroid. Then:
@@ -3145,14 +3146,14 @@ $\cM^*$ is a matroid with rank function $r_{\cM^*}(X)=\abs{X}
 % Lecture 10.01.23
 
 \subsection{Submodular Function Maximization}
-Recall: $f:2^E\to\bR$ is called submodular if $f(A)+f(B)\geq f(A\cap B)+
-f(A\cup B)$ for all $A,B\subseteq E$. Equivalently, $f(X\cup\set{x})-f(X)
-\geq f(Y\cup\set{x})-f(Y)$ for all $X\subseteq Y\subseteq E$ and $x\in
-E\setminus Y$.
+Recall: $f:2^E\to\bR$ is called submodular if $f(A)+f(B)\geq f(A\cap
+	B)+ f(A\cup B)$ for all $A,B\subseteq E$. Equivalently,
+$f(X\cup\set{x})-f(X) \geq f(Y\cup\set{x})-f(Y)$ for all $X\subseteq
+	Y\subseteq E$ and $x\in E\setminus Y$.
 
 \begin{problem}[USM: ''unconstrainted submodular function maximization'']
-	Given a submodular function $f: 2^E\to\bR$, find $S\subseteq E$ maximizing
-	$f(S)$.
+Given a submodular function $f: 2^E\to\bR$, find $S\subseteq E$ maximizing
+$f(S)$.
 \end{problem}
 \begin{example}
 	For a given graph $G$, define $f(X)\coloneqq \abs{\delta(X)}$. Maximizing
@@ -3183,18 +3184,18 @@ E\setminus Y$.
 \end{lemma}
 \begin{proof}
 	By the equivalent characterization of submodularity and since $X_i\subseteq
-	Y_i$ for all $i$:
+		Y_i$ for all $i$:
 	\begin{align*}
-		a_i+b_i&=f(X_{i-1}\cup\set{e_i})-f(X_{i-1})+f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1}) \\
-		&=(f(X_{i-1}\cup\set{e_i})-f(X_{i-1}))-(f(Y_{i-1})-f(Y_{i-1}\setminus\set{e_i})) \\
-		&\geq0
+		a_i+b_i & =f(X_{i-1}\cup\set{e_i})-f(X_{i-1})+f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})     \\
+		        & =(f(X_{i-1}\cup\set{e_i})-f(X_{i-1}))-(f(Y_{i-1})-f(Y_{i-1}\setminus\set{e_i})) \\
+		        & \geq0
 	\end{align*}
 \end{proof}
 
 Let OPT be the optimum solution and $\mr{OPT}_i\coloneqq (\mr{OPT}
-\cup X_i)\cap Y_i$, so $\mr{OPT}_i$ coincides with $X_i$ and $Y_i$ on
-the first $i$ elements and with $\mr{OPT}$ on the rest. In particular,
-$\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
+	\cup X_i)\cap Y_i$, so $\mr{OPT}_i$ coincides with $X_i$ and $Y_i$ on
+the first $i$ elements and with $\mr{OPT}$ on the rest. In
+particular, $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 
 \begin{lemma}\label{lemma:double-greedy-2}
 	For every $1\leq i\leq n$, we have:
@@ -3205,19 +3206,17 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	is 0. Then $\mr{OPT}_i=\mr{OPT}_{i-1}\cup\set{e_i}$. We need to show:
 	\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\leq f(X_i)-f(X_{i-1})=a_i\]
 	\begin{enumerate}
-		\item[Case 1:]
-		$e_i\in\mr{OPT}_{i-1}$. Then the left side is 0 and so by lemma
-		\ref{lemma:double-greedy-sum}, $a_i\geq0$.
+		\item[Case 1:] $e_i\in\mr{OPT}_{i-1}$. Then the left side is 0 and so by
+		lemma \ref{lemma:double-greedy-sum}, $a_i\geq0$.
 
-		\item[Case 2:]
-		$e_i\notin\mr{OPT}_{i-1}$. Then
+		\item[Case 2:] $e_i\notin\mr{OPT}_{i-1}$. Then
 		\begin{align*}
-			\mr{OPT}_{i-1}&=(\mr{OPT}\cup X_{i-1})\cap Y_{i-1}\subseteq Y_{i-1}\setminus\set{e_i}
+			\mr{OPT}_{i-1} & =(\mr{OPT}\cup X_{i-1})\cap Y_{i-1}\subseteq Y_{i-1}\setminus\set{e_i}
 		\end{align*}
 		so by submodularity:
 		\begin{align*}
-			f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})&\leq f(Y_{i-1}\setminus \set{e_i})-f(Y_{i-1}) \\
-			&=b_i\leq a_i
+			f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i}) & \leq f(Y_{i-1}\setminus \set{e_i})-f(Y_{i-1}) \\
+			                                                 & =b_i\leq a_i
 		\end{align*}
 	\end{enumerate}
 \end{proof}
@@ -3229,12 +3228,12 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 \begin{proof}
 	By lemma \ref{lemma:double-greedy-2}:
 	\begin{align*}
-		\sum_{i=1}^n (f(\mr{OPT}_{i-1})-f(\mr{OPT}_i))&\leq \sum_{i=1}^n (f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1}))
+		\sum_{i=1}^n (f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)) & \leq \sum_{i=1}^n (f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1}))
 	\end{align*}
 	Since both sides are telescopic sums:
 	\begin{align*}
-		f(\mr{OPT}_0)-f(\mr{OPT}_n)&\leq f(X_n)-f(X_0)+f(Y_n)-f(Y_0) \\
-		&\leq f(\underbrace{X_n}_{=\mr{OPT}_n})+f(\underbrace{Y_n}_{=\mr{OPT}_n})
+		f(\mr{OPT}_0)-f(\mr{OPT}_n) & \leq f(X_n)-f(X_0)+f(Y_n)-f(Y_0)                                         \\
+		                            & \leq f(\underbrace{X_n}_{=\mr{OPT}_n})+f(\underbrace{Y_n}_{=\mr{OPT}_n})
 	\end{align*}
 	In total, $f(\mr{OPT}_0)\leq 3f(\mr{OPT}_n)$.
 \end{proof}
@@ -3256,10 +3255,10 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 		$a_i\leftarrow f(X_{i-1}\cup\set{e_i})-f(X_{i-1})$\;
 		$b_i\leftarrow f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})$\;
 		$p\leftarrow\begin{cases}
-			1 \qquad&b_i\leq0 \\
-			0 \qquad&a_i\leq0 \\
-			\frac{a_i}{a_i+b_i} \qquad&\text{else}
-		\end{cases}$\;
+				1 \qquad                   & b_i\leq0    \\
+				0 \qquad                   & a_i\leq0    \\
+				\frac{a_i}{a_i+b_i} \qquad & \text{else}
+			\end{cases}$\;
 		\SetKwBlock{WithProbP}{with probability $p$ do}{}
 		\WithProbP{
 			$X_i\leftarrow X_{i-1}\cup\set{e_i},\ Y_i\leftarrow Y_{i-1}$\;
@@ -3280,7 +3279,7 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	is fixed and the probability that $X_{i-1}=S_{i-1}$ is non-zero.
 	\begin{enumerate}
 		\item[Case 1:] $b_i\leq 0$. Then $p=1$ and $Y_i=Y_{i-1}=S_{i-1}\cup
-		\set{e_i,\ldots,e_n}$ and $X_i=S_{i-1}\cup\set{e_i}$.
+			\set{e_i,\ldots,e_n}$ and $X_i=S_{i-1}\cup\set{e_i}$.
 
 		\begin{claim}
 			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\leq \frac{1}{2}f(X_i)-f(X_{i-1})=\frac{a_i}{2}\]
@@ -3295,18 +3294,18 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 		\item[Case 2:] $a_i\leq 0$. This is analogous to case 1.
 		\item[Case 3:] $a_i,b_i>0$.
 		\begin{align*}
-			&\bE\left[f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1})\right] \\
-			=&p\cdot\left(f(X_{i-1}\cup\set{e_i})-f(X_{i-1})\right)
+			  & \bE\left[f(X_i)-f(X_{i-1})+f(Y_i)-f(Y_{i-1})\right]         \\
+			= & p\cdot\left(f(X_{i-1}\cup\set{e_i})-f(X_{i-1})\right)
 			+(1-p)\cdot\left(f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})\right) \\
-			=&\frac{a_i^2+b_i^2}{a_i+b_i}
+			= & \frac{a_i^2+b_i^2}{a_i+b_i}
 		\end{align*}
 		We have found a value for the right side of the inequality. Now, we
 		upper-bound the left side.
 		\begin{align*}
-			&\bE\left[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\right] \\
-			=&p\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\right) \\
-			+&(1-p)\underbrace{\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\setminus\set{e_i})\right)}_{\mr{III}} \\
-			\stackalign{(*)}{\leq}& \frac{a_ib_i}{a_i+b_i}
+			                       & \bE\left[f(\mr{OPT}_{i-1})-f(\mr{OPT}_i)\right]                                                 \\
+			=                      & p\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\right)                                  \\
+			+                      & (1-p)\underbrace{\left(f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\setminus\set{e_i})\right)}_{\mr{III}} \\
+			\stackalign{(*)}{\leq} & \frac{a_ib_i}{a_i+b_i}
 		\end{align*}
 		To see $(*)$:
 		\begin{enumerate}
@@ -3314,8 +3313,8 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 			$\mr{OPT}_{i-1}=(\mr{OPT}\cup X_{i-1})\cap Y_{i-1}$ by submodularity:
 			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\cup\set{e_i})\leq f(Y_{i-1}\setminus\set{e_i})-f(Y_{i-1})=b_i\]
 
-			\item[Case 3.2:] If $e_i\in\mr{OPT}_{i-1}$, then the first term of
-			the LHS is 0. By submodularity:
+			\item[Case 3.2:] If $e_i\in\mr{OPT}_{i-1}$, then the first term of the LHS
+			is 0. By submodularity:
 			\[f(\mr{OPT}_{i-1})-f(\mr{OPT}_{i-1}\setminus\set{e_i})\leq f(X_{i-1}\cup\set{e_i})-f(X_{i-1})=a_i\]
 		\end{enumerate}
 		Now $\frac{a_ib_i}{a_i+b_i}\leq\frac{1}{2}\frac{a_i^2+b_i^2}{a_i+b_i}$
@@ -3331,8 +3330,8 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 	Summing up lemma \ref{lemma:rand-double-greedy} for all $i\in\set{1,\ldots,n}$
 	and collapsing the telescopic sums yields:
 	\begin{align*}
-		\bE[f(\mr{OPT}_0)-f(\mr{OPT}_n)]&\leq \frac{1}{2}\bE[f(X_n)-f(X_0)+f(Y_n)-f(Y_0)] \\
-		&\leq \frac{\bE[f(X_n)+f(Y_n)]}{2}
+		\bE[f(\mr{OPT}_0)-f(\mr{OPT}_n)] & \leq \frac{1}{2}\bE[f(X_n)-f(X_0)+f(Y_n)-f(Y_0)] \\
+		                                 & \leq \frac{\bE[f(X_n)+f(Y_n)]}{2}
 	\end{align*}
 	In total, $\bE[f(\mr{OPT}_n)]\geq \frac{f(\mr{OPT})}{2}$.
 \end{proof}
@@ -3347,16 +3346,16 @@ $\mr{OPT}_0=\mr{OPT}$ and $\mr{OPT}_n=X_n$.
 \subsection{Submodular Function Minimization}
 
 \begin{problem}[Submodular Function Minimization]
-	Given a finite set $U$ and a submodular function $f: 2^U\to\bR$ with
-	$f(\emptyset)=0$, find a set $S\subseteq U$ with $f(S)$ minimum.
+Given a finite set $U$ and a submodular function $f: 2^U\to\bR$ with
+$f(\emptyset)=0$, find a set $S\subseteq U$ with $f(S)$ minimum.
 \end{problem}
 
 % TODO
 \setcounter{theorem}{52}
 \begin{definition}
 	Let $U$ be finite and $f: 2^U\to\bR$ submodular. Then the \emph{base
-	polyhedron} is defined as:
-	\[B(f)\coloneqq\set{x\in\bR^U\ |\ x(A)\leq f(A)\ \forall A\subseteq U},\ 
+		polyhedron} is defined as:
+	\[B(f)\coloneqq\set{x\in\bR^U\ |\ x(A)\leq f(A)\ \forall A\subseteq U},\
 		x(U)=f(U)\]
 \end{definition}
 
@@ -3414,12 +3413,12 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	\SetKwBlock{BlockChangeSol}{Change Solution:}{}
 	\BlockChangeSol{
 	Compute $0\leq\epsilon\leq -x(t)$ and write $x'=x+\epsilon(\chi^t-\chi^s)$
-		as an explicit convex combination of $\leq n$ vectors from $b^{<_1},
+	as an explicit convex combination of $\leq n$ vectors from $b^{<_1},
 		\ldots,b^{<_k}$ and $b^{<_i^{s,u}}\ \forall s<_i u\leq_i t$ (where
-		$<^{s,u}_i$ arises from $<_i$ by placing $u$ directly before $s$) such that
-		$b^{<_i}$ does not occur if $x'(t)<0$\;
+	$<^{s,u}_i$ arises from $<_i$ by placing $u$ directly before $s$) such that
+	$b^{<_i}$ does not occur if $x'(t)<0$\;
 	$x\leftarrow x'$, rename the vectors in the convex combination of $x$
-		as $b^{<_1},\ldots,b^{<_{k'}}$, $k\leftarrow k'$\;
+	as $b^{<_1},\ldots,b^{<_{k'}}$, $k\leftarrow k'$\;
 	}
 	\KwGoto Build Graph\;
 \end{algorithm}
@@ -3436,22 +3435,22 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 \begin{proof}
 	If the algorithm terminates, $D$ does not contain a $P$-$N$-path. Since
 	$N\subseteq X\subseteq U\setminus P$, $\sum_{u\in X}x(u)\leq \sum_{w\in W}
-	x(w)$ for all $W\subseteq U$.
+		x(w)$ for all $W\subseteq U$.
 	No edge enters $X$, so $X=\emptyset$ or for all $j\in\set{1,\ldots,k}$
 	there exists $v\in X$ with $X=\set{u\in U\ |\ u\leq_j v}$. Therefore
 	$\sum_{u\in X}b^{<_j}(u)=f(X)$ for all $j$ (by definition of $b^<_u$).
 	By theorem \ref{prop:for-submodular-greedy-alg} (and again the
 	definition of $b^<_u$), $\sum_{u\in W}b^{<_j}(u)\leq f(W)\ \forall
-	W\subseteq U, j\in\set{1,\ldots,k}$.  We get (where $\lambda_j$
+		W\subseteq U, j\in\set{1,\ldots,k}$.  We get (where $\lambda_j$
 	are the factors in the convex combination):
 	\begin{align*}
-		f(W)&\geq \sum_{j=1}^k\lambda_j \sum_{u\in W}b^{<_j}(u) \\
-		&=\sum_{u\in W}\sum_{i=1}^k\lambda_j b^{<_j}(u) \\
-		&=\sum_{u\in W}x(u) \\
-		&\geq \sum_{u\in X}x(u) \\
-		&=\sum_{u\in X}\sum_{j=1}^k\lambda_jb^{<_j}(u) \\
-		&=\sum_{j=1}^k\lambda_j\sum_{u\in X}b^{<_j}(u) \\
-		&=f(X)
+		f(W) & \geq \sum_{j=1}^k\lambda_j \sum_{u\in W}b^{<_j}(u) \\
+		     & =\sum_{u\in W}\sum_{i=1}^k\lambda_j b^{<_j}(u)     \\
+		     & =\sum_{u\in W}x(u)                                 \\
+		     & \geq \sum_{u\in X}x(u)                             \\
+		     & =\sum_{u\in X}\sum_{j=1}^k\lambda_jb^{<_j}(u)      \\
+		     & =\sum_{j=1}^k\lambda_j\sum_{u\in X}b^{<_j}(u)      \\
+		     & =f(X)
 	\end{align*}
 \end{proof}
 
@@ -3475,15 +3474,15 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 
 		\item
 		For $s\leq_i u<_i v$: $b^{<_i^{s,v}}(u)=f(\set{w\in U\ |\ w\leq_i^{s,v}
-			u})-f(\set{w\in U\ |\ w<_i^{s,v}u})\leq f(\set{w\in U\ |\ w\leq_i u})
+				u})-f(\set{w\in U\ |\ w<_i^{s,v}u})\leq f(\set{w\in U\ |\ w\leq_i u})
 			- f(\set{w\in U\ |\ w<_iu})=b^{<_i}(u)$ by submodularity.
 
 		\item
 		For $u=v$ we have by submodularity:
 		\begin{align*}
-			b^{<_i^{s,v}}(u)&=f(\set{w\in U\ |\ w\leq_i^{s,v}u})-f(\set{w\in U\ |\ w<_i^{s,v}u}) \\
-			&\geq f(\set{w\in U\ |\ w\leq_i u})-f(\set{w\in U\ |\ w<_iu}) \\
-			&=b^{<_i}(u)
+			b^{<_i^{s,v}}(u) & =f(\set{w\in U\ |\ w\leq_i^{s,v}u})-f(\set{w\in U\ |\ w<_i^{s,v}u}) \\
+			                 & \geq f(\set{w\in U\ |\ w\leq_i u})-f(\set{w\in U\ |\ w<_iu})        \\
+			                 & =b^{<_i}(u)
 		\end{align*}
 	\end{itemize}
 	\emph{Proof of claim:}
@@ -3497,13 +3496,13 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 		Look at the matrix $M=(b^{<_i^{s,v}}-b^{<_i})_{vu}$ with rows
 		$s<_i v\leq_i t$ and columns for $u\in U$. Then
 		\begin{align*}
-			\chi^t-\chi^s&=\sum_{s<_i v\leq_i t}\kappa_v(b^{<_i^{s,v}}-b^{<_i})
+			\chi^t-\chi^s & =\sum_{s<_i v\leq_i t}\kappa_v(b^{<_i^{s,v}}-b^{<_i})
 		\end{align*}
 		is a non-negative combination for
 		\[\kappa_v=\frac{\chi_v^t-\sum_{v<_i w\leq_i t}\kappa_w(b^{<_i^{s,w}}(v)-b^{<_i}(v))}
 			{b^{<_i^{s,v}}(v)-b^{<_i}(v)}\]
 
-			\item By scaling, we get a convex combination.
+		\item By scaling, we get a convex combination.
 	\end{itemize}
 	Set $\epsilon\coloneqq\min\set{\lambda_i\delta, -x(t)}$.
 	\begin{itemize}
@@ -3533,9 +3532,9 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	the edge $(v,w)$ does not decrease $d(w)$. Additionally, ChangeSolution
 	does not add any elements to $P$ which proves the claim.
 
-	We call a sequence of iterations with the same $s$ and $t$ a \emph{block}.
-	Each block has $O(n^2)$ iterations as the pair $(\alpha,\beta)$ decreases
-	lexicographically.
+	We call a sequence of iterations with the same $s$ and $t$ a
+	\emph{block}. Each block has $O(n^2)$ iterations as the pair
+	$(\alpha,\beta)$ decreases lexicographically.
 	\begin{claim}
 		The number of blocks is bounded by $O(n^3)$.
 	\end{claim}
@@ -3574,25 +3573,23 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 		Let $s^*,t^*\in U$ and consider the time after a block $s=s^*,t=t^*$
 		is ending because $(s^*,t^*)$ is removed from $A$ until a subsequent
 		increase of $d(t^*)$.
-		
-		We prove that each $v\in \set{s^*,\ldots,n}$ is
-		$t^*$-boring during this period. At the beginning, each $v\in \set{s^*
-		+1,\ldots,n}$ is $t^*$-boring by the maximal choice of $s^*$. $s^*$
-		is $t^*$-boring because the arc $(s^*,t^*)$ was removed. As $d(t^*)$
-		remains constant and $d$ never decreases, we only need to check the
-		introduction of new arcs.
 
-		Suppose for $v\in\set{s^*,\ldots,n}$, $(v,t^*)$ is added in an iteration
-		with pair $(s,t)$. Then $s\leq_i t^*<_i v\leq_i t$, so
+		We prove that each $v\in \set{s^*,\ldots,n}$ is $t^*$-boring during
+		this period. At the beginning, each $v\in \set{s^* +1,\ldots,n}$ is
+		$t^*$-boring by the maximal choice of $s^*$. $s^*$ is $t^*$-boring
+		because the arc $(s^*,t^*)$ was removed. As $d(t^*)$ remains constant
+		and $d$ never decreases, we only need to check the introduction of
+		new arcs.
+
+		Suppose for $v\in\set{s^*,\ldots,n}$, $(v,t^*)$ is added in an
+		iteration with pair $(s,t)$. Then $s\leq_i t^*<_i v\leq_i t$, so
 		$d(t^*)\leq d(s)+1=d(t)\leq d(v)+1$.
 		\begin{enumerate}
-			\item[Case 1:]
-			$s>v$. Then $d(t^*)\leq d(s)$, either because $s=t^*$ or $s$ was
-			$t^*$-boring and $(s,t^*)\in A$.
+			\item[Case 1:] $s>v$. Then $d(t^*)\leq d(s)$, either because $s=t^*$ or $s$
+			was $t^*$-boring and $(s,t^*)\in A$.
 
-			\item[Case 2:]
-			$s<v$. Then $d(t)\leq d(v)$, either because $v=t$ or by choice of $s$
-			and since $(v,t)\in A$.
+			\item[Case 2:] $s<v$. Then $d(t)\leq d(v)$, either because $v=t$ or by
+			choice of $s$ and since $(v,t)\in A$.
 		\end{enumerate}
 		In either case, we have one strict inequality, so $d(t^*)\leq d(v)$
 		and $v$ remains $t^*$-boring as claimed.
@@ -3615,7 +3612,7 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	in polynomial time.
 \end{cor}
 
-\begin{uremark}\ 
+\begin{uremark}\
 	\begin{itemize}
 		\item
 		The fastest known algorithm has a running time of $O(n^6+n^5\gamma)$
@@ -3633,10 +3630,9 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	linear interpolation/extension of a function on the corners of the simplex to
 	its interior. This corresponds to the definition of the Lovász extension.
 
-	In particular, a function is submodular $\Leftrightarrow$ the combination
-	of the linear interpolations is convex.
+	In particular, a function is submodular $\Leftrightarrow$ the
+	combination of the linear interpolations is convex.
 \end{uremark}
-
 
 \section{Splitting-Off Lemma and Connectivity}
 \subsection{Splitting-Off Lemma}
@@ -3658,7 +3654,7 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 \end{uremark}
 \begin{proof}
 	If $\abs{\Gamma(s)}=1$, then the statement is clear since for all $U\subsetneq
-	V$ with $t\in U$:
+		V$ with $t\in U$:
 	\[\abs{\delta_G(U)}=\underbrace{\abs{\delta_{G-s}(U)}}_{=\abs{\delta_G(V\setminus U)}\geq k}
 		\abs{E[U,\set{s}]}\]
 	Therefore removing edges incident to $s$ maintins the connectivity.
@@ -3669,7 +3665,7 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	\end{claim}
 	If not, then for all $u\in\Gamma(s)$ there exists $U\subsetneq V$ such
 	that $\abs{\delta_{G'}(U)}<k$. Then $t,u\in U$, else $\abs{\delta_{G'}(U)}
-	=\abs{\delta_G(U)}$. Also, $\abs{\delta_G(U)}\leq k+1$. Let:
+		=\abs{\delta_G(U)}$. Also, $\abs{\delta_G(U)}\leq k+1$. Let:
 	\[\cC\coloneqq\set{U\subsetneq V\ |\ t\in U,\ \abs{\delta_G(U)}\leq k+1}\]
 	This covers $\Gamma(s)$. Then $\forall U\in\cC$
 	\[1\geq \underbrace{\abs{\delta_G(U)}}_{\leq k+1}
@@ -3678,23 +3674,24 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	so $\abs{E(\set{s}, U)}\leq \abs{E(\set{s}, V\setminus U)}+1$. Since
 	$\abs{\delta(s)}$ is even, there cannot be equality, so:
 	\[\abs{E(\set{s}, U)}\leq \abs{E(\set{s}, V\setminus U)}\]
-	Now $\set{s,t}\in E(\set{s}, U)$ for all $U\in\cC$. In particular,
-	we need $>2$ sets from $\cC$ to cover $\delta(s)$. Take $U_1,U_2,U_3\in\cC$
-	such that $U_1\setminus(U_2\cup U_3),\ U_2\setminus(U_1\cup U_3),\ U_3
-	\setminus(U_1\cup U_2)$ are nonempty. Then
+	Now $\set{s,t}\in E(\set{s}, U)$ for all $U\in\cC$. In particular, we
+	need $>2$ sets from $\cC$ to cover $\delta(s)$. Take
+	$U_1,U_2,U_3\in\cC$ such that $U_1\setminus(U_2\cup U_3),\
+		U_2\setminus(U_1\cup U_3),\ U_3 \setminus(U_1\cup U_2)$ are nonempty.
+	Then
 	\begin{align*}
-		&\quad\abs{\delta(U_1)}+\abs{\delta(U_2)}+\abs{\delta(U_3)} \\
-		&\geq \abs{\delta(U_1\cap U_2\cap U_3)}+\abs{\delta(U_1\setminus(U_2\cup U_3))} \\
-		&+\abs{\delta(U_2\setminus(U_1\cup U_3))}+\abs{\delta(U_3\setminus(U_1\cup U_2))}
+		 & \quad\abs{\delta(U_1)}+\abs{\delta(U_2)}+\abs{\delta(U_3)}                       \\
+		 & \geq \abs{\delta(U_1\cap U_2\cap U_3)}+\abs{\delta(U_1\setminus(U_2\cup U_3))}   \\
+		 & +\abs{\delta(U_2\setminus(U_1\cup U_3))}+\abs{\delta(U_3\setminus(U_1\cup U_2))}
 	\end{align*}
 	This ''3-way submodularity'' can be proved by considering how
 	often each edge is counted on both sides. Actually, the left
 	side is larger by 2 since the edge $\set{s,t}$ is counted three
 	times here but only once on the right side.
 
-	Each term on the left side is at most $k+1$. Each term on the right is
-	at least $k$. In total $3(k+1)\geq 4k+2$, so $k\leq 1$ in contradiction
-	to the assumption.
+	Each term on the left side is at most $k+1$. Each term on the right
+	is at least $k$. In total $3(k+1)\geq 4k+2$, so $k\leq 1$ in
+	contradiction to the assumption.
 \end{proof}
 
 \subsection{Construction of \texorpdfstring{$2k$}{2k}-edge-connected graphs}
@@ -3708,13 +3705,11 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	Otherwise, by minimality $G[X]$ is connected. Let $e\in E(G[X])$, then
 	$\exists T\subsetneq V(G)$ with $e\in\delta(T)$ and $\abs{\delta(T)}=k$.
 	\begin{enumerate}
-		\item[Case 1:]
-		$T\cup X=V(G)$. Then $\abs{\delta(X\setminus T)}=\abs{\delta(T)}=k$
-		in contradiction to the minimality of $X$.
+		\item[Case 1:] $T\cup X=V(G)$. Then $\abs{\delta(X\setminus
+				T)}=\abs{\delta(T)}=k$ in contradiction to the minimality of $X$.
 
-		\item[Case 2:]
-		$T\cup X\neq V(G)$. Then $\abs{\delta(X\cap T)}=k$ by submodularity of
-		$\abs{\delta(\cdot)}$:
+		\item[Case 2:] $T\cup X\neq V(G)$. Then $\abs{\delta(X\cap T)}=k$ by
+		submodularity of $\abs{\delta(\cdot)}$:
 		\[\abs{\delta(X)}+\abs{\delta(T)}\geq\abs{\delta(X\cap T)}+\abs{\delta(X\cup T)}\]
 		This again contradicts the minimality of $X$.
 	\end{enumerate}
@@ -3726,18 +3721,21 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	$M_{2k}$ by iteratively applying:
 	\begin{enumerate}
 		\item Adding edges (possibly loops)
-		\item Pinching $k$ edges: Take $k$ edges $\left(\set{v_i,w_i}\right)_{i=1}^k$,
-		add a new vertex $s$ and replace each edge $\set{v_i,w_i}$ by
-		$\set{s,v_i}$ and $\set{s,w_i}$ for $1\leq i\leq k$.
+		\item Pinching $k$ edges: Take $k$ edges
+		$\left(\set{v_i,w_i}\right)_{i=1}^k$, add a new vertex $s$ and
+		replace each edge $\set{v_i,w_i}$ by $\set{s,v_i}$ and $\set{s,w_i}$
+		for $1\leq i\leq k$.
 	\end{enumerate}
 \end{theorem}
 \begin{proof}
 	Start with any $2k$-edge-connected graph $G$. Then do 1. and 2. in
 	reverse, i.e.:
 	\begin{enumerate}
-		\item Delete a maximal set of edges (while maintaining $2k$-edge-connectivity)
-		\item By lemma \ref{lemma:min-edge-conn-degree}, there is a vertex $s$
-		with $\abs{\delta(s)}=2k$. Split off $s$, as in lemma \ref{lemma:splitting-off}.
+		\item Delete a maximal set of edges (while maintaining
+		$2k$-edge-connectivity)
+		\item By lemma \ref{lemma:min-edge-conn-degree}, there is a vertex $s$ with
+		$\abs{\delta(s)}=2k$. Split off $s$, as in lemma
+		\ref{lemma:splitting-off}.
 	\end{enumerate}
 	At the end, $M_{2k}$ remains since both operations maintain $2k$-edge-connectivity.
 \end{proof}
@@ -3750,8 +3748,8 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	If $\vec{G}$ is $k$-edge-connected, then each cut contains $k$ outgoing
 	and $k$ incoming edges, so $G$ is $2k$-edge-connected.
 
-	For the other implication, let $G$ be $2k$-edge-connected. Take $M_{2k}$
-	and orient $k$ edges in each direction. Apply theorem
+	For the other implication, let $G$ be $2k$-edge-connected. Take
+	$M_{2k}$ and orient $k$ edges in each direction. Apply theorem
 	\ref{thm:2k-edge-conn-structure} and preserve the orientation. This
 	preserves $k$-edge-connectivity in the oriented graph.
 \end{proof}
@@ -3759,7 +3757,7 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 \begin{remark}
 	Nash-Williams actually proved that each graph $G$ has an
 	orientation $\vec{G}$ for which $\lambda(x,y,\vec{G})\geq
-	\floor{\frac{\lambda(x,y,G)}{2}}$ $\forall x,y\in V(G)$ where
+		\floor{\frac{\lambda(x,y,G)}{2}}$ $\forall x,y\in V(G)$ where
 	$\lambda(x,y,H)$ denotes the local edge-connectivity, so the
 	number of edge-disjoint $x$-$y$-paths in $H$.
 \end{remark}
