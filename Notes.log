@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/nixos.org) (preloaded format=pdflatex 1980.1.1)  23 JAN 2023 11:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/nixos.org) (preloaded format=pdflatex 1980.1.1)  23 JAN 2023 11:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1104,7 +1104,7 @@ it/10.95 X \U/msb/m/n/10.95 ( \OML/cmm/m/it/10.95 V\OT1/cmr/m/n/10.95 (\OML/cmm
  []
 
 [42] [43] [44] [45]
-Overfull \hbox (17.20706pt too wide) detected at line 2547
+Overfull \hbox (17.20706pt too wide) detected at line 2546
 \OML/cmm/m/it/10.95 P[] \OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 f\OML/cmm/m/it
 /10.95 x \OMS/cmsy/m/n/10.95 2 \U/msb/m/n/10.95 R[] \OMS/cmsy/m/n/10.95 j \OML/
 cmm/m/it/10.95 x\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^N\OT1/cmr/m/n/10.95 (
@@ -1119,7 +1119,7 @@ n/10.95 g
  []
 
 [46] [47] [48] [49]
-Overfull \hbox (8.75996pt too wide) in paragraph at lines 2769--2779
+Overfull \hbox (8.75996pt too wide) in paragraph at lines 2768--2778
 []\T1/cmr/m/n/10.95 Take a dual so-lu-tion $\OML/cmm/m/it/10.95 y[]$ \T1/cmr/m/
 n/10.95 from the dual greedy al-go-rithm.By []a)[], $[][] \OML/cmm/m/it/10.95 y
 [] \OT1/cmr/m/n/10.95 =
@@ -1127,17 +1127,17 @@ n/10.95 from the dual greedy al-go-rithm.By []a)[], $[][] \OML/cmm/m/it/10.95 y
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 2793.
+(hyperref)                than one, level fixed on input line 2792.
 
 [50] [51] [52] [53] [54] [55] [56]
-Overfull \hbox (7.2552pt too wide) in paragraph at lines 3163--3165
+Overfull \hbox (7.2552pt too wide) in paragraph at lines 3162--3164
 []\T1/cmr/bx/n/10.95 Problem \T1/cmr/m/n/10.95 (USM: ''un-con-strainted sub-mod
 -u-lar func-tion max-i-miza-tion'')\T1/cmr/bx/n/10.95 . []\T1/cmr/m/n/10.95 Giv
 en
  []
 
 [57] [58] [59]
-Overfull \hbox (21.42313pt too wide) detected at line 3298
+Overfull \hbox (21.42313pt too wide) detected at line 3297
 \OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 ([][]) \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm
 /m/it/10.95 f\OT1/cmr/m/n/10.95 ([][] \OMS/cmsy/m/n/10.95 [ f\OML/cmm/m/it/10.9
 5 e[]\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^T \OML/cmm
@@ -1149,20 +1149,20 @@ f\OML/cmm/m/it/10.95 e[]\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n
  []
 
 [60] [61] [62]
-Overfull \hbox (8.1285pt too wide) in paragraph at lines 3470--3473
+Overfull \hbox (8.1285pt too wide) in paragraph at lines 3469--3472
 []\T1/cmr/m/n/10.95 BuildGraph and Find-Aug-men-ta-tion can both be im-ple-ment
 ed in $\OML/cmm/m/it/10.95 O\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n[]\OT1/cmr
 /m/n/10.95 )$\T1/cmr/m/n/10.95 .
  []
 
 [63] [64] [65]
-Overfull \hbox (4.03111pt too wide) in paragraph at lines 3613--3616
+Overfull \hbox (4.03111pt too wide) in paragraph at lines 3612--3615
 [][]\T1/cmr/bx/n/10.95 Theorem 4.59. []\T1/cmr/m/it/10.95 The sub-mod-u-lar fun
 c-tion min-i-miza-tion prob-lem can be solved
  []
 
 [66] [67]
-Overfull \hbox (2.5591pt too wide) in paragraph at lines 3748--3749
+Overfull \hbox (2.5591pt too wide) in paragraph at lines 3747--3748
 \T1/cmr/m/n/10.95 At the end, $\OML/cmm/m/it/10.95 M[]$ \T1/cmr/m/n/10.95 re-ma
 ins since both op-er-a-tions main-tain $\OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95
  k$\T1/cmr/m/n/10.95 -edge-connectivity.
@@ -1230,7 +1230,7 @@ share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></nix/store/57pdmnpn4gvbqq
 whp6n4xga727zydvc8-texlive-combined-2021/share/texmf/fonts/type1/public/cm-supe
 r/sfti1095.pfb></nix/store/57pdmnpn4gvbqqwhp6n4xga727zydvc8-texlive-combined-20
 21/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on Notes.pdf (68 pages, 759698 bytes).
+Output written on Notes.pdf (68 pages, 759690 bytes).
 PDF statistics:
  1182 PDF objects out of 1200 (max. 8388607)
  1037 compressed objects within 11 object streams

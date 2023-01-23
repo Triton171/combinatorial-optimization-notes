@@ -2422,9 +2422,9 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 
 	For $e=\set{v,w}\in E(G)$:
 	\begin{align*}
-		-\sum_{e\subseteq X\subseteq V(G)}z_X=-c(f_i)\leq c(e)
+		-\sum_{e\subseteq X\subseteq V(G)}z_X=c(f_i)\leq c(e)
 	\end{align*}
-	where $i$ is the smallest index such that $e\in X_i$. Therefore, $z^*$
+	where $i$ is the smallest index such that $e\subseteq X_i$. Therefore, $z^*$
 	is dual feasible. For tree edges, we have equality, so for $x_e>0$ the
 	dual constraint is tight. Let $\emptyset\subsetneq X\subseteq V(G)$
 	with $z^*_X>0$. Then $T[X]$ is connected, so the primal constraint is
@@ -2436,7 +2436,6 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 		solution, so the system is TDI.
 	\end{uremark}
 \end{proof}
-
 
 \begin{theorem}[Fulkerson (1974)]
 	Let $G$ be a digraph, $c: E(G)\to\bZ_{\geq0}$, $r\in V(G)$ such that
