@@ -1557,11 +1557,11 @@ complementary slackness:
 \begin{theorem}
 	Let $G$ be a graph.
 	\begin{align*}
-		P&\coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)} \\
-		Q&\coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}
+		P & \coloneqq \set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))\leq 1 \quad\forall v\in V(G)} \\
+		Q & \coloneqq\set{x\in\bR_{\geq0}^{E(G)}\ |\ x(\delta(v))=1 \quad\forall v\in V(G)}
 	\end{align*}
 	are called the \emph{fractional matching polytope} and the \emph{fractional
-	perfect matching polytope}.
+		perfect matching polytope}.
 	If $G$ is bipartite, then $P$ and $Q$ are integral.
 \end{theorem}
 \begin{proof}
@@ -2398,21 +2398,21 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	Let $c: E(G)\to\bR$ and $T$ be a minimum spanning tree produced by Kruskals
 	algorithm. Let $E(T)\coloneqq \set{f_1,\ldots,f_{n-1}}$ in order of addition,
 	i.e. $c(f_1)\leq c(f_2)\leq\ldots\leq c(f_{n-1})$. Let $X_k\subseteq V(G)$
-	be the connected component in $(V(G),\set{f_1,\ldots,f_k}$ containing $f_k$.
+	be the connected component in $(V(G),\set{f_1,\ldots,f_k})$ containing $f_k$.
 	Let $x^*$ be the incidence vector of $T$.
 	\begin{claim}
 		$x^*$ is an optimum solution to
 		\begin{align*}
-			\min       & c^tx                                                         \\
-			s.t. 1^tx  & =n-1                                                         \\
-			x(E(G[X])) & \leq \abs{X}-1 & \forall \emptyset\subsetneq X\subseteq V(G)
+			\min c^tx                                                                      \\
+			s.t.\qquad 1^tx & =n-1                                                         \\
+			x(E(G[X]))      & \leq \abs{X}-1 & \forall \emptyset\subsetneq X\subseteq V(G)
 		\end{align*}
 	\end{claim}
 	The dual problem is:
 	\begin{align*}
-		\max                                       & -\sum_{\emptyset\subsetneq X\subseteq V(G)}(\abs{X}-1)z_A                                        \\
-		s.t. -\sum_{e\subseteq X\subseteq V(G)}z_X & \leq c(e)                                                 & e\in E(G)                            \\
-		z_X                                        & \geq 0                                                    & \emptyset\subsetneq X\subsetneq V(G)
+		\max\ -\sum_{\emptyset\subsetneq X\subseteq V(G)}(\abs{X}-1)z_A                                     \\
+		s.t.\qquad -\sum_{e\subseteq X\subseteq V(G)}z_X & \leq c(e) & e\in E(G)                            \\
+		z_X                                              & \geq 0    & \emptyset\subsetneq X\subsetneq V(G)
 	\end{align*}
 	Construct a dual solution $z^*$: For $k\in\set{1,\ldots,n-2}$, set
 	$z^*_{X_k}\coloneqq c(f_l)-c(f_k)\geq0$ where $l$ is the minimum index larger
@@ -2430,9 +2430,12 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	tight. Complementary slackness implies that $x^*,z^*$ are optimum
 	primal/dual solutions.
 
-	Remark: If $c\in\bZ^{E(G)}$, then $z^*$ is an integral optimum dual
-	solution, so the system is TDI.
+	\begin{uremark}
+		If $c\in\bZ^{E(G)}$, then $z^*$ is an integral optimum dual
+		solution, so the system is TDI.
+	\end{uremark}
 \end{proof}
+
 
 \begin{theorem}[Fulkerson (1974)]
 	Let $G$ be a digraph, $c: E(G)\to\bZ_{\geq0}$, $r\in V(G)$ such that
