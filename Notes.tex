@@ -2295,10 +2295,10 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 		\item[Case 1:] $\abs{X^*\cap T'}$ is odd. $J'\coloneqq\set{f\in E(H)\ |\
 				\abs{C_f \cap T'}\text{ odd}}$ is a $T'$-join in $H$. Therefore, $J'$
 		intersects the $T'$-cut $\delta_H(X^*)$. Let $f\in\delta_H(X^*)$ with
-		$\abs{X_f \cap T'}$ odd. Then $d(\delta_G(C_f))\leq
+		$\abs{C_f \cap T'}$ odd. Then $d(\delta_G(C_f))\leq
 			d(\delta_G(X^*))\leq\mathrm{obj}(X^*)$, since $H$ is a
 		Gomory-Hu-tree. By construction, $F_f=\delta_G(C_f)\cap E'$ and:
-		\[c(\delta_G(C_f)\setminus F_f)+c'(F_f)\leq d(\delta_G(X_f))\]
+		\[c(\delta_G(C_f)\setminus F_f)+c'(F_f)\leq d(\delta_G(X^*))\leq\mathrm{obj}(X^*)\]
 
 		\item[Case 2:] $\abs{X^*\cap T'}$ is even. Let
 		$g^*\in\arg\min_{e\in\delta(X^*)} \abs{c(e)-c'(e)}$. $H+g^*$ has a
@@ -2319,7 +2319,8 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 \begin{proof}
 	$0\leq X\leq u$ and $x(\delta(v))\leq b(v)$ for all $v\in V(G)$ can be
 	checked in linear time. It remains to check:
-	\[x(E(G[X]))+x(F)\leq \floor{\frac{1}{2}b(X)+u(F)} \qquad X\subseteq V(G),F\subseteq \delta(X)\]
+	\[x(E(G[X]))+x(F)\leq \floor{\frac{1}{2}\left(b(X)+u(F)\right)}
+		\qquad X\subseteq V(G),F\subseteq \delta(X)\]
 	If $b(X)+u(F)$ is even (i.e. no rounding is done), this is implied by
 	the other inequarities. Otherwise, the inequality is violated iff:
 	\[b(X)-2x(E(G[X]))+u(F)-2x(F)<1\]
@@ -2341,9 +2342,9 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	\end{align*}
 	For $X\subseteq V(G)$, let $D_X\coloneqq \set{e\in \delta_G(X)\setminus E'
 			\ |\ u(e)\leq 2x_e}$. Then $\forall X\subseteq V(G),\ F\subseteq \delta_G(X)
-		\cap E'$
+		\cap E'$,
 	\[\abs{X\cap T}+\abs{F}\equiv b(X)+u(F\cup D_X) \mod 2\]
-	and
+	and:
 	\begin{align*}
 		c(\delta_H(X)\setminus F)+c'(F) & =b(X)-\sum_{v\in X}x(\delta_G(v))+\sum_{e\in(\delta_G(X)\cap E')\setminus F}x_e    \\
 		                                & + \sum_{e\in\delta_G(X)\setminus E'}\min\set{x_e,u(e)-x_e} + \sum_{e\in F}u(e)-x_e \\
@@ -2358,7 +2359,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	corresponding inequality.
 
 	For the other direction, note that if the inequality holds for
-	$X\subseteq V(G)$ and $F\subseteq \delta(X)$. Then without loss of
+	$X\subseteq V(G)$ and $F\subseteq \delta(X)$, then without loss of
 	generality, $D_X\subseteq F\subseteq E'\cup D_X$ (since adding edges
 	in $D_X\setminus F$ increases the violation). Then:
 	\[c(\delta_H(X)\setminus (F\setminus D_X))+c'(F\setminus D_X)<1\]
