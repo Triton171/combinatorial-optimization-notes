@@ -2924,7 +2924,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	\begin{align*}
 		x(A) & \leq f(A) & A\subseteq E \\
 		x(A) & \leq g(A) & A\subseteq E \\
-		x&\geq0
+		x    & \geq0
 	\end{align*}
 	is TDI.
 \end{theorem}
@@ -2934,7 +2934,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 		\max & \ c^tx                        & \min\sum_{A\subseteq E}           & f(A)y_A + g(A)z_A       \\
 		x(A) & \leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A) & \geq c(e) \qquad e\in E \\
 		x(A) & \leq g(A) \qquad A\subseteq E & y,z                               & \geq0                   \\
-		x&\geq 0
+		x    & \geq 0
 	\end{align*}
 	\begin{claim}
 		Let $Ax\leq b, x\geq0$ be a linear program. If for any $c\in\bZ^n$ where
@@ -3025,7 +3025,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 
 		\item[''$\leq$'':]
 		For $A\subseteq E$, we construct the feasible dual solution $y_A\coloneqq 1$
-		and $z_{E\setminus A}\coloneqq 0$, everything else 0 which has cost
+		and $z_{E\setminus A}\coloneqq 1$, everything else 0 which has cost
 		$f(A)+g(E\setminus A)$. By LP-duality, any primal solution attains at
 		most this value.
 	\end{enumerate}
