@@ -3771,4 +3771,212 @@ of the vertices. By Carathéodory, $\abs{U}$ vertices are enough.
 	number of edge-disjoint $x$-$y$-paths in $H$.
 \end{remark}
 
+% Lecture 24.01.23
+
+\begin{uremark}[Lovász Extension]
+	For the exercises regarding the Lovász extension, we need $f(\emptyset)=0$
+	and monotonicity for the polymatroid definition that requires $x\geq0$.
+	Allowing for negative vectors in the polymatroid, the polymatroid greedy
+	algorithm still works without monotonicity. Therefore also the Lovász
+	identity works without assuming monotonicity.
+\end{uremark}
+
+\subsection{Connectivity Augmentation}
+
+\begin{problem}[Connectivity Augmentation]
+Given a graph $G$ and $k\geq 1$, find a minimum multiset $F$
+choses from $\set{\set{v,w} \ |\ v,w\in V(G),\ v\neq w}$ such
+that $G+F$ is a $k$-edge-connected graph.
+\end{problem}
+
+\begin{lemma}\label{lemma:conn-augm}
+	Given a graph $G$ and a degree requirement $x: V(G)\to\bN$, there
+	exists a multiset $F$ chosen from $\set{\set{v,w}\ |\ v,w\in V(G),\
+			v\neq w}$ such that $G+F$ is $k$-edge-connected and
+	\[\abs{\delta_F(v)}+2l(v)\footnote{one can think of this as loops that
+			one is allowed to drop}=x(v) \qquad\text{for some }l: V(G)\to\bN\]
+	if and only if:
+	\begin{enumerate}
+		\item\label{item:conn-augm-lemma-1} $x(V(G))$ is even
+		\item\label{item:conn-augm-lemma-2}
+		$\abs{\delta_G(U)}+x(U)\geq k$ for all $\emptyset\neq
+			U\subsetneq V(G)$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':]
+		The sum $\sum_{v\in V(G)}\abs{\delta_F(v)}$ is even independent of $F$
+		which implies \ref{item:conn-augm-lemma-1}.
+		Since $G+F$ is $k$-edge-connected, we also get \ref{item:conn-augm-lemma-2}.
+
+		\item[''$\Leftarrow$'':]
+		Add a new vertex $s$ and $x(v)$ edges between $v$
+		and $s$ for all $v\in V(G)$, resulting in a new graph
+		$G'$. Then $\abs{\delta(s)}$ is even since $x(V(G))$
+		is even.  Let $\emptyset\neq U\subsetneq V(G)$. Then
+		$\abs{\delta_{G'}(U)}=\abs{\delta_G(U)}+x(U)\geq k$ by \ref{item:conn-augm-lemma-2}.
+		Therefore $G'$ is $k$-edge-connected. Now apply splitting-off to $s$.
+		This preserves $k$-edge-connectivity. Choose $l(v)$ to be the number
+		of loops created at $v\in V(G)$ by splitting off. Set $F$ to be all
+		new edges except for the loops.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Watanabe, Nakamura]
+	A graph $G$ can be augmented to a $k$-edge-connected graph by adding $\gamma$
+	edges if and only if any collection $\cU$ of disjoint proper subsets of
+	$V(G)$ satisfies:
+	\[\sum_{U\in\cU}(k-\abs{\delta_G(U)})\leq 2\gamma\]
+\end{theorem}
+\begin{proof}\
+	\begin{enumerate}
+		\item[''$\Rightarrow$'':]
+		Each summand on the left measures how many edges are missing in
+		$\delta(U)$ for $k$-edge-connectivity. Each edge that is added can
+		be part of at most 2 such cuts since the elements of $\cU$ are disjoint.
+
+		\item[''$\Leftarrow$'':]
+		We want to apply lemma \ref{lemma:conn-augm} so we need to find a
+		suitable degree constraint. Introduce degree constraints starting with
+		$x(v)=k$ for all $v\in V(G)$. Decrease $x$ arbitrarily while preserving:
+		\[x(U)\geq\max\set{0, k-\abs{\delta_G(u)}}\qquad
+			\forall \emptyset\neq U\subsetneq V(G)\]
+		Now for all $v\in V(G)$ with $x(v)>0$ there exists a set $v\in
+			U\subsetneq V(G)$ with $x(U)=k-\abs{\delta_G(U)}$. Now:
+		\begin{itemize}
+			\item
+			By definition of $x$, it satisfies condition \ref{item:conn-augm-lemma-2}
+			of lemma \ref{lemma:conn-augm}.
+
+			\item
+			If we show that $x(V(G))\leq 2\gamma$ then $\sum_{v\in V(G)}
+				\abs{\delta_F(v)}\leq2\gamma$, so $\abs{F}\leq\gamma$.
+
+			\item
+			If $x(V(G))$ is odd then $x(V(G))<2\gamma$, so we can increase
+			$x$ on any vertex $v\in V(G)$ in order to restore
+			\ref{item:conn-augm-lemma-2}.
+		\end{itemize}
+		Let $\cU\coloneqq\set{U\subsetneq V(G)\ |\ x(U)=k-\abs{\delta_G(U)},
+				\ U\text{ maximal}}$ be the set of maximal tight subsets.
+		\begin{enumerate}
+			\item[Case 1:] There are $S,T\in\cU$ with $S\cup T=V(G)$ and $S\neq T$.
+			Then $(V(G)\setminus S)\cap (V(G)\setminus T)=\emptyset$, so
+			\begin{align*}
+				x(V(G)) & \leq x(S)+x(T)                       \\
+				        & =(k-\abs{\delta_G(V(G)\setminus S)})
+				+(k-\abs{\delta_G(V(G)\setminus T)})           \\
+				        & \leq 2\gamma
+			\end{align*}
+
+			\item[Case 2:] $S\cup T\neq V(G)$ for all $S,T\in\cU$. Let $S,T\in\cU$ with
+			$S\cap T\neq\emptyset$. Then:
+			\begin{align*}
+				x(S)+x(T) & =(k-\abs{\delta_G(S)})+(k-\abs{\delta_G(T)})  \\
+				          & \stackalign{\text{submodularity}}{\leq}\qquad
+				(k-\abs{\delta_G(S\cap T)})+(k-\abs{\delta_G(S\cup T)})   \\
+				          & \leq x(S\cap T)+x(S\cup T)                    \\
+				          & =x(S)+x(T)
+			\end{align*}
+			We have equality everywhere, so $S\cap T$ and $S\cup T$ are tight.
+			This contradicts the maximality of $S$ or $T$.
+
+			\item[Case 3:] $S\cup T\neq V(G)$ and $S\cap T=\emptyset$ for all
+			$S,T\in\cU$. Since it contains all $v\in V(G)$, $\cU$ is then a
+			partition of $V(G)$ and:
+			\begin{align*}
+				x(V(G)) & =\sum_{U\in\cU}x(U)                  \\
+				        & =\sum_{U\in\cU}(k-\abs{\delta_G(U)}) \\
+				        & \leq 2\gamma
+			\end{align*}
+		\end{enumerate}
+		In all cases, $x(V(G))\leq 2\gamma$. If $x(V(G))$ is odd, we increase
+		$x(v)$ for some $v\in V(G)$ by 1. This maintains condition
+		\ref{item:conn-augm-lemma-2} (since $2\gamma$ is even) and
+		restores condition \ref{item:conn-augm-lemma-1} of lemma
+		\ref{lemma:conn-augm}.
+	\end{enumerate}
+\end{proof}
+
+\begin{uremark}
+	The proof provides a polynomial time algorithm where splitting off and
+	the $x$-calculation can be done by min-cut computations.
+\end{uremark}
+
+\section{Survivable Network Design}
+
+\begin{problem}[SND]
+Given an undirected graph $G$ with weights $c: E(G)\to\bR_{\geq0}$ and
+connectivity requirements $r_{xy}\in\bZ_{\geq0}$ for each unordered
+pair $x,y\in V(G)$, find a minimum weight subgraph $H$ such that for
+each $x,y$ there are at least $r_{xy}$ edge-disjoint paths from $x$ to
+$y$ in $H$.
+\end{problem}
+
+\begin{nexample}[Steiner Tree Problem]
+	Given a graph $G$, $T\subseteq V(G)$ and $c: E(G)\to\bR$ find a minimum
+	weight edge set $F\subseteq E(G)$ such that all $t\in T$ are in the same
+	connected component of $(V(G), F)$.
+
+	This can be reduced to SND by setting: $r_{xy}\coloneqq\begin{cases}
+			1 \qquad & x,y\in T    \\
+			0 \qquad & \text{else}
+		\end{cases}$
+\end{nexample}
+
+\begin{nexample}
+	For $r_{xy}=k$ for all $x,y\in V(G)$ we look for $k$-edge-connected
+	subgraphs.
+\end{nexample}
+
+We now formulate an ILP description. Let $f: 2^{V(G)}\to\bZ_{\geq0}$
+be defined by $f(\emptyset)=f(V(G))=0$ and $f(S)\coloneqq \max_{x\in
+		S,\ y\in V(G) \setminus S}r_{x,y}$ for $\emptyset\neq S\subsetneq
+	V(G)$. The SND problem can now be formulated as (SNDIP):
+\begin{align*}
+	\min\sum_{e\in E(G)}c(e)x_e                                                     \\
+	\text{s.t.} \sum_{e\in\delta(S)}x_e & \geq f(S) \qquad \forall S\subsetneq V(G) \\
+	x_e                                 & \in\set{0,1}
+\end{align*}
+We also consider the relaxation SNDLP where we only require $x_e\in[0,1]$.
+
+\begin{definition}
+	A function $f: 2^U\to\bR_{\geq0}$ is \emph{proper} if it satisfies the
+	following 3 constraints:
+	\begin{enumerate}[label=\roman*)]
+		\item $f(S)=f(U\setminus S)\qquad \forall S\subseteq U$
+		\item $f(A\cup B)\leq\max\set{f(A),f(B)} \qquad \forall A,B\subseteq U,
+			\ A\cap B=\emptyset$
+		\item $f(\emptyset)=0$
+	\end{enumerate}
+\end{definition}
+$\Rightarrow$ the function of SND is proper.
+
+\begin{definition}
+	A function $f: 2^U\to\bZ_{\geq0}$ is called \emph{weakly supermodular}
+	if for $A,B\subseteq U$:
+	\begin{enumerate}[label=\roman*)]
+		\item $f(A)+f(B)\leq f(A\cup B)+f(A\cap B)$ \emph{or}
+		\item $f(A)+f(B)\leq f(A\setminus B)+f(B\setminus A)$
+	\end{enumerate}
+\end{definition}
+
+\begin{prop}
+	A proper function is weakly supermodular.
+\end{prop}
+\begin{proof}
+	As $f$ is proper, we have:
+	\begin{enumerate}[label=(\arabic*)]
+		\item $f(A)\leq\max\set{f(A\cap B), f(A\setminus B)}$
+		\item $f(B)\leq\max\set{F(A\cap B), f(B\setminus A)}$
+		\item $f(A)=f(U\setminus A)\leq\max\set{f(B\setminus A),f(U\setminus
+				(B\cup A))}=\max\set{f(B\setminus A), f(B\cup A)}$
+		\item $f(B)\leq \max\set{f(A\setminus B), f(A\cup B)}$
+	\end{enumerate}
+	Depending on which of $f(B\setminus A),\ f(A\setminus B),\ f(A\cup B),\
+		f(A\cap B)$ is minimum, we add those inequalities containing it. In
+	either case, it follows that $f$ is weakly supermodular.
+\end{proof}
+
 \end{document}
