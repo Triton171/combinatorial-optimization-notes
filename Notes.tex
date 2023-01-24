@@ -1820,7 +1820,7 @@ The naive reduction to digraphs requires non-negative weights.
 		Every circuit $C$ has $c(C)\geq0$.
 	\end{claim}
 	\begin{align*}
-		c(C) & =c(C\setminus J)+c(C\cap J)+\abs{J\setminus C}-\abs{J\setminus C} \\
+		c(C) & =\underbrace{c(C\setminus J)}_{=\abs{C\setminus J}}+\underbrace{c(C\cap J)}_{=-\abs{C\cap J}}+\abs{J\setminus C}-\abs{J\setminus C} \\
 		     & =\abs{\underbrace{C\Delta J}_{T\text{-join}}}-\abs{J}\geq0
 	\end{align*}
 	Let $P$ be a minimum length walk in $(G,c)$ traversing no edge more than
