@@ -1600,8 +1600,8 @@ complementary slackness:
 	For $v\in V(G)$:
 	\begin{align*}
 		\abs{\delta_{J\Delta J'}(v)} & \equiv \abs{\delta_J(v)}+\abs{\delta_{J'}(v)}   \\
-		                           & \equiv \abs{\set{v}\cap T}+\abs{\set{v}\cap T'} \\
-		                           & \equiv \abs{\set{v}\cap (T\Delta T')} \mod 2
+		                             & \equiv \abs{\set{v}\cap T}+\abs{\set{v}\cap T'} \\
+		                             & \equiv \abs{\set{v}\cap (T\Delta T')} \mod 2
 	\end{align*}
 \end{proof}
 
@@ -1699,9 +1699,9 @@ Let $(K_n,c)$ with $c$ metric be an instance of the TSP. Consider the
 	\item $T'\coloneqq T+T$ (doubling all edges). Then $T'$ is Eulerian.
 	\item Walk along $T'$ and add vertices to the TSP tour in the order of
 	their first appearance, yielding a tour $T^*$. Since $c$ is metric,
-	we have $c(T^*)\leq c(T')\leq 2c(T)$. Since the cost of $T$ is a lower
-	bound for the cost of a tour, we have $c(T^*)\leq 2\mathrm{OPT}$
-	(where OPT is the cost of a shortest TSP tour).
+	we have $c(T^*)\leq c(T')\leq 2c(T)$. Since the cost of $T$ is a
+	lower bound for the cost of a tour, we have $c(T^*)\leq
+		2\mathrm{OPT}$ (where OPT is the cost of a shortest TSP tour).
 \end{enumerate}
 
 \begin{algorithm}[htbp]
@@ -2923,25 +2923,27 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	Let $E$ be finite and $f,g: 2^E\to\bR_{\geq0}$ submodular. Then
 	\begin{align*}
 		x(A) & \leq f(A) & A\subseteq E \\
-		x(A) & \leq g(A) & A\subseteq E
+		x(A) & \leq g(A) & A\subseteq E \\
+		x&\geq0
 	\end{align*}
 	is TDI.
 \end{theorem}
 \begin{proof}
 	Consider the primal-dual pair:
 	\begin{align*}
-		\max & \ c^tx                        & \min_{A\subseteq E}               & f(A)y_A + g(A)z_A \\
-		x(A) & \leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A) & \geq c(e)         \\
-		x(A) & \leq g(A) \qquad A\subseteq E & y,z                               & \geq0             \\
+		\max & \ c^tx                        & \min\sum_{A\subseteq E}           & f(A)y_A + g(A)z_A       \\
+		x(A) & \leq f(A) \qquad A\subseteq E & \sum_{e\in A\subseteq E}(y_A+z_A) & \geq c(e) \qquad e\in E \\
+		x(A) & \leq g(A) \qquad A\subseteq E & y,z                               & \geq0                   \\
+		x&\geq 0
 	\end{align*}
 	\begin{claim}
 		Let $Ax\leq b, x\geq0$ be a linear program. If for any $c\in\bZ^n$ where
-		the dual has a solution, it has an optimum solution $y_i^*$ such that the rows
+		the dual is feasible and bounded, it has an optimum solution $y_i^*$ such that the rows
 		of $A$ where $y_i^*>0$ (plus possibly basic 0-entries)
 		forms a TU matrix. Then $Ax\leq b, x\geq0$ is TDI.
 	\end{claim}
 	\begin{proof}
-		Let $c,y^*$ be as above. We have for the dual:
+		Let $c,y^*$ be as above. We claim:
 		\begin{align*}
 			\min\set{y^tb\ |\ yA\geq c,\ y\geq0} & =\min\set{y^tb'\ |\ yA'\geq c,\ y\geq0}
 		\end{align*}
@@ -2973,7 +2975,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	$\cF,\cF'$. Then $\begin{pmatrix} M \\ M'\end{pmatrix}$ is TU: $A_1\geq \ldots\geq A_p
 		\in\cF$ and $B_1\geq\ldots\geq B_q\in\cF'$. Define
 	\begin{align*}
-		\cR_i & \coloneqq \set{A_i\ |\ i\text{ odd}}\cup \set{B_i\ |\ i\text{ even}} \\
+		\cR_1 & \coloneqq \set{A_i\ |\ i\text{ odd}}\cup \set{B_i\ |\ i\text{ even}} \\
 		\cR_2 & \coloneqq \set{A_i\ |\ i\text{ even}}\cup\set{B_i\ |\ i\text{ odd}}
 	\end{align*}
 	These sets satisfy Ghoulia-Houri, so the system is TDI.
