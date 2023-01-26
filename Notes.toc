@@ -38,3 +38,6 @@
 \contentsline {subsection}{\numberline {5.2}Construction of $2k$-edge-connected graphs}{67}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Connectivity Augmentation}{69}{subsection.5.3}%
 \contentsline {section}{\numberline {6}Survivable Network Design}{71}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Jain's Iterative LP Rounding}{73}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Iterative Rounding}{74}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Uncrossing}{75}{subsubsection.6.1.2}%

@@ -3979,4 +3979,188 @@ $\Rightarrow$ the function of SND is proper.
 	either case, it follows that $f$ is weakly supermodular.
 \end{proof}
 
+% Lecture 26.01.23
+
+Goal: Solve the separation problem for proper functions by Gomory-Hu
+trees. The crucial part is having a bound on $f(S)$.
+
+\begin{lemma}\label{lemma:proper-func-gomory-hu}
+	Let $G$ be an undirected graph, $u: E(G)\to\bR_{\geq0},\ f: 2^{V(G)}\to
+		\bZ_{\geq0}$ proper. Let $H$ be a Gomory-Hu tree for $(G,u)$. Then for
+	$\emptyset\neq S\subsetneq V(G)$ we have:
+	\begin{enumerate}[label=\roman*)]
+		\item $\sum_{e'\in \delta_G(S)}u(e')\geq \max_{e\in\delta_H(S)}
+			\sum_{e'\in\delta_G(C_e)}u(e')$
+
+		\item $f(S)\leq \max_{e\in\delta_G(S)}f(C_e)$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	i) follows directly from the Gomory-Hu tree property. For ii), let
+	$X_1,\ldots,X_k$ be the connected components of $H-S$. Then for each
+	$i\in[k]$ (where we choose $C_e$ such that $C_e\cap X_i=\emptyset$):
+	\begin{align*}
+		V(H)\setminus X_i & =\dot\bigcup_{e\in\delta_H(X_i)}C_e
+	\end{align*}
+	Now
+	\begin{align*}
+		f(X_i) & =f(V(H)\setminus X_i)                                             \\
+		       & =f(\dot\bigcup_{e\in\delta_H(X_i)}C_e)                            \\
+		       & \stackalign{f\text{ proper}}{\leq} \max_{e\in\delta_H(X_i)}f(C_e)
+	\end{align*}
+	so:
+	\begin{align*}
+		f(S) & =f(V(H)\setminus S)                                     \\
+		     & =f(\dot\bigcup_{i\in [k]}X_i)                           \\
+		     & \stackalign{f\text{ proper}}{\leq}\max_{i\in [k]}f(X_i) \\
+		     & \leq \max_{e\in\delta_H(S)}f(C_e)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}\label{thm:proper-func-separation}
+	Let $G$ be an undirected graph, $x\in\bR^{E(G)}_{\geq0}$ and $f: 2^{V(G)}
+		\to\bZ_{\geq0}$ proper. Then we can find in $O(n^4+n\theta)$ a set
+	$S\subseteq V(G)$ with
+	\[\sum_{e\in\delta_G(S)}x_e<f(S)\]
+	or decide that no such set exists.
+\end{theorem}
+\begin{proof}
+	Compute a Gomory-Hu tree $H$ for $(G,x)$. For each $\emptyset\neq S
+		\subsetneq V(G)$, there is $e\in\delta_H(S)$ with $f(S)\leq f(C_e)$ by
+	part ii) of lemma \ref{lemma:proper-func-gomory-hu}. By part i) of the
+	lemma, $f(S)-x(\delta_G(S))\leq f(C_e)-x(\delta_G(C_e))$. Since $\emptyset
+		\neq C_e \subsetneq V(G)$:
+	\begin{align*}
+		\max_{\emptyset\neq S\subsetneq V(G)}f(S)-x(\delta_G(S))
+		=\max_{e\in E(H)}f(C_e)-x(\delta_G(C_e))
+	\end{align*}
+	In particular, it suffices to check the inequality for fundamental
+	cuts of the Gomory-Hu tree.
+\end{proof}
+
+\begin{uremark}
+	With theorem \ref{thm:proper-func-separation}, we can check whether there
+	exists an integral feasible solution (and compute it).
+\end{uremark}
+
+\subsection{Jain's Iterative LP Rounding}
+\emph{Idea:} We can now solve the survivable network design LP. We round
+up edges with $x_e\geq\frac{1}{2}$. Fix them to 1 and compute the LP
+solution.
+
+\begin{enumerate}
+	\item[Part a:] The rounding gives a 2-approximation
+	\item[Part b:] There is always an $e\in E(G)$ with $x_e\geq\frac{1}{2}$ in
+	the LP solution.
+\end{enumerate}
+
+\subsubsection{Iterative Rounding}
+Let $x^*$ be an optimum solution of (SNDLP) and $E_{\geq\frac{1}{2}}$
+the set of edges with $x_e\geq\frac{1}{2}$. Consider
+$G_{\mr{res}}\coloneqq G-E_{\geq\frac{1}{2}}$ and adjust (SNDLP):
+\begin{align*}
+	\min\sum_{e\in E(G_{\mr{res}})}c(e)x_e                               \\
+	\text{s.t.} \sum_{e\in\delta_{G_{\mr{res}}}(S)}x_e & \geq f(S)
+	-\abs{E_{\geq\frac{1}{2}}\cap\delta_G(S)} \qquad   & S\subseteq V(G)
+\end{align*}
+\begin{uremark}
+	This is equivalent to fixing $x_e=1$ for all $e\in E_{\geq\frac{1}{2}}$.
+	In particular, we can still separate the inequalities using theorem
+	\ref{thm:proper-func-separation}.
+\end{uremark}
+
+\begin{theorem}
+	Let $z^*$ and $z^*_{\mr{res}}$ be the optimum values for (SNDLP) and
+	its restriction to $G_{\mr{res}}$. Let $E_{\mr{res}}$ be an integral
+	solution of the restriction with $c(E_{\mr{res}})\leq 2z^*_{\mr{res}}$.
+	Then $E_{\mr{res}}\cup E_{\geq\frac{1}{2}}$ is an integral solution to
+	(SNDLP) with $c(E_{\mr{res}}\cup E_{\geq\frac{1}{2}})\leq 2z^*$.
+\end{theorem}
+\begin{proof}
+	$x^*$ is an optimum solution to (SNDLP). Its restriction to $G_{\mr{res}}$
+	is feasible. Additionally, $E_{\mr{res}}\cup E_{\geq\frac{1}{2}}$ is a
+	feasible solution to (SNDLP) so:
+	\begin{align*}
+		z_{\mr{res}}^*       & \leq z^* - \sum_{e\in E_{\geq\frac{1}{2}}}c(e)x_e^*                     \\
+		\Leftrightarrow 2z^* & \geq 2z^*_{\mr{res}}+\sum_{e\in E_{\geq\frac{1}{2}}}
+		2c(e)x_e^*                                                                                     \\
+		                     & \geq 2z^*_{\mr{res}}+\sum_{e\in E_{\geq\frac{1}{2}}}c(e)                \\
+		                     & \geq \sum_{e\in E_{\mr{res}}}c(e) + \sum_{e\in E_{\geq\frac{1}{2}}}c(e) \\
+		                     & =c(E_{\mr{res}}\cup E_{\geq\frac{1}{2}})
+	\end{align*}
+\end{proof}
+
+\begin{algorithm}[H]
+	\caption{Jain's Algorithm}
+	\label{alg:jains-algorithm}
+	\KwInput{Graph $G$, weights $c: E(G)\to\bR_{\geq0}$ and $f: 2^{V(G)}\to
+			\bZ_{\geq0}$ proper}
+	\KwOutput{An integral solution to (SNDLP)}
+	$E_{\mr{sol}}\leftarrow \emptyset,\ f'\leftarrow f,\ G'\leftarrow G$\;
+	\Repeat{$x^*=0$}{
+	Find an optimum basis solution $x^*$ of (SNDLP) for $(G',f')$\;
+	Add all edges $e$ with $x_e\geq\frac{1}{2}$ to $E_{\mr{sol}}$\;
+	$G'\leftarrow G-E_{\mr{sol}},\ f'(S)\leftarrow f(S)-\abs{E_{\mr{sol}}
+			\cap\delta_G(S)}$ for $S\subseteq V(G)$\;
+	}
+	\KwRet{$E_{\mr{sol}}$}\;
+\end{algorithm}
+
+\begin{theorem}
+	Let $x$ be a basic feasible solution to (SNDLP). Then there exists an
+	edge $e\in E(G)$ with $x_e\geq\frac{1}{2}$.
+\end{theorem}
+
+\subsubsection{Uncrossing}
+\emph{Goal:} Find a large family of laminar sets, each with a significant
+$f$-value and tight constraint.
+
+We can assume that there is no edge $e$ with $x_e=0$. If there exists
+$x_e\geq\frac{1}{2}$, we are done, so assume $x_e\in(0,\frac{1}{2})$.
+Call $A\subsetneq V(G)$ \emph{tight} if $x(\delta(A))=f(A)$. Let
+$\cA(A)$ be the row in the constraint matrix induced by $A$.
+
+\begin{lemma}
+	For 2 tight sets $A,B$ one of the following holds:
+	\begin{enumerate}
+		\item $A\setminus B$ and $B\setminus A$ are tight and
+		$\cA(A)+\cA(B)=\cA(A\setminus B)+\cA(B\setminus A)$
+
+		\item $A\cap B$ and $A\cup B$ are tight and
+		$\cA(A)+\cA(B)=\cA(A\cap B)+\cA(A\cup B)$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Let $S_1\coloneqq A\setminus B,\ S_2\coloneqq A\cap B,\ S_3\coloneqq
+		B\setminus A,\ S_4\coloneqq V(G)\setminus(A\cup B)$. By tightness,
+	we have:
+	\begin{align*}
+		f(A) & =x(E(S_1,S_3))+x(E(S_1,S_4))+x(E(S_2,S_3))+x(E(S_2,S_4)) \\
+		f(B) & =x(E(S_1,S_2))+x(E(S_1,S_3))+x(E(S_4,S_2))+x(E(S_4,S_3))
+	\end{align*}
+	By feasibility:
+	\begin{align*}
+		f(A\setminus B) & =f(S_1)\leq x(E(S_1,S_2))+x(E(S_1,S_3))+x(E(S_1,S_4)) \\
+		f(B\setminus A) & =f(S_3)\leq x(E(S_1,S_3))+x(E(S_2,S_3))+x(E(S_4,S_3))
+	\end{align*}
+	As $f$ is weakly supermodular, we have:
+	\begin{align*}
+		f(A)+f(B) & \leq f(A\setminus B)+f(B\setminus A) \qquad\text{\emph{or}} \\
+		f(A)+f(B) & \leq f(A\cap B)+f(A\cup B)
+	\end{align*}
+	We only consider the first case (the second case is similar). By adding
+	the above inequalities and comparing the terms, we see $2x(E(S_2,S_4))
+		\leq0$. Since $x>0$ (by assumption), $E(S_2,S_4)=\emptyset$. In particular,
+	\[\cA(A)+\cA(B)=\cA(A\setminus B)+\cA(B\setminus A)\]
+\end{proof}
+
+Let $\cT$ be the family of tight sets. For a family
+$\cF\subseteq\cT$, define
+$\mr{span}(\cF)\coloneqq\mr{span}(\set{\cA(S)\ |\ S\in\cF})$.
+
+\begin{lemma}
+	For any maximal laminar family $\cL\subseteq\cT$ of tight sets,
+	$\mr{span}(\cL)=\mr{span}(\cT)$.
+\end{lemma}
+
 \end{document}
