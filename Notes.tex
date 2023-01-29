@@ -2987,7 +2987,7 @@ For the rank function $r$ of a matroid, $r(X)+r(Y)\geq r(X\cap
 	Let $(E,\cF_1)$, $(E,\cF_2)$ be two matroids. Then the convex hull of
 	incidence vectors $x\in \cF_1\cap\cF_2$ is the polytope
 	\[\set{x\in\bR^E_{\geq0}\ |\
-		x(A)\leq\min\set{r_1(A),r_2(A)}\ \forall A\subseteq E}\]
+		x(A)\leq\min\set{r_1(A),r_2(a)}\ \forall A\subseteq E}\]
 	where $r_1,r_2$ are the rank functions of the matroids.
 \end{cor}
 \begin{proof}
@@ -3364,8 +3364,8 @@ $f(\emptyset)=0$, find a set $S\subseteq U$ with $f(S)$ minimum.
 \begin{definition}
 	Let $U$ be finite and $f: 2^U\to\bR$ submodular. Then the \emph{base
 		polyhedron} is defined as:
-	\[B(f)\coloneqq\set{x\in\bR^U\ |\ x(A)\leq f(A)\ \forall A\subseteq U},\
-		x(U)=f(U)\]
+	\[B(f)\coloneqq\set{x\in\bR^U\ |\ x(A)\leq f(A)\ \forall A\subseteq U,
+		\ x(U)=f(U)}\]
 \end{definition}
 
 \begin{example}
