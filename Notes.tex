@@ -4120,7 +4120,7 @@ $x_e\geq\frac{1}{2}$, we are done, so assume $x_e\in(0,\frac{1}{2})$.
 Call $A\subsetneq V(G)$ \emph{tight} if $x(\delta(A))=f(A)$. Let
 $\cA(A)$ be the row in the constraint matrix induced by $A$.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:jain-2-tight-sets}
 	For 2 tight sets $A,B$ one of the following holds:
 	\begin{enumerate}
 		\item $A\setminus B$ and $B\setminus A$ are tight and
@@ -4158,9 +4158,163 @@ Let $\cT$ be the family of tight sets. For a family
 $\cF\subseteq\cT$, define
 $\mr{span}(\cF)\coloneqq\mr{span}(\set{\cA(S)\ |\ S\in\cF})$.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:jain-tight-laminar-span}
 	For any maximal laminar family $\cL\subseteq\cT$ of tight sets,
 	$\mr{span}(\cL)=\mr{span}(\cT)$.
 \end{lemma}
+
+% Lecture 31.01.23
+
+Using the lemma, we can take any basis $\cB\subseteq\cL$. Since we assumed
+that $x_e\in (0,1)$, we get $\dim \mathrm{span}(T)=\abs{E(G)}$.
+\begin{proof}[Proof of lemma]
+	''$\subseteq$'' is clear. If the other inclusion doesn't hold, there exists
+	$S\in \cT$ with $\cA(S)\notin\mathrm{span}(\cL)$. Choose $S$ such that
+	it crosses a minimum number of sets in $\cL$ (since $\cL$ is maximal, $S$
+	crosses some set in $\cL$). Let $L\in\cL$ cross $S$. By lemma
+	\ref{lemma:jain-2-tight-sets}, we have either:
+	\begin{enumerate}
+		\item $S\setminus L$ and $L\setminus S$ are tight and $\cA(S)+\cA(L)
+		=\cA(S\setminus L)+\cA(L\setminus S)$ or
+
+		\item $S\cup L$ and $S\cap L$ are tight and $\cA(S)+\cA(L)=\cA(S\cup L)
+		+\cA(S\cap L)$.
+	\end{enumerate}
+
+	\begin{enumerate}
+		\item[Case 1:] 1. holds, so $S\setminus L$ and $L\setminus S$ are tight.
+		\begin{enumerate}
+			\item[Case 1.1] $\cA(S\setminus L)\notin\mathrm{span}(\cL)$.
+			\begin{claim}
+				If $L'\in\cL$ crosses $S\setminus L$, then $L'$ also crosses $S$.
+				In particular (since $S\setminus L$) doesn't cross $L$ we get a
+				contradiction to the minimality of $S$.
+			\end{claim}
+			We get $(S\setminus L)\cap L'\neq\emptyset$, so $S\cap L'\neq\emptyset$
+			and $L'\setminus L\neq\emptyset$. Additionally $(S\setminus L)
+			\setminus L'\neq\emptyset$ and $(S\setminus L')\neq\emptyset$.
+			Since $L,L'\in\cL$, we have $L\subseteq L'$ or $L\cap L'=\emptyset$.
+			\begin{claim}
+				In both cases $L'\setminus S\neq\emptyset$.
+			\end{claim}
+			If $L\subseteq L'$, $\emptyset\neq L\setminus S\subseteq L'\setminus S$.
+			If $L\cap L'=\emptyset$, then $\emptyset\neq L'\setminus (S\setminus L)
+			=L'\setminus S$.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+	Given a basic optimum LP solution $0<x<1$, there exists a laminar
+	family $\cB$ with:
+	\begin{enumerate}
+		\item $\abs{\cB}=\abs{E(G)}$
+		\item $\set{\cA(B)\ |\ B\in\cB}$ are linearly independent.
+		\item $\dim\mathrm{span}(\cB)=\abs{E(G)}$
+		\item $f(B)\geq1$ for all $B\in\cB$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Since $x$ is a basic solution, $\dim(\mathrm{span}(\cT))=\abs{E(G)}$.
+	Choose $\cB$ by lemma \ref{lemma:jain-tight-laminar-span} such that
+	1. 2. and 3. are satisfied. $f(B)<0$ is impossible for a (tight) set
+	$B\in\cB$. If $f(B)=0$, then $x(\delta(B))=0$, so $\cA(B)=0$ which is
+	also impossible since $\cB$ is a basis.
+\end{proof}
+
+We want to show that there exists $x_e\geq\frac{1}{2}$. The idea is to
+assign a token to each set in $\cB$ for each edge in its cut.
+
+If not, $0<x<\frac{1}{2}$.
+Let $F$ be the branching representing $\cB$ (i.e. $V(F)=\cB$). Define
+the half complement $y_e\coloneqq \frac{1}{2}-x_e\in (0,\frac{1}{2})$
+and
+\begin{align*}
+	\mathrm{coreq}(S)&\coloneqq y(\delta(S)) \\
+	&=\frac{1}{2}\abs{\delta_G(S)}-x(\delta_G(S)) \\
+	&\stackalign{\text{tightness}}{=}\quad\frac{1}{2}\abs{\delta_G(S)}-f(S)
+\end{align*}
+
+\begin{prop}
+	For $S\in\cT$, $\mathrm{coreq}(S)\in \bZ+\frac{1}{2}$. Additionally,
+	$\mathrm{coreq}(S)\notin\bN$ if and only if $\abs{\delta_G(S)}$ is odd.
+\end{prop}
+
+\begin{lemma}[Vazirani]
+	Suppose $S\in V(F)$ with $\alpha$ children, all of which have a corequirement
+	of $\frac{1}{2}$ and $S$ has $\beta$ tokens such that $\alpha+\beta=3$.
+	Then $\mathrm{coreq}(S)=\frac{1}{2}$.
+\end{lemma}
+\begin{proof}
+	Since each child $C$ has a corequirement of $\frac{1}{2}$, $\abs{\delta(C)}$
+	is odd. Since $\alpha+\beta=3$, we can show by case enumeration that
+	$\abs{\delta(S)}$ is odd. We get $\mathrm{coreq}(S)\notin\bN$. It suffices
+	to show $\mathrm{coreq}(S)<\frac{3}{2}$:
+	\begin{align*}
+		\mathrm{coreq}(S)&=y(\delta(S)) \\
+		&\leq \sum_{C\text{ child of }S}\mathrm{coreq}(S)+\sum_{\substack{
+			e=\set{x,y}\in \delta(S) \\ \text{token was donated to} \\ x\in S}} \\
+	\end{align*}
+	If $\beta\geq1$, we are done. If $\beta=0$, then $\alpha=3$, so there
+	must be an edge between 2 children and $y(\delta(S))<\sum_C
+	\mathrm{coreq}(C)$.
+\end{proof}
+
+\begin{lemma}
+	If $S\in V(F)$ has one child $C$, then $S$ must own at least 2 tokens.
+\end{lemma}
+\begin{proof}
+	$S$ owns at least 1 token, otherwise $\cA(S)=\cA(C)$.
+	If $S$ owns 1 token, then $\bN\ni\abs{f(S)-f(C)}
+	=\abs{x(\delta(S))-x(\delta(C))}\in (0,\frac{1}{2})$ which is a
+	contradiction.
+\end{proof}
+
+\begin{lemma}
+	If $S\in V(F)$ has 2 children $C_1,C_2$ with $\mathrm{coreq}(C_1)=\frac{1}{2}$
+	then $S$ must own a token.
+\end{lemma}
+\begin{proof}
+	If not, $\cA(S),\cA(C_1),\cA(C_2)$ are linearly independent, so
+	$\delta(C_1)\subseteq\delta(S)$ and $\delta(C_1)\subseteq \delta(C_2)$
+	are impossible. Let:
+	\begin{align*}
+		a&\coloneqq y(\delta(S)\cap\delta(C_2))>0 \\
+		b&\coloneqq y(\delta(C_1)\cap\delta(C_2))>0
+	\end{align*}
+	Then $a+b=\mathrm{coreq}(C_1)=\frac{1}{2}$. Then $\abs{\delta(C_1)}$ is
+	odd, so $\abs{\delta(S)}\equiv\abs{\delta(C_2)}\mod 2$.
+
+	$\mathrm{coreq}(S)-\mathrm{coreq}(C_2)=a-b$. $-\frac{1}{2}<a-b<\frac{1}{2}$,
+	so $\mathrm{coreq}(S)=\mathrm{coreq}(C_2)$ which is a contradiction.
+\end{proof}
+
+\begin{lemma}
+	Let $0<x<\frac{1}{2}$ be a basic optimum solution to (SNDLP). Consider
+	a subarborescence rooted at $R\in V(F)$. Then we can redistribute tokens
+	such that $R$ gets at least 3 tokens and each proper descendant of $R$
+	gets 2 tokens. If $\mathrm{coreq}(R)\neq\frac{1}{2}$, $R$ gets $\geq4$
+	tokens.
+\end{lemma}
+\begin{proof}
+	Proceed by induction on the height of the subarborescence. For leaves,
+	this holds. Let $\mathrm{surplus}(S)\coloneqq \#\text{assigned tokens}
+	-2$. Let $R$ not be a leaf:
+	\begin{enumerate}
+		\item[Case 1:] $R$ has 4 children. Then we can simply move up tokens
+		from its children.
+		\item[Case 2:] $R$ has 3 children. If one has a surplus of $\geq2$,
+		we are done. Otherwise, they all have a surplus of 1, so a corequirement
+		of $\frac{1}{2}$, so $\mathrm{coreq}(R)=\frac{1}{2}$.
+		\item[Case 3:] $R$ has 2 children. If both have a surplus of at least
+		2, we are done. Otherwise, one child $C_1$ has a surplus of 1, so a corequirement
+		of $\frac{1}{2}$. Then by the previous lemma, $R$ owns a token. If
+		both children of a surplus of 1, then we again get $\mathrm{coreq}(R)
+		=\frac{1}{2}$.
+		\item[Case 4:] $R$ has 1 child. Then $S$ owns 2 tokens. This works
+		the same way as the previous case (but using a different lemma).
+	\end{enumerate}
+\end{proof}
+This lemma then proves Theorem 6.9.
 
 \end{document}
