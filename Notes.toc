@@ -28,16 +28,16 @@
 \contentsline {section}{\numberline {4}Matroids \& Generalizations}{47}{section.4}%
 \contentsline {subsubsection}{\numberline {4.1.1}Matroid Constructions}{51}{subsubsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.2}Matroid Intersection}{51}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.4}Polymatroids}{51}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.4}Polymatroids}{52}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Applications of Matroid Intersection}{57}{subsubsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.5}Submodular Function Maximization}{57}{subsection.4.5}%
 \contentsline {subsubsection}{\numberline {4.5.2}Randomized USM}{59}{subsubsection.4.5.2}%
 \contentsline {subsection}{\numberline {4.6}Submodular Function Minimization}{61}{subsection.4.6}%
-\contentsline {section}{\numberline {5}Splitting-Off Lemma and Connectivity}{66}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Splitting-Off Lemma}{66}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Construction of $2k$-edge-connected graphs}{67}{subsection.5.2}%
+\contentsline {section}{\numberline {5}Splitting-Off Lemma and Connectivity}{67}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Splitting-Off Lemma}{67}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Construction of $2k$-edge-connected graphs}{68}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Connectivity Augmentation}{69}{subsection.5.3}%
 \contentsline {section}{\numberline {6}Survivable Network Design}{71}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Jain's Iterative LP Rounding}{73}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.1}Jain's Iterative LP Rounding}{74}{subsection.6.1}%
 \contentsline {subsubsection}{\numberline {6.1.1}Iterative Rounding}{74}{subsubsection.6.1.1}%
 \contentsline {subsubsection}{\numberline {6.1.2}Uncrossing}{75}{subsubsection.6.1.2}%

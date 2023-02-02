@@ -2624,15 +2624,17 @@ extension complexity.
 	\begin{enumerate}[label=\roman*)]
 		\item $\emptyset\in\cF$
 		\item $X\in\cF \Rightarrow \forall Y\subseteq X: Y\in\cF$
+	\end{enumerate}
 		\begin{itemize}
 			\item Elements in $\cF$ are called \emph{independent}.
 			\item Inclusion-wise maximal sets $A\in\cF$ are called \emph{bases}. Its
 			cardinality is called $\mathrm{rank}(A)$.
 			\item Inclusion-wise minimal sets $A\in\cF$ are \emph{circuits}.
-		\end{itemize}
-		\item $\forall X,Y\in\cF$ with $\abs{X}<\abs{Y}$: $\exists y\in Y
+		\end{itemize}	
+	An indepndent system $(E, \cF)$ is a matroid if the following axiom holds:
+	\begin{enumerate}
+		\item[iii)] $\forall X,Y\in\cF$ with $\abs{X}<\abs{Y}$: $\exists y\in Y
 			\setminus X$ such that $X\cup\set{y}\in\cF$.
-
 		This is equivalent to:
 		\item[iii)'] $\forall X,Y\in\cF$ with $\abs{X}+1=\abs{Y}$: $\exists y\in Y$
 		such that $X\cup\set{y}\in\cF$.
