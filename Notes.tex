@@ -2066,7 +2066,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 	Contract and MinCut. Edges in $E(T)\setminus\delta(X)$ are not affected.
 	For new edges both conditions are true after ModifyTree.
 
-	Consider an edge $e\in \set{Y,X}$ that is replaced by $e'$ in
+	Consider an edge $e\in \set{X,Y}$ that is replaced by $e'$ in
 	ModifyTree. Without loss of generality $Y\subseteq A$, so
 	$e'=\set{X\cap A,Y}$. We show that both statements hold for $e'$.
 	$w(e)=w(e')= u(\delta_G(\bigcup_{Z\in
@@ -2406,12 +2406,13 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 		\begin{align*}
 			\min c^tx                                                                      \\
 			s.t.\qquad 1^tx & =n-1                                                         \\
-			x(E(G[X]))      & \leq \abs{X}-1 & \forall \emptyset\subsetneq X\subseteq V(G)
+			x(E(G[X]))      & \leq \abs{X}-1 & \forall \emptyset\subsetneq X\subseteq V(G) \\
+			x&\geq 0
 		\end{align*}
 	\end{claim}
 	The dual problem is:
 	\begin{align*}
-		\max\ -\sum_{\emptyset\subsetneq X\subseteq V(G)}(\abs{X}-1)z_A                                     \\
+		\max\ -\sum_{\emptyset\subsetneq X\subseteq V(G)}(\abs{X}-1)z_X                                     \\
 		s.t.\qquad -\sum_{e\subseteq X\subseteq V(G)}z_X & \leq c(e) & e\in E(G)                            \\
 		z_X                                              & \geq 0    & \emptyset\subsetneq X\subsetneq V(G)
 	\end{align*}
