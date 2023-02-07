@@ -2262,7 +2262,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 \begin{lemma}\label{lemma:padberg-rao}
 	Let $G$ be a graph, $\abs{E(G)}\geq1$, $T\subseteq V(G)$ with $\abs{T}$
 	even, $c,c': E(G) \to \bR_{\geq0}\cup\set{\infty}$. There exists a
-	$O(n^2m)$ time algorithm that finds a vertex set $X\subseteq V(G)$ and
+	$O(n^4)$ time algorithm that finds a vertex set $X\subseteq V(G)$ and
 	$F\subseteq \delta(X)$ such that $\abs{X\cap T}+\abs{F}$ is odd and
 	\[c(\delta(X)\setminus F)+c'(F)\]
 	is minimum.
@@ -2315,7 +2315,7 @@ $(G',u')$. $X= (X\cap A')\dot\cup (X\cap (V(G')\setminus A'))$.
 \begin{theorem}[Padberg \& Rao (1987)]\label{thm:padberg-rao}
 	Let $G$ be a graph, $u: E(G)\to\bN\cup\set{\infty}$ and
 	$b: V(G)\to\bN$. Then the separation problem for the $b$-matching
-	polytope can be solved in $O(n^2m)$ time.
+	polytope can be solved in $O(n^4)$ time.
 \end{theorem}
 \begin{proof}
 	$0\leq X\leq u$ and $x(\delta(v))\leq b(v)$ for all $v\in V(G)$ can be
